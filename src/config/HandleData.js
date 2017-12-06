@@ -13,7 +13,7 @@ const config = {
 firebase.initializeApp(config);
 
 
-class HandleDataHIHIHI extends Component {
+class HandleData extends Component {
     constructor(){
         super();
         this.state = {
