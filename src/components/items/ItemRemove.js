@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
+import Modal from 'react-modal';
 
 import { dbData } from '../../config/constants';
+import './Item.css';
 
 class ItemRemove extends Component {
     
@@ -10,16 +12,27 @@ class ItemRemove extends Component {
             item : {
                 key : this.props.item.key,
                 value : this.props.item.value[this.props.propertyToShow]
-            }
+            },
+            modalIsOpened : false
         }
-        this.handleSubmit = this.handleSubmit.bind(this);
+        this.openModal = this.openModal.bind(this);
+        this.closeModal = this.closeModal.bind(this);
+        this.remove = this.remove.bind(this);
     }
 
-    handleSubmit(event) {
-        event.preventDefault();
+    openModal(){
+        this.setState({modalIsOpened: true});
+    }
+
+    closeModal(){
+        this.setState({modalIsOpened: false});
+    }
+
+
+    remove(){
         this.removeFromDb(this.state.item.key);
     }
-
+   
     removeFromDb(key) {
         if(key){
             dbData.child(key).remove();
@@ -28,9 +41,22 @@ class ItemRemove extends Component {
 
     render() {
         return (
-            <form onSubmit={this.handleSubmit}>
-                <button type="submit">Remove</button>
-            </form>
+            <div>
+                <button onClick={this.openModal}>Remove</button>
+                <Modal
+                    ariaHideApp={false}
+                    isOpen={this.state.modalIsOpened}
+                    onAfterOpen={this.afterOpenModal}
+                    onRequestClose={this.closeModal}
+                    contentLabel="Are you sure do you want to remove this item?"
+                >
+                    <button onClick={this.remove}>Yes</button>
+                    <button onClick={this.closeModal}>No</button>
+                    <div>
+                        {this.state.item.value}
+                    </div>
+                </Modal>
+            </div>
         );
     }
 }
