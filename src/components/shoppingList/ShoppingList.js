@@ -1,17 +1,21 @@
 import React, { Component } from 'react';
 import './ShoppingList.css';
-import HandleData from '../config/HandleData';
+
 
 class ShoppingList extends Component {
     goToDetail = (item) => {
+        
     };
 
+    constructor(){
+        super();
+
+    }
+    
     render() {
         return (
         <div className="Container">
-            <div> ShoppingList with css </div>
-            <HandleData inputProperty="input from shopping list"/>
-             
+            <div> ShoppingList </div>
         </div>
         );
     }

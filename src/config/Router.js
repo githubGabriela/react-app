@@ -4,10 +4,10 @@ import { BrowserRouter as Router,
      Redirect, 
      Link } from 'react-router-dom';
 
- import ShoppingList  from '../screens/ShoppingList';
- import Products from '../screens/products/Products';
- import ProductDetail from '../screens/products/Detail';
- import Admin from '../screens/admin/Admin';
+ import ShoppingList  from '../components/shoppingList/ShoppingList';
+ import Products from '../components/products/Products';
+ import ProductDetail from '../components/products/ProductDetail';
+ import Admin from '../components/admin/Admin';
 
 const Tabs = () => (
     <Router>
@@ -34,8 +34,7 @@ const ProductsStack = () => (
 )
 
 const AdminPage = ({ match }) => (
-    <div>Lol</div>
-    // <Admin/>
+     <Admin/>
 )
 
 

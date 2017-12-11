@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import './Admin.css';
 
+
+
 //import {AdminTabs}  from './AdminRouter';
-import AdminCategories from './AdminCategories';
+import Categories from '../categories/Categories';
 
 class Admin extends Component {
     
@@ -10,7 +12,7 @@ class Admin extends Component {
         return (
             <div className="Container">
                 {/* <AdminTabs/> */}
-                <AdminCategories/>
+                <Categories/>
             </div>
         );
     }
