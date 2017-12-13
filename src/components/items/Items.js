@@ -1,37 +1,130 @@
 import React, { Component } from 'react';
 
 import ItemEdit from './ItemEdit';
-import ItemRemove from './ItemRemove';
+import ModalRemove from './ModalRemove';
 
 import '../../assets/css/General.css';
 
-function List(props) {
-    const data = props.data;
-    const propertyToShow = props.propertyToShow;
-    
-    const items = data.map((item) => 
-        <div className="flex" key={item.key}>
-            <ItemEdit item={item}
-                      propertyToShow={propertyToShow}> 
-            </ItemEdit>
-            <ItemRemove item={item}
-                        propertyToShow={propertyToShow}> 
-            </ItemRemove>
-        </div>
-      );
-     
-      return (
-        <ul>
-          {items}
-        </ul>
-      );
-    }
-
 class Items extends Component {
+     constructor(props) {
+             super(props);
+             this.state = {
+                 propertyToShow: this.props.propertyToShow,
+                 selectedItems: [],
+                 modalIsOpened: false,
+                 allChecked: false
+             }
+
+             this.removeItem = this.removeItem.bind(this);
+             this.handleItem = this.handleItem.bind(this);
+             this.openModal = this.openModal.bind(this);
+             this.checkAllItems = this.checkAllItems.bind(this);
+             this.toggleCheckAll = this.toggleCheckAll.bind(this);
+         }
+    
+         toggleCheckAll = (event) => {
+            const allChecked = event.target.checked;
+            allChecked ? this.checkAllItems() : this.uncheckAllItems();
+
+            this.setState({
+                allChecked: !this.state.allChecked
+              });
+          }
+          
+          checkAllItems(){
+              const items = this.props.items;
+              this.props.items.forEach(item => {
+                item.isChecked = true; 
+              });
+              this.setState({
+                selectedItems: this.props.items
+            });
+         }
+
+         uncheckAllItems(){
+            this.props.items.forEach(item => {
+                item.isChecked = false; 
+              });
+            this.setState({
+                selectedItems: []
+            });
+         }
+
+         removeItem(item) {
+            this.setState({
+                selectedItems: [item],
+                modalIsOpened: true
+            });
+        }
+
+         handleItem(isChecked, item) {
+           const data = this.state.selectedItems;
+                if(isChecked){
+                    data.push(item);
+                }else{
+                    data.forEach(oneItem => {
+                        if(oneItem.key === item.key){
+                            data.pop(item);
+                        }
+                    })
+                }
+                this.setState({
+                    selectedItems: data,
+                });
+        }
+
+        getExistentItem(data, item) {
+            for(let i=0; i<data.length; i++){
+                let oneItem = data[i];
+                if(oneItem.key === item.key) {
+                   return oneItem;
+                }
+            };
+
+            let abc = data.filter(oneItem => {
+               item.key === oneItem.key;
+            });
+            return undefined;
+        }
+
+        openModal(){
+            this.setState({
+                modalIsOpened : true
+            });
+        }
+
     render() {
+        const {allChecked} = this.state.allChecked;
+
         return (
             <div>
-                <List data={this.props.items} propertyToShow={this.props.propertyToShow}/>
+                    <label>
+                        <input type="checkbox"
+                                value="allChecked"
+                                checked={allChecked}
+                                onChange={this.toggleCheckAll}
+                        />
+                        {this.state.allChecked ? 'Uncheck all' : 'Check all'}
+                    </label>
+                {
+                    this.props.items.map((item) => {
+                        return <div className="flex" key={item.key}>
+                        {/* TODO - create super component form ModalRemove that will contain the checkbox */}
+                            <input type="checkbox" 
+                                    value={item.key}
+                                    checked={item.isChecked}
+                                    onChange={(event)=> { this.handleItem(event.target.checked, item)}}/>
+                            <ItemEdit item={item} propertyToShow={this.state.propertyToShow}> 
+                            </ItemEdit>
+                           
+                            <button onClick={()=> {this.removeItem(item); this.openModal()}}> Remove </button>
+                            <ModalRemove selectedItems={this.state.selectedItems} 
+                                        modalIsOpened={this.state.modalIsOpened}
+                                        propertyToShow={this.state.propertyToShow}/>
+                        </div>
+                    })
+                }
+                <button onClick={this.openModal}> Remove selected items </button>
             </div>
         );
     }
