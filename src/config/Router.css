@@ -1,0 +1,32 @@
+ul {
+    display: flex;
+    justify-content: space-between;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;    
+}
+
+li {
+    background-color: #d0d0ff;
+    border: 1px solid #9595ca;
+    padding: 20px;
+    width: 100%;
+    text-align: center;
+}
+
+li:hover {
+    background-color: #9595ca;
+    cursor: pointer;
+}
+
+a {
+    text-decoration: none;
+    color: #525252;
+    font-weight: bold;
+}
+a:hover {
+    color: white;
+}
+.active {
+    color: blue;
+}

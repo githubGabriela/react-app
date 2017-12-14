@@ -1,19 +1,13 @@
 import React, { Component } from 'react';
 import './Admin.css';
 
-
-
-//import {AdminTabs}  from './AdminRouter';
-import Categories from '../categories/Categories';
+import AdminTabs from './AdminRouter';
 
 class Admin extends Component {
     
     render() {
         return (
-            <div className="Container">
-                {/* <AdminTabs/> */}
-                <Categories/>
-            </div>
+           <AdminTabs />
         );
     }
 }

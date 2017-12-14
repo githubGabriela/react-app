@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { dbData } from '../../config/constants';
+import { dbData, dbRef } from '../../config/constants';
 
 class ItemCreate extends Component {
     initialInput = {
@@ -15,8 +15,10 @@ class ItemCreate extends Component {
         }
 
         this.inputChange = this.inputChange.bind(this);
-         this.submit = this.submit.bind(this);
+        this.submit = this.submit.bind(this);
         this.reset = this.reset.bind(this);
+        this.addProduct = this.addProduct.bind(this);
+        this.addCategory = this.addCategory.bind(this);
     }
 
     inputChange(event) {
@@ -50,16 +52,28 @@ class ItemCreate extends Component {
     }
 
     exists(item) {
-        // TODO - not working
+         // TODO - not working
         dbData.on('value', snapshot => {
             return snapshot.val() !== null;
         });
     }
 
     pushToDb(value) {
-        dbData.push({category : value});    
+        if(this.props.isProduct){
+            this.addProduct(value);  // {category: { products : [] }} 
+         }else{
+             this.addCategory(value); // {category : value} 
+         }
     }
 
+    addProduct(value){
+        let category = this.props.entryToCreate;
+        dbData.child(category.key).push({ product: value});
+    }
+
+    addCategory(value){
+        dbData.push({category: value}); 
+    }
 
     render() {
         return (

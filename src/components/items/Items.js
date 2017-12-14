@@ -9,7 +9,6 @@ class Items extends Component {
      constructor(props) {
              super(props);
              this.state = {
-                 propertyToShow: this.props.propertyToShow,
                  selectedItems: [],
                  modalIsOpened: false,
                  allChecked: false
@@ -111,16 +110,16 @@ class Items extends Component {
                         return <div className="flex" key={item.key}>
                         {/* TODO - create super component form ModalRemove that will contain the checkbox */}
                             <input type="checkbox" 
-                                    value={item.key}
+                                    value={item.label}
                                     checked={item.isChecked}
                                     onChange={(event)=> { this.handleItem(event.target.checked, item)}}/>
-                            <ItemEdit item={item} propertyToShow={this.state.propertyToShow}> 
+                            <ItemEdit item={item} propertyToShow={this.props.propertyToShow}> 
                             </ItemEdit>
                            
                             <button onClick={()=> {this.removeItem(item); this.openModal()}}> Remove </button>
                             <ModalRemove selectedItems={this.state.selectedItems} 
                                         modalIsOpened={this.state.modalIsOpened}
-                                        propertyToShow={this.state.propertyToShow}/>
+                                        propertyToShow={this.props.propertyToShow}/>
                         </div>
                     })
                 }

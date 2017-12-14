@@ -75,7 +75,7 @@ class ModalRemove extends Component {
                 {
                     this.props.selectedItems.map((item) => {
                         return <div key={item.key}>
-                            <div>{item.value[this.props.propertyToShow]}</div>
+                            <div>{item.label}</div>
                         </div>
                         })
                 }

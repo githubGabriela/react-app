@@ -1,21 +1,28 @@
 import React from 'react';
-import { TabNavigator, StackNavigator } from 'react-navigation';
+import { Route, Link } from 'react-router-dom';
 
-import  AdminProducts  from './AdminProducts';
-import  AdminCategories  from './AdminCategories';
+import  AdminCategories  from '../categories/AdminCategories';
+import  AdminProducts  from '../products/AdminProducts';
 
 
-export const AdminTabs = TabNavigator({
-    AdminProducts: {
-        screen: AdminProducts,
-        navigationOptions: {
-            tabBarLabel: 'Products'
-        }
-    }, 
-    AdminCategories: {
-        screen: AdminCategories,
-        navigationOptions: {
-            tabBarLabel: 'Categories'
-        }
-    },
-});
+const AdminTabs = () => (
+    <div>
+        <ul>
+            <li><Link to="/Admin/Categories">Categories</Link></li>
+            <li><Link to="/Admin/Products">Products</Link></li>
+        </ul>
+        <Route path="/Admin/Products" component={AdminWithProducts}/>
+        <Route path="/Admin/Categories" component={AdminWithCategories}/>
+    </div>
+)
+
+
+const AdminWithProducts = ({ match }) => (
+    <AdminProducts/>
+)
+
+const AdminWithCategories = ({ match }) => (
+    <AdminCategories/>
+)
+
+export default AdminTabs;

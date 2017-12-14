@@ -5,7 +5,7 @@ import ItemCreate from '../items/ItemCreate';
 class CategoryCreate extends Component {
     render() {
         return (
-            <ItemCreate lol="lol" placeholder='Add a new category'/>
+            <ItemCreate placeholder='Add a category' propertyToShow='category'/>
         );
     }
 }

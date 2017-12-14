@@ -5,7 +5,7 @@ import { dbData } from '../../config/constants';
 import Items from '../items/Items';
 import CategoryCreate from '../categories/CategoryCreate';
 
-class Categories extends Component {
+class AdminCategories extends Component {
     
     constructor(){
         super();
@@ -22,7 +22,7 @@ class Categories extends Component {
         dbData.on('value', snap => {
             const items = [];
             snap.forEach( childSnap => {
-                items.push({ key: childSnap.key, value: childSnap.val()});
+                items.push({ key: childSnap.key, label: childSnap.val().category, value:childSnap.key});
             });
             this.setState({
                 categories : items
@@ -41,5 +41,4 @@ class Categories extends Component {
     }
 }
 
-
-export default Categories;
+export default AdminCategories;
