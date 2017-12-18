@@ -2,17 +2,22 @@ import React, { Component } from 'react';
 
 import './Products.css';
 
-import { dbData } from '../../config/constants';
+import CategoryWithProducts from '../categories/CategoryWithProducts';
+import { hocCategories } from '../categories/HocCategories';
 
 
-class Products extends Component {
+class AllProducts extends Component {
     render() {
         return (
             <div className="Container">
-                Products
+              {this.props.categories.map((category) => {
+                  return <CategoryWithProducts key={category.key} category={category}/>
+              })}
             </div>
         )
     }
 }
+
+const Products = hocCategories(AllProducts);
 
 export default Products;
