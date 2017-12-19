@@ -9,7 +9,7 @@ import { hocCategories } from '../categories/HocCategories';
 class AllProducts extends Component {
     render() {
         return (
-            <div className="Container">
+            <div>
               {this.props.categories.map((category) => {
                   return <CategoryWithProducts key={category.key} category={category}/>
               })}

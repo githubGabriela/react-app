@@ -21,7 +21,7 @@ export function hocCategories (WrappedComponent) {
             dbData.on('value', snap => {
                 const items = [];
                 snap.forEach( childSnap => {
-                    let item = { key: childSnap.key, label: childSnap.val().category, value: childSnap.key, products:[]};
+                    let item = { key: childSnap.key, label: childSnap.val().category, value: childSnap.key, color: childSnap.val().color, products:[]};
                     childSnap.forEach(itemWithProduct => {
                         if(itemWithProduct.val().product){
                             item['products'].push({key: itemWithProduct.key, label: itemWithProduct.val().product, value: itemWithProduct.key, product: itemWithProduct});
