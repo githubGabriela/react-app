@@ -23,7 +23,6 @@ li:hover {
 a {
     text-decoration: none;
     color: #525252;
-    font-weight: bold;
 }
 a:hover {
     color: white;

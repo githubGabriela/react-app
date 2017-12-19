@@ -1,23 +1,22 @@
 import React, { Component } from 'react';
-import '../../assets/css/General.css';
+import FontAwesome from  'react-fontawesome';
 
+import './Categories.css';
 
 import ProductItem from '../products/ProductItem';
 
 class CategoryWithProducts extends Component {
 
     render() {
-        let defafultHeight  = '80px';
-        let reducedHeight = '40px';
         let categoryStyle = {
-            backgroundColor: this.props.category.color,
-            height: this.props.showSectionForKey === this.props.category.key ? reducedHeight: defafultHeight
+            backgroundColor: this.props.category.color
         }        
 
         return (
             <div>
                 <div className="category" style={categoryStyle}> 
-                    {this.props.category.label}
+                    <FontAwesome name='smile-o' className="icon"/>
+                    <label className="category-label">{this.props.category.label}</label>
                 </div>
 
                 { this.props.category.products.length > 0 ? 
