@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import './ShoppingList.css';
+import '../../assets/css/General.css';
 
 class ShoppingList extends Component {
     render() {
         return (
-        <div className="Container">
+        <div className="container-with-padding">
             <div> ShoppingList </div>
         </div>
         );

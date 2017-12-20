@@ -3,6 +3,7 @@ import Dropdown from 'react-dropdown';
 import 'react-dropdown/style.css';
 
 import './Products.css';
+import '../../assets/css/General.css';
 
 import Items from '../items/Items';
 import ItemCreate from '../items/ItemCreate';
@@ -12,7 +13,7 @@ class Products extends Component {
 
     render() {
         return (
-            <div className="Container">
+            <div className="container-with-padding">
             <div> Products </div>
             <Dropdown options={this.props.categories} 
                       value={this.props.selectedCategory} 

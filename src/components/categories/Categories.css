@@ -1,22 +1,14 @@
 .category {
     box-shadow: 0px 7px 22px -2px rgb(105, 104, 105);
-    color: white;
     cursor: pointer;
-    width: 100%;
     padding: 10px;
     position: relative;
 }
 
-.category::before{
-    border-left: 10px solid transparent;
-    border-right: 10px solid transparent;
-    border-top: 10px solid #676767;
-    content: '';
-    top: 100%;
-    left: 10px;
-    position: absolute;
-}
-
 .category-label {
     margin-left: 10px;
+}
+
+.no-products {
+    padding: 10px;
 }

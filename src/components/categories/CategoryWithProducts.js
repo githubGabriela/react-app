@@ -4,6 +4,7 @@ import FontAwesome from  'react-fontawesome';
 import './Categories.css';
 
 import ProductItem from '../products/ProductItem';
+import CollapseArrows from '../collapseArrows/CollapseArrows';
 
 class CategoryWithProducts extends Component {
 
@@ -15,8 +16,11 @@ class CategoryWithProducts extends Component {
         return (
             <div>
                 <div className="category" style={categoryStyle}> 
-                    <FontAwesome name='smile-o' className="icon"/>
-                    <label className="category-label">{this.props.category.label}</label>
+                        <FontAwesome name='smile-o' className="icon"/>
+                        <label className="category-label">{this.props.category.label}</label>
+                        <div className="arrow">
+                            <CollapseArrows arrowUp={this.props.showSectionForKey === this.props.category.key}/>
+                        </div>
                 </div>
 
                 { this.props.category.products.length > 0 ? 
@@ -36,7 +40,7 @@ class CategoryWithProducts extends Component {
                     : 
                     <div> 
                         {this.props.showSectionForKey === this.props.category.key ?
-                            <div> There are no products yet </div>
+                            <div className="no-products"> There are no products yet </div>
                             : 
                             null
                         }
