@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { dbData } from '../../config/constants';
 import FontAwesome from 'react-fontawesome';
+
 import '../../assets/css/General.css';
 
 class ItemEdit extends Component {
@@ -89,19 +90,19 @@ class ItemEdit extends Component {
 
     render() {
         return (
-            <div>
+            <div className="item-edit">
                 {!this.state.isEditable ? 
-                    <div className="flex">
-                        <div className="">{this.state.item.label}</div>
-                        <div>
-                          <FontAwesome name="pencil" onClick={this.edit}/>
-                        </div>
+                    <div className="center-from-top flex space-between">
+                            <label>{this.state.item.label}</label>
+                            <FontAwesome name="pencil" onClick={this.edit}/>
                     </div>
-                 : 
-                    <div>
-                        <input type="text"  value={this.state.item.label} onChange={this.handleChange}/>
-                        <FontAwesome name="check" onClick={this.confirm}/>
-                        <FontAwesome name="close" onClick={this.resetItem}/>
+                : 
+                    <div className="center-from-top-input flex space-between">
+                            <input type="text" className="input-text" value={this.state.item.label} onChange={this.handleChange}/>
+                            <div className="edit-icons">
+                                <FontAwesome name="check" onClick={this.confirm}/>
+                                <FontAwesome name="close" onClick={this.resetItem}/>
+                            </div>
                     </div>
                 }
             </div>

@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import FontAwesome from  'react-fontawesome';
 
-import './Categories.css';
-
 import ProductItem from '../products/ProductItem';
 import CollapseArrows from '../collapseArrows/CollapseArrows';
 
@@ -15,12 +13,12 @@ class CategoryWithProducts extends Component {
 
         return (
             <div>
-                <div className="category" style={categoryStyle}> 
-                        <FontAwesome name='smile-o' className="icon"/>
-                        <label className="category-label">{this.props.category.label}</label>
-                        <div className="arrow">
-                            <CollapseArrows arrowUp={this.props.showSectionForKey === this.props.category.key}/>
+                <div className="accordion-header flex space-between" style={categoryStyle}> 
+                        <div>
+                            <FontAwesome name='smile-o' className="icon-on-left"/>
+                            <label>{this.props.category.label}</label>
                         </div>
+                        <CollapseArrows arrowUp={this.props.showSectionForKey === this.props.category.key}/>
                 </div>
 
                 { this.props.category.products.length > 0 ? 
@@ -40,7 +38,7 @@ class CategoryWithProducts extends Component {
                     : 
                     <div> 
                         {this.props.showSectionForKey === this.props.category.key ?
-                            <div className="no-products"> There are no products yet </div>
+                            <div className="section-item"> No products for this category </div>
                             : 
                             null
                         }

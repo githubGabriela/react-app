@@ -2,10 +2,9 @@ import React, { Component } from 'react';
 import Modal from 'react-modal';
 
 import { dbData } from '../../config/constants';
-import './Item.css';
+
 
 class ItemRemove extends Component {
-    
     constructor(props) {
         super(props);
         this.state = {

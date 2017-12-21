@@ -16,7 +16,6 @@ class CategoryCreate extends Component {
         this.setState({
             color: event.hex
         });
-        console.log(this.state.color);
     }
 
     render() {

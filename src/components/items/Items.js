@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import FontAwesome from 'react-fontawesome';
+
 import ItemEdit from './ItemEdit';
 import ModalRemove from './ModalRemove';
 
@@ -97,16 +98,13 @@ class Items extends Component {
 
         return (
             <div>
-                    <div className="section-title">
-                        <div className="section-title-check-all ">
-                            <input type="checkbox"
-                                value="allChecked"
-                                checked={allChecked}
-                                onChange={this.toggleCheckAll}
-                            />
+                    <div className="section-header">
+                        <div className="icon-on-left">
+                            <input type="checkbox" value="allChecked" checked={allChecked}
+                                   onChange={this.toggleCheckAll}/>
                         </div>
-                        <div className="section-title-admin"> {this.props.sectionTitle} </div>
-                        <div className="section-title-remove-all">
+                        <div className="section-title"> {this.props.sectionTitle} </div>
+                        <div className="icon-on-right">
                             <FontAwesome name="close" onClick={this.openModal}/>
                         </div>
                         
@@ -115,22 +113,25 @@ class Items extends Component {
                    
                 {
                     this.props.items.map((item) => {
-                        return <div className="item-section" key={item.key}>
+                        return <div className="section-item" key={item.key}>
                         {/* TODO - create super component form ModalRemove that will contain the checkbox */}
-                            <div className="left-section">
-                                <input type="checkbox" 
-                                        value={item.label}
-                                        checked={item.isChecked}
-                                        onChange={(event)=> { this.handleItem(event.target.checked, item)}}/>
-                                        <ItemEdit item={item} propertyToShow={this.props.propertyToShow}> 
+                                <div className="container-category-img flex">
+                                    <div className="center-from-top icon-on-left">
+                                        <input type="checkbox" 
+                                                value={item.label}
+                                                checked={item.isChecked}
+                                                onChange={(event)=> { this.handleItem(event.target.checked, item)}}/>
+                                    </div>        
+                                    <div className="item-image category-image"></div>
+                                </div>
+                                <ItemEdit item={item} propertyToShow={this.props.propertyToShow}> 
                                 </ItemEdit>
-                            </div>
-                           
-                           <div>
+
+                            <div className="center-from-top icon-on-right">
                                 <FontAwesome name="close" onClick={()=> {this.removeItem(item); this.openModal()}}/>
                                 <ModalRemove selectedItems={this.state.selectedItems} 
-                                            modalIsOpened={this.state.modalIsOpened}
-                                            propertyToShow={this.props.propertyToShow}/>
+                                             modalIsOpened={this.state.modalIsOpened}
+                                             propertyToShow={this.props.propertyToShow}/>
                             </div>
                         </div>
                     })

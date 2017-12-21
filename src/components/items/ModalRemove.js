@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import Modal from 'react-modal';
 
-
 import { dbData } from '../../config/constants';
-
 
 function ShowSelectedItems(props){
     const data = props.selectedItems;

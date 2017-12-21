@@ -72,7 +72,6 @@ class ItemCreate extends Component {
     }
 
     addCategory(value){
-        console.log(this.props.color);
         dbData.push({category: value, color: this.props.color}); 
     }
 

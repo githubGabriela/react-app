@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import FontAwesome from  'react-fontawesome';
 
-import './CollapseArrows.css';
-
 class CollapseArrows extends Component {
     render() {
         return (

@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import './Admin.css';
 
 import AdminTabs from './AdminRouter';
 

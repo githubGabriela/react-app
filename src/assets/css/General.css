@@ -1,77 +1,93 @@
+/* General */
 .flex {
     display: flex;
 }
-
-.container-with-padding {
-    padding: 10px;
-}
-
-.float-right {
-    float: right;
-}
-
-.item-section {
-    border-bottom: 1px solid #414d58;
-    padding: 12px;
-    display: flex;
+.space-between {
     justify-content: space-between;
 }
 
+
+/* container */
+.container-category-img{
+    width: 88px;
+    margin-right: 7px;
+}
+.container-product-img {
+    width: 53px;
+    margin-right: 7px;
+}
+
+
+
+/* section */
+.accordion-header {
+    box-shadow: 0px 7px 22px -2px rgb(105, 104, 105);
+    cursor: pointer;
+    padding: 10px;
+    position: relative;
+}
+.section-header {
+    background-color: #d35400;
+    display: flex;
+    padding: 9px;
+}
+.section-title {
+   text-align: center;
+   width: 100%;
+}
+.section-item {
+   display: flex;
+   justify-content: space-between;
+   padding: 9px;
+   border-bottom: 1px solid #414d58;
+}
+.center-from-top {
+    padding-top: 17px; 
+}
+.center-from-top-input {
+    padding-top: 11px; 
+}
+
+
+
+/* icons & images*/
+.icon-on-left{
+    width: 20px;
+    text-align: left;
+}
+.icon-on-right {
+    width: 20px;
+    text-align: right;
+}
+.edit-icons {
+    padding-top: 6px;
+}
 .item-image {
     background-size: cover;
     display: block;
     overflow: hidden;
     border: 1px solid #cecaca;
-    border-radius: 50%;
     width: 50px;
     height: 50px;
 }
-
-.left-section {
-    display: flex;
-    width: 92%;
+.category-image {
+    border-radius: 10%;
 }
-
-.right-section {
-    padding-top: 17px; 
-}
-
-label {
-    margin-left: 7px;
-    padding-top: 17px; 
-    width: 80%;
+.product-image {
+    border-radius: 50%;
 }
 
 
-.section-title {
-     background-color: #d35400;
-     padding: 12px;
-     display: flex;
-}
 
-.section-title-admin {
-    text-align: center;
+/* CRUD */
+.item-edit {
     width: 100%;
 }
-
-.section-title-check-all {
-    width: 19px;   
-}
-
-.section-title-remove-all {
-    width: 15px;
-}
-
-
-.history{
-    display: flex;
-    justify-content: space-between;
-}
-
-.history-left {
-    background-color: green;
-}
-
-.history-right{
-    background-color: red;
+.input-text {
+    background: transparent;
+    border: 1px solid white;
+    border-radius: 15px;
+    color: white;
+    padding: 7px;
+    width: 78%;
 }

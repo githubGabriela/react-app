@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 
-import './Products.css';
-
 import CategoryWithProducts from '../categories/CategoryWithProducts';
 import { hocCategories } from '../categories/HocCategories';
 
@@ -25,7 +23,7 @@ class AllProducts extends Component {
         return (
             <div>
               {this.props.categories.map((category) => {
-                  return <div className="categoryItem" key={category.key} onClick={()=> this.toggleSection(category.key)}>
+                  return <div key={category.key} onClick={()=> this.toggleSection(category.key)}>
                             <CategoryWithProducts showSectionForKey={this.state.showSectionForKey}
                                                category={category}/>
                       </div>
