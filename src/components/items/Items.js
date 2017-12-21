@@ -12,7 +12,8 @@ class Items extends Component {
              this.state = {
                  selectedItems: [],
                  modalIsOpened: false,
-                 allChecked: false
+                 allChecked: false,
+                 showRemoveButtons : false
              }
 
              this.removeItem = this.removeItem.bind(this);
@@ -27,7 +28,8 @@ class Items extends Component {
             allChecked ? this.checkAllItems() : this.uncheckAllItems();
 
             this.setState({
-                allChecked: !this.state.allChecked
+                allChecked: !this.state.allChecked,
+                showRemoveButtons: !this.state.allChecked
               });
           }
           
@@ -105,7 +107,10 @@ class Items extends Component {
                         </div>
                         <div className="section-title"> {this.props.sectionTitle} </div>
                         <div className="icon-on-right">
-                            <FontAwesome name="close" onClick={this.openModal}/>
+                            {this.state.showRemoveButtons ? 
+                                <FontAwesome name="close" onClick={this.openModal}/>
+                            : null
+                            }
                         </div>
                         
                     </div>
@@ -128,10 +133,15 @@ class Items extends Component {
                                 </ItemEdit>
 
                             <div className="center-from-top icon-on-right">
-                                <FontAwesome name="close" onClick={()=> {this.removeItem(item); this.openModal()}}/>
-                                <ModalRemove selectedItems={this.state.selectedItems} 
-                                             modalIsOpened={this.state.modalIsOpened}
-                                             propertyToShow={this.props.propertyToShow}/>
+                                { this.state.showRemoveButtons ? 
+                                    <div>
+                                        <FontAwesome name="close" onClick={()=> {this.removeItem(item); this.openModal()}}/>
+                                        <ModalRemove selectedItems={this.state.selectedItems} 
+                                                    modalIsOpened={this.state.modalIsOpened}
+                                                    propertyToShow={this.props.propertyToShow}/>
+                                    </div>
+                                : null
+                                }
                             </div>
                         </div>
                     })
