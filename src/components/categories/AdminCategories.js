@@ -8,9 +8,8 @@ import '../../assets/css/General.css';
 class Categories extends Component {
     render() {
         return (
-            <div className="container-with-padding">
-                <div>Categories</div>
-                <Items items={this.props.categories} propertyToShow='category'/>
+            <div>
+                <Items sectionTitle="Categories" items={this.props.categories} propertyToShow='category'/>
                 <CategoryCreate/>
             </div>
         );

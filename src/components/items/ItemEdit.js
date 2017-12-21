@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { dbData } from '../../config/constants';
-
+import FontAwesome from 'react-fontawesome';
 import '../../assets/css/General.css';
 
 class ItemEdit extends Component {
@@ -92,14 +92,16 @@ class ItemEdit extends Component {
             <div>
                 {!this.state.isEditable ? 
                     <div className="flex">
-                        <div>{this.state.item.label}</div>
-                        <button onClick={this.edit}>Edit</button>
+                        <div className="">{this.state.item.label}</div>
+                        <div>
+                          <FontAwesome name="pencil" onClick={this.edit}/>
+                        </div>
                     </div>
                  : 
                     <div>
                         <input type="text"  value={this.state.item.label} onChange={this.handleChange}/>
-                        <button type="submit" onClick={this.confirm}>Confirm</button>
-                        <button type="reset" onClick={this.resetItem}>Cancel</button>
+                        <FontAwesome name="check" onClick={this.confirm}/>
+                        <FontAwesome name="close" onClick={this.resetItem}/>
                     </div>
                 }
             </div>

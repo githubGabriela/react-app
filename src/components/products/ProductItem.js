@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import './Products.css';
+import '../../assets/css/General.css';
 import FontAwesome from  'react-fontawesome';
 
 class ProductItem extends Component {
@@ -11,13 +11,13 @@ class ProductItem extends Component {
         }
 
         return (
-            <div className="product-item">
-                <div className="left">
-                    <div className="product-image" style={imageStyle}>
+            <div className="item-section">
+                <div className="left-section">
+                    <div className="item-image" style={imageStyle}>
                     </div>
                     <label>{this.props.product.label}</label>
                 </div>
-                <div className="right">
+                <div className="right-section">
                         <FontAwesome name="cart-plus"/>
                 </div>
             </div>

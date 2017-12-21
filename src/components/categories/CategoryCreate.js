@@ -23,7 +23,7 @@ class CategoryCreate extends Component {
         return (
             <div>
                 <ItemCreate placeholder='Add a category' propertyToShow='category' color={this.state.color}/>
-                <SketchPicker  onChange={this.colorChanged}/>
+                <SketchPicker onChange={this.colorChanged}/>
             </div>
         );
     }
