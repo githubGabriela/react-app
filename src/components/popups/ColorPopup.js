@@ -4,11 +4,11 @@ import { SketchPicker } from 'react-color';
 import FontAwesome from 'react-fontawesome';
 
 class ColorPopup extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             color: '#372883',
-            modalIsOpened : true
+            modalIsOpened : props.showPopup
         }
 
         this.colorChanged = this.colorChanged.bind(this);
@@ -53,7 +53,7 @@ class ColorPopup extends Component {
                 <Modal
                     style={modalStyle}
                     ariaHideApp={false}
-                    isOpen={this.state.modalIsOpened}
+                    isOpen={this.props.showPopup}
                     contentLabel="Are you sure do you want to remove this item?"
                 >
                 <div className="popup-container">
