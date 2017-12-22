@@ -20,6 +20,7 @@
 /* green (icons): #27ae60; */
 /* orange (header): #d35400; */
 /* cream (border for image): #cecaca; */
+/* silver: #bdc3c7; */
 
 .gray {
     color: #34495e;
@@ -128,4 +129,44 @@
 
 .transparent-text {
     opacity: 0.5;
+}
+
+/* popups */
+.popup-container {
+    color: #34495e;
+    text-align: center;
+}
+.popup-header {
+    padding: 20px;
+    color: white;
+    font-weight: bold;
+}
+.popup-body {
+    padding: 25px;
+}
+.popup-footer {
+}
+.popup-btn {
+    font-weight: bold;
+    color: #34495e;
+    width: 50%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border: transparent;
+}
+.btn-ok {
+    background-color: #27ae60;
+    color: white;
+    font-weight: bold;
+    border-top: 1px solid #27ae60;
+}
+.btn-cancel { 
+    background-color: white;
+    border-top: 1px solid rgb(204, 204, 204);
+}
+
+.popup-close-icon {
+    color: white;
+    float: right;
+    padding: 5px;
 }
