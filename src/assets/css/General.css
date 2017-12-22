@@ -47,7 +47,10 @@
 .center-from-top-input {
     padding-top: 11px; 
 }
-
+.collapse-sections {
+    width: 23%;
+    font-size: 12px;
+}
 
 
 /* icons & images*/
@@ -76,7 +79,12 @@
 .product-image {
     border-radius: 50%;
 }
-
+.cart-plus{
+    color: #27ae60;
+}
+.cart-minus{
+    color: #c0392b;
+}
 
 
 /* CRUD */

@@ -1,8 +1,12 @@
+// Usage:
+// <CategoryWithProducts showSectionForKey={this.state.showSectionForKey} category={category}/>
+
+
 import React, { Component } from 'react';
 import FontAwesome from  'react-fontawesome';
 
 import ProductItem from '../products/ProductItem';
-import CollapseArrows from '../collapseArrows/CollapseArrows';
+import CollapseArrows from '../collapse/CollapseArrows';
 
 class CategoryWithProducts extends Component {
 

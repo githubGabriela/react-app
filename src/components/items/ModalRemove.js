@@ -1,3 +1,7 @@
+// Usage:
+// <ModalRemove selectedItems={this.state.selectedItems} modalIsOpened={this.state.modalIsOpened}
+// propertyToShow="category"/>
+
 import React, { Component } from 'react';
 import Modal from 'react-modal';
 

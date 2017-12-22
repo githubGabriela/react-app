@@ -1,3 +1,6 @@
+// Usage:
+// <ItemRemove item={item} propertyToShow="category"/>
+
 import React, { Component } from 'react';
 import Modal from 'react-modal';
 

@@ -1,3 +1,6 @@
+// Usage:
+// <ItemCreate placeholder='Add a category' propertyToShow='category' color={this.state.color}/>
+
 import React, { Component } from 'react';
 
 import { dbData, dbRef } from '../../config/constants';

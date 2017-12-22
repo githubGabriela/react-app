@@ -1,3 +1,6 @@
+// Usage:
+// <ProductDetail />
+
 import React, { Component } from 'react';
 
 class ProductDetail extends Component {

@@ -1,3 +1,6 @@
+// Usage:
+// <ItemEdit item={item} propertyToShow={this.props.propertyToShow}></ItemEdit>
+
 import React, { Component } from 'react';
 import { dbData } from '../../config/constants';
 import FontAwesome from 'react-fontawesome';

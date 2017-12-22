@@ -1,3 +1,6 @@
+// Usage:
+// <ShoppingList />
+
 import React, { Component } from 'react';
 
 import '../../assets/css/General.css';

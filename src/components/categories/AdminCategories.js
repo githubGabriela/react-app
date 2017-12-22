@@ -1,3 +1,6 @@
+// Usage:
+// <AdminCategories/>
+
 import React, { Component } from 'react';
 
 import Items from '../items/Items';

@@ -1,3 +1,6 @@
+// Usage:
+// <Items sectionTitle="Categories" items={this.props.categories} propertyToShow='category'/>
+
 import React, { Component } from 'react';
 import FontAwesome from 'react-fontawesome';
 

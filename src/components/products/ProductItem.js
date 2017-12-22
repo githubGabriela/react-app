@@ -1,3 +1,6 @@
+//  Usage:
+// <ProductItem key={product.key} product={product} color={this.props.category.color}/>
+
 import React, { Component } from 'react';
 
 import '../../assets/css/General.css';
@@ -21,7 +24,7 @@ class ProductItem extends Component {
                 </div>
 
                 <div className="center-from-top icon-on-right">
-                    <FontAwesome name="cart-plus"/>
+                    <FontAwesome name="cart-plus" className="cart-plus"/>
                 </div>
             </div>
         );
