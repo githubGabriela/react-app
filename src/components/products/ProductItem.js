@@ -1,5 +1,6 @@
 //  Usage:
-// <ProductItem key={product.key} product={product} color={this.props.category.color}/>
+// <ProductItem key={product.key} product={product} 
+//color={this.props.category.color} hideCart="false" showRemoveCart="true"/>
 
 import React, { Component } from 'react';
 
@@ -23,8 +24,18 @@ class ProductItem extends Component {
                     <label className="center-from-top">{this.props.product.label}</label>
                 </div>
 
-                <div className="center-from-top icon-on-right">
-                    <FontAwesome name="cart-plus" className="cart-plus"/>
+                <div>
+                    {!this.props.hideCart ? 
+                        <div className="center-from-top icon-on-right">
+                            { this.props.showRemoveCart ? 
+                            <FontAwesome name="shopping-cart" className="cart-remove"/>
+                            :
+                            <FontAwesome name="cart-plus" className="cart-add"/>
+                            }
+                        </div>
+                        :
+                        null
+                    }
                 </div>
             </div>
         );

@@ -21,7 +21,7 @@ class CollapseSections extends Component {
 
     render() {
         return (
-            <div className="collapse-sections" onClick={this.toggle}>
+            <div className="collapse-sections small-font" onClick={this.toggle}>
                 {this.state.collapseAll ? 
                         <div>Collapse All</div>
                         : 
