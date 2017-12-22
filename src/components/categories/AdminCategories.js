@@ -12,8 +12,10 @@ class Categories extends Component {
     render() {
         return (
             <div>
+                <div className="category-create">
+                    <CategoryCreate/>
+                </div>
                 <Items sectionTitle="Categories" items={this.props.categories} propertyToShow='category'/>
-                <CategoryCreate/>
             </div>
         );
     }

@@ -103,8 +103,8 @@ class ItemEdit extends Component {
                     <div className="center-from-top-input flex space-between">
                             <input type="text" className="input-text" value={this.state.item.label} onChange={this.handleChange}/>
                             <div className="edit-icons">
-                                <FontAwesome name="check" onClick={this.confirm}/>
-                                <FontAwesome name="close" onClick={this.resetItem}/>
+                                <FontAwesome name="check" className="icon-with-padding" onClick={this.confirm}/>
+                                <FontAwesome name="close" className="icon-with-padding" onClick={this.resetItem}/>
                             </div>
                     </div>
                 }

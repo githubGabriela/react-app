@@ -27,7 +27,7 @@ class CategoryCreate extends Component {
         return (
             <div>
                 <ItemCreate placeholder='Add a category' propertyToShow='category' color={this.state.color}/>
-               <button onClick={this.togglePopup}> Show colorPicker </button>
+               {/* <button onClick={this.togglePopup}> Show colorPicker </button> */}
                <ColorPopup showPopup={this.state.showPopup}/>
             </div>
         );

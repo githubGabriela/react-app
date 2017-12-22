@@ -2,6 +2,7 @@
 // <ItemCreate placeholder='Add a category' propertyToShow='category' color={this.state.color}/>
 
 import React, { Component } from 'react';
+import FontAwesome from 'react-fontawesome';
 
 import { dbData, dbRef } from '../../config/constants';
 
@@ -80,23 +81,21 @@ class ItemCreate extends Component {
 
     render() {
         return (
-            <form onSubmit={this.submit}> 
+        <div>
+            <form onSubmit={this.submit} className="flex space-between"> 
                 <input type="text"
+                    className="input-text input-text-longer"
                     autoFocus
                     placeholder={this.props.placeholder}
                     value= {this.state.input.value}
                     onChange = {this.inputChange}
                 />
-                <button type="submit" 
-                    title="Add">
-                    Add
-                </button>
-                <button type="reset" 
-                    title="Reset"
-                    onClick={this.reset}>
-                    Cancel
-                </button>
+                <div className="edit-icons">
+                    <FontAwesome name="check" className="icon-with-padding" onClick={this.submit}/>
+                    <FontAwesome name="close" className="icon-with-padding" onClick={this.reset}/>
+                </div>
             </form>
+        </div>
         );
     }
 }
