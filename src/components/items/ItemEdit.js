@@ -118,8 +118,10 @@ class ItemEdit extends Component {
                 }
 
                 { this.state.showConfirmPopup ? 
-                    <ConfirmationPopup item={this.props.item} showPopup={this.state.showConfirmPopup} />
-                    : null
+                        <div>confirmed
+                             <ConfirmationPopup item={this.props.item} showPopup={this.state.showConfirmPopup} />
+                        </div>
+                    : <div>not confirmed </div>
                 }
             </div>
         );

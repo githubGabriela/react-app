@@ -10,9 +10,6 @@ export function withSubscription (WrappedComponent, selectData) {
             this.state = {
                 data: selectData(DataSource, props)
             }
-
-            console.log(this.state.data);
-            console.log('wrapped component');
         }
 
     componentDidMount(){

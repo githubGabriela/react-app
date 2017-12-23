@@ -142,7 +142,7 @@ class Items extends Component {
                                                 onChange={(event)=> { this.handleItem(event.target.checked, item)}}/>
                                     </div>        
                                     <div className="item-image category-image"></div>
-                                    <div className="color-bullet center-margin-from-top" style={{backgroundColor: item.color}} onClick={()=> this.toggleColorPopup(item)}></div>
+                                    <div className="color-bullet center-bullet-from-top" style={{backgroundColor: item.color}} onClick={()=> this.toggleColorPopup(item)}></div>
                                   
                                 </div>
                                

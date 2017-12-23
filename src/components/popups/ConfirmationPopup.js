@@ -3,66 +3,57 @@ import Modal from 'react-modal';
 import FontAwesome from 'react-fontawesome';
 
 import '../../assets/css/General.css';
+import { hocPopup } from './HocPopup';
 
-class ConfirmationPopup extends Component {
-    constructor() {
-        super();
-        this.state = {
-            modalIsOpened: false
-        };
-
-        this.openModal = this.openModal.bind(this);
-        this.closeModal = this.closeModal.bind(this);
+class Confirmation extends Component {
+    constructor(props){
+        super(props);
+        this.state= {
+            headerContent: ''
+        }
+        this.v = this.getHeaderContent.bind(this);
     }
 
-    openModal() {
-        this.setState({modalIsOpened: true});
-    }
-
-    closeModal() {
-        this.setState({modalIsOpened: false});
-    }
+    componentWillReceiveProps(nextProps) {
+        if(this.props != nextProps && nextProps.item) {
+            this.setState({
+                headerContent: nextProps.item.label
+            })
+        }
+      }
 
     render() {
-        const modalStyle = {
-            content : {
-              top                   : '50%',
-              left                  : '50%',
-              right                 : 'auto',
-              bottom                : 'auto',
-              marginRight           : '-50%',
-              transform             : 'translate(-50%, -50%)',
-              padding               : 0,
-              boxShadow            : '0px 7px 22px -2px rgb(105, 104, 105)'
-            }
-          };
-
+        const headerTitle = 'Edit category \"'+this.props.item.label +'\"';
         return (
-            <Modal
-                    style={modalStyle}
-                    ariaHideApp={false}
-                    isOpen={this.props.showPopup}
-                >
-                <div className="popup-container">
-                    <FontAwesome name="close" className="popup-close-icon" onClick={this.closeModal}/>
-                    <div className="popup-header warning-color">
-                        <div className="warning-icon">
-                            <FontAwesome name="exclamation-circle" size="lg" className="warning-icon"/>
-                        </div>
-                        <label>
-                            Edit category "{this.props.item.label }"
-                        </label>
-                    </div>
-                    <div className="popup-body">
-                    </div>
-                    <div className="popup-footer">
-                        <button className="popup-btn btn-ok" onClick={this.closeModal}> Ok </button>
-                        <button className="popup-btn btn-cancel" onClick={this.closeModal}> Cancels </button>
-                    </div>
-                </div>
-                </Modal>
+        //   <div headerTitle={this.headerTitle}></div>
+        <div header={this.headerTitle}> body </div>
         );
     }
 }
+
+export function getHeaderContent() {
+    return  <div>
+        <label> Edit category </label>
+    </div>
+}
+
+export function getBodyContent() {
+    return  <div className="">
+        <div> content </div>
+    </div>
+}
+
+export function getPopupType(){
+    return 'warning';
+}
+
+
+const ConfirmationPopup = hocPopup(
+    Confirmation,
+    (header) => getHeaderContent(),
+    (body) => getBodyContent(),
+    (type) => getPopupType()
+);
+
 
 export default ConfirmationPopup;

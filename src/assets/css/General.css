@@ -28,7 +28,7 @@
 .red {
     color: #c0392b;
 }
-.warning-color {
+.warning {
     background-color: #e74c3c;
 }
 .warning-icon {
@@ -138,7 +138,7 @@
     border-radius: 15px;
     color: white;
     padding: 7px;
-    width: 78%;
+    width: 76%;
 }
 .input-text-full {
     width: 100%;
@@ -195,6 +195,10 @@
 
 .center-margin-from-top {
     margin-top: 12px;
+}
+
+.center-bullet-from-top {
+    margin-top: 16px;
 }
 
 .color-bullet {
