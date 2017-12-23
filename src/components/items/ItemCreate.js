@@ -83,14 +83,13 @@ class ItemCreate extends Component {
         return (
         <div>
             <form onSubmit={this.submit} className="flex space-between"> 
-                <input type="text"
-                    className="input-text input-text-longer"
+                <textarea className="input-text input-text-full"
                     autoFocus
                     placeholder={this.props.placeholder}
                     value= {this.state.input.value}
-                    onChange = {this.inputChange}
-                />
-                <div className="edit-icons">
+                    onChange = {this.inputChange}>
+                </textarea>
+                <div className="edit-icons-textarea center-margin-from-top">
                     <FontAwesome name="check" className="icon-with-padding" onClick={this.submit}/>
                     <FontAwesome name="close" className="icon-with-padding" onClick={this.reset}/>
                 </div>

@@ -25,10 +25,14 @@ class CategoryCreate extends Component {
 
     render() {
         return (
-            <div>
-                <ItemCreate placeholder='Add a category' propertyToShow='category' color={this.state.color}/>
-               {/* <button onClick={this.togglePopup}> Show colorPicker </button> */}
-               <ColorPopup showPopup={this.state.showPopup}/>
+            <div className="flex space-between">
+               <div className="color-picker-container">
+                    <div className="color-bullet center-margin-from-top"  onClick={this.togglePopup}></div>
+                    <ColorPopup showPopup={this.state.showPopup}/>
+               </div>
+               <div className="full-width">
+                    <ItemCreate placeholder='Add a category' propertyToShow='category' color={this.state.color}/>
+               </div>
             </div>
         );
     }

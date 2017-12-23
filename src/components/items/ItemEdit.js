@@ -5,6 +5,7 @@ import React, { Component } from 'react';
 import { dbData } from '../../config/constants';
 import FontAwesome from 'react-fontawesome';
 
+import ConfirmationPopup from '../popups/ConfirmationPopup';
 import '../../assets/css/General.css';
 
 class ItemEdit extends Component {
@@ -19,7 +20,8 @@ class ItemEdit extends Component {
         this.state = {
             item : propsItem,
             initialItem: propsItem,
-            isEditable : false
+            isEditable : false,
+            showConfirmPopup: false
         };
 
        this.edit = this.edit.bind(this);
@@ -51,12 +53,18 @@ class ItemEdit extends Component {
         event.preventDefault();
         if(this.isValidLabel(this.state.item.label)){
             this.setReadOnly();
-            if(this.props.propertyToShow === 'category'){
-                this.updateCategory();
+            if(this.props.propertyToShow === 'category') {
+                this.showConfirmationPopup();
+               // this.updateCategory();
             }else{
                 this.updateProduct();
             }
         }
+    }
+    showConfirmationPopup() {
+        this.setState({
+            showConfirmPopup: true
+        });
     }
 
     updateCategory(){
@@ -107,6 +115,11 @@ class ItemEdit extends Component {
                                 <FontAwesome name="close" className="icon-with-padding" onClick={this.resetItem}/>
                             </div>
                     </div>
+                }
+
+                { this.state.showConfirmPopup ? 
+                    <ConfirmationPopup item={this.props.item} showPopup={this.state.showConfirmPopup} />
+                    : null
                 }
             </div>
         );

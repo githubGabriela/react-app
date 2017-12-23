@@ -6,6 +6,7 @@ import FontAwesome from 'react-fontawesome';
 
 import ItemEdit from './ItemEdit';
 import ModalRemove from './ModalRemove';
+import ColorPopup from '../popups/ColorPopup';
 
 import '../../assets/css/General.css';
 
@@ -16,7 +17,9 @@ class Items extends Component {
                  selectedItems: [],
                  modalIsOpened: false,
                  allChecked: false,
-                 showRemoveButtons : false
+                 showRemoveButtons : false,
+                 showColorPopup: false,
+                 colorForPopup: ''
              }
 
              this.removeItem = this.removeItem.bind(this);
@@ -24,6 +27,14 @@ class Items extends Component {
              this.openModal = this.openModal.bind(this);
              this.checkAllItems = this.checkAllItems.bind(this);
              this.toggleCheckAll = this.toggleCheckAll.bind(this);
+             this.toggleColorPopup = this.toggleColorPopup.bind(this);
+         }
+
+         toggleColorPopup(item){
+            this.setState({
+                showColorPopup: true,
+                colorForPopup: item.color
+            })
          }
     
          toggleCheckAll = (event) => {
@@ -102,7 +113,7 @@ class Items extends Component {
         const {allChecked} = this.state.allChecked;
 
         return (
-            <div>
+            <div className="scroll">
                     <div className="section-header">
                         <div className="icon-on-left">
                             <input type="checkbox" value="allChecked" checked={allChecked}
@@ -131,7 +142,10 @@ class Items extends Component {
                                                 onChange={(event)=> { this.handleItem(event.target.checked, item)}}/>
                                     </div>        
                                     <div className="item-image category-image"></div>
+                                    <div className="color-bullet center-margin-from-top" style={{backgroundColor: item.color}} onClick={()=> this.toggleColorPopup(item)}></div>
+                                  
                                 </div>
+                               
                                 <ItemEdit item={item} propertyToShow={this.props.propertyToShow}> 
                                 </ItemEdit>
 
@@ -149,6 +163,8 @@ class Items extends Component {
                         </div>
                     })
                 }
+
+                <ColorPopup showPopup={this.state.showColorPopup} color={this.state.colorForPopup}/>
                
             </div>
         );

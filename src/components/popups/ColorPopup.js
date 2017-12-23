@@ -10,17 +10,23 @@ class ColorPopup extends Component {
             color: '#372883',
             modalIsOpened : props.showPopup
         }
-
         this.colorChanged = this.colorChanged.bind(this);
         this.openModal = this.openModal.bind(this);
         this.closeModal = this.closeModal.bind(this);
     }
 
+    componentWillReceiveProps(nextProps) {
+        if(this.props != nextProps && nextProps.color) {
+            this.setState({
+                color: nextProps.color
+            })
+        }
+      }
+
     colorChanged(event){
         this.setState({
             color: event.hex
         });
-        console.log(this.state.color);
     }
 
     openModal(){
@@ -45,21 +51,16 @@ class ColorPopup extends Component {
             }
           };
 
-        const choosedColor = {
-            backgroundColor: this.state.color,
-           
-        }
+
         return (
                 <Modal
                     style={modalStyle}
                     ariaHideApp={false}
-                    isOpen={this.props.showPopup}
-                    contentLabel="Are you sure do you want to remove this item?"
-                >
+                    isOpen={this.props.showPopup}>
                 <div className="popup-container">
                     <FontAwesome name="close" className="popup-close-icon" onClick={this.closeModal}/>
-                    <div className="popup-header" style={choosedColor}>
-                        Choose a color 
+                    <div className="popup-header" style={{backgroundColor: this.state.color}}>
+                        Choose a color
                     </div>
                     <div className="popup-body">
                         <SketchPicker onChange={this.colorChanged}/> 
