@@ -12,4 +12,5 @@ const config = {
 firebase.initializeApp(config);
 
 export const dbRef= firebase.database().ref();
-export const dbData = dbRef.child('data');
+export const dbDataCategories = dbRef.child('categories');
+export const dbDataProducts = dbRef.child('products');

@@ -1,10 +1,12 @@
 // Usage:
 // <CategoryCreate/>
-
 import React, { Component } from 'react';
-import ColorPopup from '../popups/ColorPopup';
 
-import ItemCreate from '../items/ItemCreate';
+import ColorPopup from '../../../popups/ColorPopup';
+import CategoryNameCreate from './CategoryNameCreate';
+
+import '../../../../assets/css/General.css';
+
 
 class CategoryCreate extends Component {
     constructor() {
@@ -20,7 +22,6 @@ class CategoryCreate extends Component {
         this.setState({
             showPopup: !this.state.showPopup
         })
-        console.log(this.state.showPopup);
     }
 
     render() {
@@ -31,7 +32,7 @@ class CategoryCreate extends Component {
                     <ColorPopup showPopup={this.state.showPopup}/>
                </div>
                <div className="full-width">
-                    <ItemCreate placeholder='Add a category' propertyToShow='category' color={this.state.color}/>
+                    <CategoryNameCreate color={this.state.color}/>
                </div>
             </div>
         );

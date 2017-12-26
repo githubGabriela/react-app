@@ -2,8 +2,8 @@ import React from 'react';
 import { Route, Link } from 'react-router-dom';
 import FontAwesome from  'react-fontawesome';
 
-import  AdminCategories  from '../categories/AdminCategories';
-import  AdminProducts  from '../products/AdminProducts';
+import  AdminCategories  from '../admin/admin-categories/list/AdminCategories';
+import  AdminProducts  from '../admin/admin-products/list/AdminProducts';
 
 
 const AdminTabs = () => (
@@ -16,10 +16,10 @@ const AdminTabs = () => (
             <li><Link to="/Admin/Products">
                     <FontAwesome name='product-hunt'/>
                 </Link>
-            </li>
+            </li> 
         </ul>
-        <Route path="/Admin/Products" component={AdminWithProducts}/>
         <Route path="/Admin/Categories" component={AdminWithCategories}/>
+        <Route path="/Admin/Products" component={AdminWithProducts}/>
     </div>
 )
 

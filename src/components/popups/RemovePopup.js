@@ -1,11 +1,10 @@
 // Usage:
-// <ModalRemove selectedItems={this.state.selectedItems} modalIsOpened={this.state.modalIsOpened}
-// propertyToShow="category"/>
+// <RemovePopup selectedItems={this.state.selectedItems} modalIsOpened={this.state.modalIsOpened}
 
 import React, { Component } from 'react';
 import Modal from 'react-modal';
 
-import { dbData } from '../../config/constants';
+import { dbDataCategories } from '../../config/constants';
 
 function ShowSelectedItems(props){
     const data = props.selectedItems;
@@ -24,7 +23,7 @@ function ShowSelectedItems(props){
     );
 }
 
-class ModalRemove extends Component {
+class RemovePopup extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -58,7 +57,7 @@ class ModalRemove extends Component {
    
     removeFromDb(key) {
         if(key){
-            dbData.child(key).remove();
+            dbDataCategories.child(key).remove();
         }
     }
 
@@ -87,4 +86,4 @@ class ModalRemove extends Component {
     }
 }
 
-export default ModalRemove;
+export default RemovePopup;

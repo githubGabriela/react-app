@@ -21,7 +21,7 @@ const Tabs = () => (
                         <FontAwesome name='shopping-basket'/>
                     </NavLink>
                 </li>
-                <li><NavLink to="/Products" activeClassName="active"> 
+                {/* <li><NavLink to="/Products" activeClassName="active"> 
                         <FontAwesome name='list'/>
                     </NavLink>
                 </li>
@@ -29,16 +29,17 @@ const Tabs = () => (
                         <FontAwesome name='history'/>
                     </NavLink>
                 </li>
+                */}
                 <li><NavLink to="/Admin" activeClassName="active">
                         <FontAwesome name='user-circle-o'/>
                     </NavLink>
-                </li>
+                </li> 
             </ul>
 
             <Route exact path="/" component={ShoppingListStack}/>
-            <Route path="/Products" component={ProductsStack}/>
+            {/* <Route path="/Products" component={ProductsStack}/>
+            <Route path="/History" component={HistoryItems}/> */}
             <Route path="/Admin" component={AdminPage}/>
-            <Route path="/History" component={HistoryItems}/>
         </div>
     </Router>
 )

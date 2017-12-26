@@ -4,11 +4,16 @@
 import React, { Component } from 'react';
 import FontAwesome from 'react-fontawesome';
 
-import ItemEdit from './ItemEdit';
-import ModalRemove from './ModalRemove';
-import ColorPopup from '../popups/ColorPopup';
+import ProductNameEdit from '../admin-products/crud/ProductNameEdit';
+import CategoryNameEdit from '../admin-categories/crud/CategoryNameEdit';
+import ColorPopup from '../../popups/ColorPopup';
 
-import '../../assets/css/General.css';
+import CategoriesHeader from '../admin-categories/list/CategoriesHeader';
+import CategoryItemInfo from '../admin-categories/list/CategoryItemInfo';
+import CategoryRemove from '../admin-categories/crud/CategoryRemove';
+import RemovePopup from '../../popups/RemovePopup';
+
+import '../../../assets/css/General.css';
 
 class Items extends Component {
      constructor(props) {
@@ -33,7 +38,7 @@ class Items extends Component {
          toggleColorPopup(item){
             this.setState({
                 showColorPopup: true,
-                colorForPopup: item.color
+                colorForPopup: item.value.color
             })
          }
     
@@ -110,62 +115,22 @@ class Items extends Component {
         }
 
     render() {
-        const {allChecked} = this.state.allChecked;
-
         return (
-            <div className="scroll">
-                    <div className="section-header">
-                        <div className="icon-on-left">
-                            <input type="checkbox" value="allChecked" checked={allChecked}
-                                   onChange={this.toggleCheckAll}/>
-                        </div>
-                        <div className="section-title"> {this.props.sectionTitle} </div>
-                        <div className="icon-on-right">
-                            {this.state.showRemoveButtons ? 
-                                <FontAwesome name="close" onClick={this.openModal}/>
-                            : null
-                            }
-                        </div>
-                        
-                    </div>
-                       
-                   
+            <div>         
+               <CategoriesHeader allChecked={this.state.allChecked} showRemoveButtons="true"/>
                 {
                     this.props.items.map((item) => {
                         return <div className="section-item" key={item.key}>
-                        {/* TODO - create super component form ModalRemove that will contain the checkbox */}
-                                <div className="container-category-img flex">
-                                    <div className="center-from-top icon-on-left">
-                                        <input type="checkbox" 
-                                                value={item.label}
-                                                checked={item.isChecked}
-                                                onChange={(event)=> { this.handleItem(event.target.checked, item)}}/>
-                                    </div>        
-                                    <div className="item-image category-image"></div>
-                                    <div className="color-bullet center-bullet-from-top" style={{backgroundColor: item.color}} onClick={()=> this.toggleColorPopup(item)}></div>
-                                  
-                                </div>
-                               
-                                <ItemEdit item={item} propertyToShow={this.props.propertyToShow}> 
-                                </ItemEdit>
-
-                            <div className="center-from-top icon-on-right">
-                                { this.state.showRemoveButtons ? 
-                                    <div>
-                                        <FontAwesome name="close" onClick={()=> {this.removeItem(item); this.openModal()}}/>
-                                        <ModalRemove selectedItems={this.state.selectedItems} 
-                                                    modalIsOpened={this.state.modalIsOpened}
-                                                    propertyToShow={this.props.propertyToShow}/>
-                                    </div>
-                                : null
-                                }
-                            </div>
+                                <CategoryItemInfo item={item}/>
+                                <CategoryNameEdit item={item}/>
+                                
+                            
+                                <CategoryRemove item={item}/>
                         </div>
                     })
                 }
-
                 <ColorPopup showPopup={this.state.showColorPopup} color={this.state.colorForPopup}/>
-               
+                <RemovePopup selectedItems={this.state.selectedItems} modalIsOpened={this.state.modalIsOpened}/> 
             </div>
         );
     }

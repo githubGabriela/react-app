@@ -4,7 +4,7 @@
 import React, { Component } from 'react';
 
 import CategoryWithProducts from '../categories/CategoryWithProducts';
-import { hocCategories } from '../categories/HocCategories';
+import { hocItems } from '../admin/hoc/HocItems';
 import CollapseSections from '../collapse/CollapseSections';
 
 class AllProducts extends Component {
@@ -40,6 +40,6 @@ class AllProducts extends Component {
     }
 }
 
-const Products = hocCategories(AllProducts);
+const Products = hocItems(AllProducts);
 
 export default Products;

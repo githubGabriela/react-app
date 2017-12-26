@@ -3,7 +3,7 @@ import Modal from 'react-modal';
 import FontAwesome from 'react-fontawesome';
 
 import '../../assets/css/General.css';
-import { hocPopup } from './HocPopup';
+import { hocPopup } from './hoc/HocPopup';
 
 class Confirmation extends Component {
     constructor(props){

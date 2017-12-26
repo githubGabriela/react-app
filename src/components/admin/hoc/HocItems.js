@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 
-import { dbData } from '../../config/constants';
+import { dbDataCategories, dbDataProducts } from '../../../config/constants';
 
-export function hocCategories (WrappedComponent) {
+export function hocItems (WrappedComponent) {
     return class extends React.Component {
         constructor(props){
             super(props);
             this.state = {
                 categories : [],
+                products: [],
                 selectedCategory: undefined
             }
             this.categoryChanged = this.categoryChanged.bind(this);
@@ -15,19 +16,14 @@ export function hocCategories (WrappedComponent) {
 
         componentDidMount() {
             this.getCategories();
+            this.getProducts();
         }
         
         getCategories() {
-            dbData.on('value', snap => {
+            dbDataCategories.on('value', snap => {
                 const items = [];
                 snap.forEach( childSnap => {
-                    let item = { key: childSnap.key, label: childSnap.val().category, value: childSnap.key, color: childSnap.val().color, products:[]};
-                    childSnap.forEach(itemWithProduct => {
-                        if(itemWithProduct.val().product){
-                            item['products'].push({key: itemWithProduct.key, label: itemWithProduct.val().product, value: itemWithProduct.key, product: itemWithProduct});
-                        }
-                    })
-                    items.push(item);
+                    items.push({ key: childSnap.key, value: childSnap.val()});
                 });
                 this.setState({
                     categories : items,
@@ -37,11 +33,25 @@ export function hocCategories (WrappedComponent) {
             });
         }
 
-        categoryChanged(category) {
+        getProducts() {
+            dbDataProducts.on('value', snap => {
+                const items = [];
+                snap.forEach( childSnap => {
+                    items.push({ key: childSnap.key, value: childSnap.val()});
+                });
+                this.setState({
+                    products : items
+                });
+                console.log(this.state.products);
+            });
+        }
+
+
+        categoryChanged(item) {
             this.props.categories.forEach( item => {
-                if(item.value === category.value){
+                if(item.value === item.value){
                     this.setState({
-                        selectedCategory :item
+                        selectedCategory: item
                     });
                 }
             });
@@ -49,6 +59,7 @@ export function hocCategories (WrappedComponent) {
 
          render (){
             return <WrappedComponent categories={this.state.categories} 
+                                     products={this.state.products}
                                      selectedCategory={this.state.selectedCategory} 
                                      {...this.props} />;
         }

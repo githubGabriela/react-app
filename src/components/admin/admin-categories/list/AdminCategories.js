@@ -3,10 +3,11 @@
 
 import React, { Component } from 'react';
 
-import Items from '../items/Items';
-import CategoryCreate from '../categories/CategoryCreate';
-import { hocCategories } from './HocCategories';
-import '../../assets/css/General.css';
+import Items from '../../items/Items';
+import CategoryCreate from '../crud/CategoryCreate';
+import { hocItems } from '../../hoc/HocItems';
+
+import '../../../../assets/css/General.css';
 
 class Categories extends Component {
     render() {
@@ -21,6 +22,6 @@ class Categories extends Component {
     }
 }
 
-const AdminCategories = hocCategories(Categories);
+const AdminCategories = hocItems(Categories);
 
 export default AdminCategories;
