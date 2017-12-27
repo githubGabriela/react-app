@@ -25,7 +25,7 @@ class CategoriesHeader extends Component {
             </div>
             <div className="section-title"> Categories </div>
             <div className="icon-on-right">
-                {this.props.showRemoveButtons ? 
+                {this.props.isChecked? 
                     <FontAwesome name="close" onClick={this.openModal}/>
                 : null
                 }

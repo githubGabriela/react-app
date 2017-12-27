@@ -18,92 +18,56 @@ class CategoriesList extends Component {
 
      constructor(props) {
              super(props);
-            console.log('props', this.props.items);
              this.state = {
                  checkedItems: [],
-                 checkedItemsState: [],
-                 showRemoveButtons : false,
+                 allIsChecked : false,
                  modalIsOpened: false,
                  showColorPopup: false,
-                 colorForPopup: '',
-                 allIsChecked : false
+                 colorForPopup: ''
              }
 
-             this.toggleChecked = this.toggleChecked.bind(this);
-             this.toggleAllItems = this.toggleAllItems.bind(this);
+             this.toggleSelections = this.toggleSelections.bind(this);
              this.openModal = this.openModal.bind(this);
              this.toggleColorPopup = this.toggleColorPopup.bind(this);
-             this.handleTempArray = this.handleTempArray.bind(this);
          }
 
-         handleTempArray(allSelected, individualSelected, selectedItem, checked) {
-             let items = this.state.checkedItemsState;
+         toggleSelections(allSelected, selectedItem, checked) {
+             let propsItems = this.props.items;
+             let items = this.state.checkedItems;
              let allChecked = this.state.allIsChecked;
 
-             if(allSelected && !individualSelected) {
-                if(checked){
-                    this.props.items.forEach( item => {
-                        items.push(item.key);
-                    });
-                } else {
-                items = [];
-                allChecked = false;
-            }
-            } else if(individualSelected){
-                if(checked) {
-                    allChecked = false;
-                    items.push(selectedItem.key);
-
-                    if(items.length === this.props.items.length){
+             if(allSelected && !selectedItem) {
+                    items = [];
+                    if(checked) {
+                        propsItems.forEach( item => {
+                            items.push(item);
+                        });
                         allChecked = true;
-                    }
-                } else {
-                    let index = items.indexOf(selectedItem.key);
-                    if(index !== -1){
-                        items.splice(index, 1);
+                    } else {
                         allChecked = false;
-                    }
                 }
+            } else if(selectedItem) {
+                    allChecked = false;
+                    if(checked) {
+                        items.push(selectedItem);
+                        if(items.length === propsItems.length){
+                            allChecked = true;
+                        }
+                    } else {
+                        let index = items.indexOf(selectedItem);
+                        if(index !== -1){
+                            items.splice(index, 1);
+                        }
+                    }
             }
             this.setState({
-                checkedItemsState: items,
+                checkedItems: items,
                 allIsChecked: allChecked
             });
             console.log(items);
          }
 
 
-        //  Checkboxes
-        toggleChecked(checked, item) {
-            this.handleTempArray(false, true, item, checked);
-            
-           let checkedItems = this.state.checkedItems;
-            if(checked) {
-                checkedItems.push(item);
-            } else {
-                let index = checkedItems.indexOf(item);
-                if(index !== -1){
-                    checkedItems.splice(index, 1);
-                }
-            }
-            this.setState({
-                checkedItems: checkedItems
-            });
-            console.log(this.state.checkedItems);
-        }
-
-        toggleAllItems(checked){
-            this.handleTempArray(true, false, undefined, checked);
-
-            let checkedItems = checked ? this.props.items : [];
-            this.setState({
-                checkedItems: checkedItems,
-                allIsChecked: checked
-            })
-        }
-
-
-        // ColorPopup
         toggleColorPopup(item) {
             this.setState({
                 showColorPopup: true,
@@ -120,13 +84,14 @@ class CategoriesList extends Component {
     render() {
         return (
             <div>         
-               <CategoriesHeader isChecked={this.state.allIsChecked} checkedAllItems={(checked)=> { this.toggleAllItems(checked)}} showRemoveButtons="true"/>
+               <CategoriesHeader isChecked={this.state.allIsChecked} checkedAllItems={(checked)=> { this.toggleSelections(true, undefined, checked)}}/>
                 {
                     this.props.items.map((item) => {
                         return <div className="section-item" key={item.key}>
-                                <CategoryItemInfo isChecked={this.state.checkedItemsState.indexOf(item.key) !== -1} item={item} checkedItem={(checked, item) => this.toggleChecked(checked, item)}/>
+                                <CategoryItemInfo isChecked={this.state.checkedItems.indexOf(item) !== -1} item={item} 
+                                                  checkedItem={(checked, item) => this.toggleSelections(false, item, checked)}/>
                                 <CategoryNameEdit item={item}/>
-                                <CategoryRemove item={item}/>
+                                <CategoryRemove item={item} showRemoveButton={this.state.checkedItems.indexOf(item) !== -1}/>
                         </div>
                     })
                 }

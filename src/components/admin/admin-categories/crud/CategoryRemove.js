@@ -21,7 +21,10 @@ class CategoryRemove extends Component {
     render() {
         return (
             <div className="center-from-top icon-on-right">
-            <FontAwesome name="close" onClick={()=> {this.removeItem(this.props.item)}}/>
+            { this.props.showRemoveButton ? 
+                <FontAwesome name="close" onClick={()=> {this.removeItem(this.props.item)}}/>
+                : null
+            }
         </div>
         );
     }
