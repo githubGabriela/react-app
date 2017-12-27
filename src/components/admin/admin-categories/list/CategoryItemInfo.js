@@ -16,7 +16,8 @@ class CategoryItemInfo extends Component {
         return (
         <div className="container-category-img flex">
                 <div className="center-from-top icon-on-left">
-                    <input type="checkbox" value={this.props.item.value.name}
+                    <input type="checkbox" checked={this.props.isChecked}
+                                           value={this.props.item.value.name}
                                            onChange={(event)=> this.props.checkedItem(event.target.checked, this.props.item)}/>
                 </div>        
             <div className="item-image category-image"></div>

@@ -20,7 +20,8 @@ class CategoriesHeader extends Component {
         <div className="section-header">
             <div className="icon-on-left">
                 <input type="checkbox" value="allChecked" 
-                onChange={(event) => this.props.checkedAllItems(event.target.checked)}/>
+                    checked={this.props.isChecked}
+                    onChange={(event) => this.props.checkedAllItems(event.target.checked)}/> 
             </div>
             <div className="section-title"> Categories </div>
             <div className="icon-on-right">
