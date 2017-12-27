@@ -3,9 +3,9 @@
 
 import React, { Component } from 'react';
 
-import Items from '../../items/Items';
-import CategoryCreate from '../crud/CategoryCreate';
 import { hocItems } from '../../hoc/HocItems';
+import CategoriesList from './CategoriesList';
+import CategoryCreate from '../crud/CategoryCreate';
 
 import '../../../../assets/css/General.css';
 
@@ -16,7 +16,7 @@ class Categories extends Component {
                 <div className="category-create">
                     <CategoryCreate/>
                 </div>
-                <Items sectionTitle="Categories" items={this.props.categories} propertyToShow='category'/>
+                <CategoriesList sectionTitle="Categories" items={this.props.categories} propertyToShow='category'/>
             </div>
         );
     }

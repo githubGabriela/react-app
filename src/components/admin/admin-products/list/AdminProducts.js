@@ -5,7 +5,7 @@ import React, { Component } from 'react';
 import Dropdown from 'react-dropdown';
 import 'react-dropdown/style.css';
 
-import Items from '../../items/Items';
+import ProductsList from '../list/ProductsList';
 import ProductCreate from '../crud/ProductCreate';
 import { hocItems } from '../../hoc/HocItems';
 
@@ -17,10 +17,10 @@ class Products extends Component {
         return (
             <div>
                 <div> Products </div>
-
+{/* 
                 <ProductCreate selectedCategory='categoryTest'/>
-                <Items sectionTitle='categoryTest' 
-                               items={this.props.products}/>
+                <ProductsList sectionTitle='categoryTest' 
+                               items={this.props.products}/> */}
 
                 {/* <Dropdown options={this.props.categories} 
                         value={this.props.selectedCategory} 
@@ -31,7 +31,7 @@ class Products extends Component {
 
                     <div> 
                         <ProductCreate selectedCategory={this.props.selectedCategory}/>
-                        <Items sectsionTitle={this.props.selectedCategory} 
+                        <ProductsList sectionTitle={this.props.selectedCategory} 
                                items={this.props.products}/>
                         </div>
 

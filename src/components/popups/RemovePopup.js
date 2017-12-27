@@ -1,5 +1,5 @@
 // Usage:
-// <RemovePopup selectedItems={this.state.selectedItems} modalIsOpened={this.state.modalIsOpened}
+// <RemovePopup checkedItems={this.state.checkedItems} modalIsOpened={this.state.modalIsOpened}
 
 import React, { Component } from 'react';
 import Modal from 'react-modal';
@@ -7,7 +7,7 @@ import Modal from 'react-modal';
 import { dbDataCategories } from '../../config/constants';
 
 function ShowSelectedItems(props){
-    const data = props.selectedItems;
+    const data = props.checkedItems;
 
     const renderedItems = data.map((item) => {
         return <div key={item.key}>
@@ -48,7 +48,7 @@ class RemovePopup extends Component {
     
     removeSelectedItems(event) {
         event.preventDefault();
-        this.props.selectedItems.forEach(item => {
+        this.props.checkedItems.forEach(item => {
             this.removeFromDb(item.key);
             this.closeModal();
         });
@@ -63,6 +63,7 @@ class RemovePopup extends Component {
 
     render() {
         return (
+            <div> remove: {this.props.checkedItems.length}
         <Modal
             ariaHideApp={false}
             isOpen={this.props.modalIsOpened}
@@ -72,16 +73,17 @@ class RemovePopup extends Component {
         >
             <button onClick={this.removeSelectedItems}>Yes</button>
             <button onClick={this.closeModal}>No</button>
-            <div>
-                {
-                    this.props.selectedItems.map((item) => {
-                        return <div key={item.key}>
-                            <div>{item.label}</div>
-                        </div>
-                        })
-                }
-            </div>
+                    <div>
+                    {
+                        this.props.checkedItems.map((item) => {
+                            return <div key={item.key}>
+                                <div>{item.label}</div>
+                            </div>
+                            })
+                    } 
+                    </div>
         </Modal>
+        </div>
         );
     }
 }

@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import FontAwesome from 'react-fontawesome';
 
-import { dbDataCategories } from '../../../../config/constants';
+import { dbDataPro, dbDataProducts } from '../../../../config/constants';
 
 import '../../../../assets/css/General.css';
 
-class CategoryRemove extends Component {
+class ProductRemove extends Component {
 
     constructor(){
         super();
@@ -14,7 +14,7 @@ class CategoryRemove extends Component {
 
     removeItem(item){
         if(item.key){
-            dbDataCategories.child(item.key).remove();
+            dbDataProducts.child(item.key).remove();
         }
     }    
 
@@ -27,4 +27,4 @@ class CategoryRemove extends Component {
     }
 }
 
-export default CategoryRemove;
+export default ProductRemove;
