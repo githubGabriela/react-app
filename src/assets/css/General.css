@@ -159,8 +159,18 @@
     color: #34495e;
     text-align: center;
 }
+.popup-remove-container {
+    color: #34495e;
+}
+
 .popup-header {
     padding: 20px;
+    color: white;
+    font-weight: bold;
+}
+.popup-remove-header {
+    padding: 20px;
+    background-color: green;
     color: white;
     font-weight: bold;
 }

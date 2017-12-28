@@ -16,7 +16,7 @@ class Categories extends Component {
                 <div className="category-create">
                     <CategoryCreate/>
                 </div>
-                <CategoriesList sectionTitle="Categories" items={this.props.categories} propertyToShow='category'/>
+                <CategoriesList sectionTitle="Categories" items={this.props.categories}/>
             </div>
         );
     }

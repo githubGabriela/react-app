@@ -1,5 +1,5 @@
 // Usage:
-// <Items sectionTitle="Categories" items={this.props.categories} propertyToShow='category'/>
+//  <CategoriesList sectionTitle="Categories" items={this.props.categories}/>
 
 import React, { Component } from 'react';
 import FontAwesome from 'react-fontawesome';
@@ -21,13 +21,15 @@ class CategoriesList extends Component {
              this.state = {
                  checkedItems: [],
                  allIsChecked : false,
-                 modalIsOpened: false,
+                 itemsForRemovePopup: [],
+                 removePopupOpened: false,
                  showColorPopup: false,
                  colorForPopup: ''
              }
 
              this.toggleSelections = this.toggleSelections.bind(this);
-             this.openModal = this.openModal.bind(this);
+             this.removeItemsFromDb = this.removeItemsFromDb.bind(this);
+             this.closeRemoveModal = this.closeRemoveModal.bind(this);
              this.toggleColorPopup = this.toggleColorPopup.bind(this);
          }
 
@@ -64,7 +66,6 @@ class CategoriesList extends Component {
                 checkedItems: items,
                 allIsChecked: allChecked
             });
-            console.log(items);
          }
 
 
@@ -75,28 +76,56 @@ class CategoriesList extends Component {
             })
          }
          
-         openModal() {
+         openRemovePopup(items) {
             this.setState({
-                modalIsOpened : true
+                removePopupOpened : true,
+                itemsForRemovePopup: items
             });
+        }
+
+        removeIconAllClicked(){
+            this.openRemovePopup(this.state.checkedItems);
+        }
+
+        removeIconItemClicked(item){
+            this.openRemovePopup([item]);
+        }
+
+        removeItemsFromDb(){
+            console.log('confirm', this.state.itemsForRemovePopup);
+               // if(item.key){
+            //     dbDataCategories.child(item.key).remove();
+            // }
+        }
+
+        closeRemoveModal(){
+            console.log('closeRemoveModal');
+            this.setState({
+                removePopupOpened : false
+            })
         }
 
     render() {
         return (
             <div>         
-               <CategoriesHeader isChecked={this.state.allIsChecked} checkedAllItems={(checked)=> { this.toggleSelections(true, undefined, checked)}}/>
+               <CategoriesHeader isChecked={this.state.allIsChecked} 
+                                 checkedAllItems={(checked)=> { this.toggleSelections(true, undefined, checked)}}
+                                 removeIconClicked={(item) => this.removeIconAllClicked()}/>
                 {
                     this.props.items.map((item) => {
                         return <div className="section-item" key={item.key}>
                                 <CategoryItemInfo isChecked={this.state.checkedItems.indexOf(item) !== -1} item={item} 
                                                   checkedItem={(checked, item) => this.toggleSelections(false, item, checked)}/>
                                 <CategoryNameEdit item={item}/>
-                                <CategoryRemove item={item} showRemoveButton={this.state.checkedItems.indexOf(item) !== -1}/>
+                                <CategoryRemove item={item} showRemoveButton={this.state.checkedItems.indexOf(item) !== -1}
+                                                removeIconClicked={(item) => this.removeIconItemClicked(item)}/>
                         </div>
                     })
                 }
                 <ColorPopup showPopup={this.state.showColorPopup} color={this.state.colorForPopup}/>
-                <RemovePopup checkedItems={this.state.checkedItems} modalIsOpened={this.state.modalIsOpened}/> 
+                <RemovePopup removePopupOpened={this.state.removePopupOpened} items={this.state.itemsForRemovePopup}
+                             confirmRemoveItems = {() => this.removeItemsFromDb()}
+                             closeRemoveModal={()=> this.closeRemoveModal()}/> 
             </div>
         );
     }
