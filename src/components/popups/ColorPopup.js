@@ -4,39 +4,7 @@ import { SketchPicker } from 'react-color';
 import FontAwesome from 'react-fontawesome';
 
 class ColorPopup extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            color: '#372883',
-            modalIsOpened : props.showPopup
-        }
-        this.colorChanged = this.colorChanged.bind(this);
-        this.openModal = this.openModal.bind(this);
-        this.closeModal = this.closeModal.bind(this);
-    }
-
-    componentWillReceiveProps(nextProps) {
-        if(this.props != nextProps && nextProps.color) {
-            this.setState({
-                color: nextProps.color
-            })
-        }
-      }
-
-    colorChanged(event){
-        this.setState({
-            color: event.hex
-        });
-    }
-
-    openModal(){
-        this.setState({modalIsOpened: true});
-    }
-
-    closeModal(){
-        this.setState({modalIsOpened: false});
-    }
-
+  
     render() {
         const modalStyle = {
             content : {
@@ -58,16 +26,16 @@ class ColorPopup extends Component {
                     ariaHideApp={false}
                     isOpen={this.props.showPopup}>
                 <div className="popup-container">
-                    <FontAwesome name="close" className="popup-close-icon" onClick={this.closeModal}/>
-                    <div className="popup-header" style={{backgroundColor: this.state.color}}>
+                    <FontAwesome name="close" className="popup-close-icon" onClick={() => this.props.close()}/>
+                    <div className="popup-header" style={{backgroundColor: this.props.color}}>
                         Choose a color
                     </div>
                     <div className="popup-body">
-                        <SketchPicker onChange={this.colorChanged}/> 
+                        <SketchPicker onChange={(event) => this.props.colorChanged(event.hex)}/> 
                     </div>
                     <div className="popup-footer">
-                        <button className="popup-btn btn-ok" onClick={this.closeModal}> Ok </button>
-                        <button className="popup-btn btn-cancel" onClick={this.closeModal}> Cancel </button>
+                        <button className="popup-btn btn-ok" onClick={() => this.props.close()}> Ok </button>
+                        <button className="popup-btn btn-cancel" onClick={() => this.props.close()}> Cancel </button>
                     </div>
                 </div>
                 </Modal>

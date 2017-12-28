@@ -12,24 +12,44 @@ class CategoryCreate extends Component {
     constructor() {
         super();
         this.state = {
-            color: '',
+            color: '#372883',
             showPopup: false
         }
-        this.togglePopup = this.togglePopup.bind(this);
+        this.openPopup = this.openPopup.bind(this);
+        this.colorSelected = this.colorSelected.bind(this);
     }
 
-    togglePopup(){
+    openPopup(){
         this.setState({
-            showPopup: !this.state.showPopup
+            showPopup: true
+        })
+    }
+    closePopup(){
+        this.setState({
+            showPopup: false
         })
     }
 
+    colorSelected(color){
+        this.setState({
+            color: color
+        });
+        console.log('color', color);
+    }
+
     render() {
+        let colorBullet = {
+            backgroundColor: this.state.color
+        }
+
         return (
             <div className="flex space-between">
                <div className="color-picker-container">
-                    <div className="color-bullet center-margin-from-top"  onClick={this.togglePopup}></div>
-                    <ColorPopup showPopup={this.state.showPopup}/>
+                    <div className="color-bullet center-margin-from-top" style={colorBullet} onClick={this.openPopup}></div>
+                    <ColorPopup color={this.state.color}
+                                showPopup={this.state.showPopup} 
+                                colorChanged={(color)=> this.colorSelected(color)} 
+                                close={() => {this.closePopup()}}/>
                </div>
                <div className="full-width">
                     <CategoryNameCreate color={this.state.color}/>
