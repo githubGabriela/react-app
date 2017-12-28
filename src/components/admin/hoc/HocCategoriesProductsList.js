@@ -118,7 +118,8 @@ export function hocCategoriesProductsList (WrappedComponent, header, dbData, lis
                                     <CategoryItemInfo isChecked={this.state.checkedItems.indexOf(item) !== -1} item={item} 
                                                     checkedItem={(checked, item) => this.toggleSelectedItems(false, item, checked)}/>
                                     : 
-                                    <ProductItemInfo />
+                                    <ProductItemInfo isChecked={this.state.checkedItems.indexOf(item) !== -1} item={item} 
+                                                     checkedItem={(checked, item) => this.toggleSelectedItems(false, item, checked)}/>
                                 }
                                  <NameEdit item={item} dbDataType={this.state.dbDataType}/>
                                  <RemoveItem item={item} showRemoveButton={this.state.checkedItems.indexOf(item) !== -1}
