@@ -9,7 +9,7 @@ export function hocItems (WrappedComponent) {
             this.state = {
                 categories : [],
                 products: [],
-                selectedCategory: undefined
+                selectedCategory: {key : '', value: ''}
             }
             this.categoryChanged = this.categoryChanged.bind(this);
         }
@@ -30,6 +30,7 @@ export function hocItems (WrappedComponent) {
                     selectedCategory: items[0]
                 });
                 console.log(this.state.categories);
+                console.log('selectedCategory', this.state.selectedCategory);
             });
         }
 

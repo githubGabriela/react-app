@@ -13,7 +13,7 @@ class CategoriesHeader extends Component {
                     checked={this.props.isChecked}
                     onChange={(event) => this.props.checkedAllItems(event.target.checked)}/> 
             </div>
-            <div className="section-title"> Categories </div>
+            <div className="section-title"> {this.props.title} </div>
             <div className="icon-on-right">
                 {this.props.isChecked? 
                     <FontAwesome name="close" onClick={()=> this.props.removeIconClicked(true)}/>

@@ -10,7 +10,7 @@ class Popup extends Component {
         return (
             <div>
                 {
-                    this.props.items.map((item) => {
+                    this.props.categories.map((item) => {
                         return <div key={item.key}>
                             <div>{item.value.name}</div>
                          </div>

@@ -79,7 +79,7 @@ class CategoriesList extends Component {
             })
          }
          
-         
+
         //  remove popup
         removeIconAllClicked(){
             this.openRemovePopup(this.state.checkedItems);
@@ -124,7 +124,8 @@ class CategoriesList extends Component {
     render() {
         return (
             <div>         
-               <CategoriesHeader isChecked={this.state.allIsChecked} 
+               <CategoriesHeader title="Categories"
+                                 isChecked={this.state.allIsChecked} 
                                  checkedAllItems={(checked)=> { this.toggleSelectedItems(true, undefined, checked)}}
                                  removeIconClicked={(item) => this.removeIconAllClicked()}/>
                 {
@@ -139,7 +140,8 @@ class CategoriesList extends Component {
                     })
                 }
                 <ColorPopup showPopup={this.state.showColorPopup} color={this.state.colorForPopup}/>
-                <RemovePopup removePopupOpened={this.state.removePopupOpened} items={this.state.itemsForRemovePopup}
+                <RemovePopup removePopupOpened={this.state.removePopupOpened} 
+                             categories={this.state.itemsForRemovePopup}
                              confirmRemoveItems = {() => this.removeItemsFromDb()}
                              closeRemovePopup={()=> this.closeRemovePopup()}/> 
             </div>

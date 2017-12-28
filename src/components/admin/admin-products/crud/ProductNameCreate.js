@@ -16,18 +16,20 @@ class ProductName extends Component {
 
     pushProductToDb(event) {
         event.preventDefault();
+        let product = { 
+            name:this.props.nameToUpdate,
+            category: this.props.categoryForProduct
+        }
+
+        console.log(product);
         dbDataProducts.push(
-            { 
-                name:this.props.nameToUpdate,
-                category: this.props.category
-            }
+          product
         ); 
    }
    
     render() {
         return (
-            <FontAwesome name="check" className="icon-with-padding"
-                         onClick={this.pushProductToDb}/>
+            <FontAwesome name="check" className="icon-with-padding" onClick={this.pushProductToDb}/>
         );
     }
 }
