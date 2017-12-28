@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import FontAwesome from 'react-fontawesome';
 
-import '../../../../assets/css/General.css';
+import '../../../assets/css/General.css';
 
-class CategoryRemove extends Component {
+class RemoveItem extends Component {
 
     render() {
         return (
@@ -17,4 +17,4 @@ class CategoryRemove extends Component {
     }
 }
 
-export default CategoryRemove;
+export default RemoveItem;

@@ -1,15 +1,14 @@
 // Usage:
-// <ProductNameEdit item={item}></ItemEdit>
+// <NameEdit item={item}/>
 
 import React, { Component } from 'react';
 import FontAwesome from 'react-fontawesome';
 
-import { dbDataProducts } from '../../../../config/constants';
-import { hocItemNameEdit } from '../../hoc/HocItemNameEdit';
+import { hocItemNameEdit } from '../hoc/HocItemNameEdit';
 
-import '../../../../assets/css/General.css';
+import '../../../assets/css/General.css';
 
-class ProductEdit extends Component {
+class Edit extends Component {
     constructor(){
         super();
         this.confirm = this.confirm.bind(this);
@@ -19,7 +18,7 @@ class ProductEdit extends Component {
         event.preventDefault();
         let key = this.props.item.key;
         if(key){
-            dbDataProducts.child(key).update({name : this.props.nameToUpdate}); 
+            this.props.dbDataType.child(key).update({name: this.props.nameToUpdate}); // dbDataType = dbDataCategories or dbDataProducts
         }
     }
 
@@ -31,15 +30,14 @@ class ProductEdit extends Component {
 }
 
 
-const ProductNameEdit = hocItemNameEdit(
-    ProductEdit,
+const NameEdit = hocItemNameEdit(
+    Edit,
     (getInitialInput) => { 
         return {
                 key: '',
                 value: ''
             }
         }
-    
 );
 
-export default ProductNameEdit;
+export default NameEdit;

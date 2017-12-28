@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import FontAwesome from 'react-fontawesome';
 
-import '../../../../assets/css/General.css';
+import '../../../assets/css/General.css';
 
-class CategoriesHeader extends Component {
+class Header extends Component {
 
     render() {
         return (
@@ -25,4 +25,4 @@ class CategoriesHeader extends Component {
     }
 }
 
-export default CategoriesHeader;
+export default Header;
