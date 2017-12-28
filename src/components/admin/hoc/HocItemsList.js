@@ -8,9 +8,6 @@ export function hocItemsList (WrappedComponent, getInitialInput){
         render(){
             return (
             <div>
-                {/* Header */}
-            
-            
                 <WrappedComponent nameToUpdate={this.state.item.value.name} {...this.props}/>
             </div>
             )

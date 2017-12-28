@@ -28,13 +28,14 @@ class CategoriesList extends Component {
                  colorForPopup: ''
              }
 
-             this.toggleSelections = this.toggleSelections.bind(this);
+             this.toggleSelectedItems = this.toggleSelectedItems.bind(this);
              this.removeItemsFromDb = this.removeItemsFromDb.bind(this);
-             this.closeRemoveModal = this.closeRemoveModal.bind(this);
+             this.closeRemovePopup = this.closeRemovePopup.bind(this);
              this.toggleColorPopup = this.toggleColorPopup.bind(this);
          }
 
-         toggleSelections(allSelected, selectedItem, checked) {
+        //  checkboxes
+         toggleSelectedItems(allSelected, selectedItem, checked) {
              let propsItems = this.props.items;
              let items = this.state.checkedItems;
              let allChecked = this.state.allIsChecked;
@@ -70,6 +71,7 @@ class CategoriesList extends Component {
          }
 
 
+        //  color popup
         toggleColorPopup(item) {
             this.setState({
                 showColorPopup: true,
@@ -77,13 +79,8 @@ class CategoriesList extends Component {
             })
          }
          
-         openRemovePopup(items) {
-            this.setState({
-                removePopupOpened : true,
-                itemsForRemovePopup: items
-            });
-        }
-
+         
+        //  remove popup
         removeIconAllClicked(){
             this.openRemovePopup(this.state.checkedItems);
         }
@@ -92,38 +89,49 @@ class CategoriesList extends Component {
             this.openRemovePopup([item]);
         }
 
+        openRemovePopup(items) {
+            this.setState({
+                removePopupOpened : true,
+                itemsForRemovePopup: items
+            });
+        }  
+        
+        closeRemovePopup() {
+            this.setState({
+                removePopupOpened : false
+            });
+            this.setInitialStateCheckboxes();
+        }
+
+        setInitialStateCheckboxes() {
+            this.setState({ 
+                allIsChecked: false,
+                checkedItems: [],
+                itemsForRemovePopup: []
+            });
+        }
+
         removeItemsFromDb(){
-            console.log('confirm', this.state.itemsForRemovePopup);
             this.state.itemsForRemovePopup.forEach( item => {
                 if(item.key){
                     dbDataCategories.child(item.key).remove();
                 }
             })
-            this.closeRemoveModal();
-            this.setState({ 
-                allIsChecked: false,
-                itemsForRemovePopup: []
-            });
+            this.closeRemovePopup();
         }
 
-        closeRemoveModal(){
-            console.log('closeRemoveModal');
-            this.setState({
-                removePopupOpened : false
-            })
-        }
 
     render() {
         return (
             <div>         
                <CategoriesHeader isChecked={this.state.allIsChecked} 
-                                 checkedAllItems={(checked)=> { this.toggleSelections(true, undefined, checked)}}
+                                 checkedAllItems={(checked)=> { this.toggleSelectedItems(true, undefined, checked)}}
                                  removeIconClicked={(item) => this.removeIconAllClicked()}/>
                 {
                     this.props.items.map((item) => {
                         return <div className="section-item" key={item.key}>
                                 <CategoryItemInfo isChecked={this.state.checkedItems.indexOf(item) !== -1} item={item} 
-                                                  checkedItem={(checked, item) => this.toggleSelections(false, item, checked)}/>
+                                                  checkedItem={(checked, item) => this.toggleSelectedItems(false, item, checked)}/>
                                 <CategoryNameEdit item={item}/>
                                 <CategoryRemove item={item} showRemoveButton={this.state.checkedItems.indexOf(item) !== -1}
                                                 removeIconClicked={(item) => this.removeIconItemClicked(item)}/>
@@ -133,7 +141,7 @@ class CategoriesList extends Component {
                 <ColorPopup showPopup={this.state.showColorPopup} color={this.state.colorForPopup}/>
                 <RemovePopup removePopupOpened={this.state.removePopupOpened} items={this.state.itemsForRemovePopup}
                              confirmRemoveItems = {() => this.removeItemsFromDb()}
-                             closeRemoveModal={()=> this.closeRemoveModal()}/> 
+                             closeRemovePopup={()=> this.closeRemovePopup()}/> 
             </div>
         );
     }
