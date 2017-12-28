@@ -4,6 +4,7 @@
 import React, { Component } from 'react';
 import FontAwesome from 'react-fontawesome';
 
+import { dbDataCategories } from '../../../../config/constants';
 import CategoriesHeader from './CategoriesHeader';
 import CategoryItemInfo from './CategoryItemInfo';
 import CategoryNameEdit from '../crud/CategoryNameEdit';
@@ -93,9 +94,16 @@ class CategoriesList extends Component {
 
         removeItemsFromDb(){
             console.log('confirm', this.state.itemsForRemovePopup);
-               // if(item.key){
-            //     dbDataCategories.child(item.key).remove();
-            // }
+            this.state.itemsForRemovePopup.forEach( item => {
+                if(item.key){
+                    dbDataCategories.child(item.key).remove();
+                }
+            })
+            this.closeRemoveModal();
+            this.setState({ 
+                allIsChecked: false,
+                itemsForRemovePopup: []
+            });
         }
 
         closeRemoveModal(){

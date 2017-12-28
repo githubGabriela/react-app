@@ -10,7 +10,6 @@ class RemovePopup extends Component {
    
     render() {
         return (
-            <div> remove: {this.props.items.length}
         <Modal
             ariaHideApp={false}
             isOpen={this.props.removePopupOpened}
@@ -33,7 +32,6 @@ class RemovePopup extends Component {
                 <button className="popup-btn btn-cancel" onClick={() => this.props.closeRemoveModal(true)}>No</button>
             </div>
         </Modal>
-        </div>
         );
     }
 }
