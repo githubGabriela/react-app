@@ -21,15 +21,15 @@ const Tabs = () => (
                         <FontAwesome name='shopping-basket'/>
                     </NavLink>
                 </li>
-                {/* <li><NavLink to="/Products" activeClassName="active"> 
+                <li><NavLink to="/Products" activeClassName="active"> 
                         <FontAwesome name='list'/>
                     </NavLink>
                 </li>
-                <li><NavLink to="/History" activeClassName="active"> 
+                 <li><NavLink to="/History" activeClassName="active"> 
                         <FontAwesome name='history'/>
                     </NavLink>
                 </li>
-                */}
+               
                 <li><NavLink to="/Admin" activeClassName="active">
                         <FontAwesome name='user-circle-o'/>
                     </NavLink>
@@ -37,8 +37,8 @@ const Tabs = () => (
             </ul>
 
             <Route exact path="/" component={ShoppingListStack}/>
-            {/* <Route path="/Products" component={ProductsStack}/>
-            <Route path="/History" component={HistoryItems}/> */}
+             <Route path="/Products" component={ProductsStack}/>
+            <Route path="/History" component={HistoryItems}/>
             <Route path="/Admin" component={AdminPage}/>
         </div>
     </Router>

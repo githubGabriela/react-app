@@ -8,9 +8,23 @@ import '../../assets/css/General.css';
 import FontAwesome from  'react-fontawesome';
 
 class ProductItem extends Component {
+    constructor(){
+        super();
+        this.add = this.add.bind(this);
+    }
+
+    add(event){
+        event.preventDefault();
+        this.props.addToShoppingList(this.props.product);
+    }
+
+    remove(event){
+        event.preventDefault();
+        this.props.removeFromShoppingList(this.props.product);
+    }
+
     render() {
         let imageStyle = {
-            // backgroundImage: 'url("./tomatoes.jpg")',
             borderColor: this.props.color
         }
 
@@ -21,17 +35,16 @@ class ProductItem extends Component {
                         <div className="item-image product-image" style={imageStyle}>
                         </div>
                     </div>
-                    <label className="center-from-top">{this.props.product.label}</label>
+                    <label className="center-from-top">{this.props.product.value.name}</label>
                 </div>
 
                 <div>
                     {!this.props.hideCart ? 
                         <div className="center-from-top icon-on-right">
                             { this.props.showRemoveCart ? 
-                            <FontAwesome name="shopping-cart" className="cart-remove"/>
-                            :
-                            <FontAwesome name="cart-plus" className="cart-add"/>
-                            }
+                            <FontAwesome name="shopping-cart" className="cart-remove" onClick={(event) => this.remove(event)}/>
+                            : <FontAwesome name="cart-plus" className="cart-add" onClick={(event) => this.add(event)}/>
+                             } 
                         </div>
                         :
                         null

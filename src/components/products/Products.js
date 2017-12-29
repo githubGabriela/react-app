@@ -3,17 +3,31 @@
 
 import React, { Component } from 'react';
 
-import CategoryWithProducts from '../categories/CategoryWithProducts';
-import { hocItems } from '../admin/hoc/HocItems';
+import { dbDataProducts, dbDataShoppingList, dbDataCategories } from '../../config/constants';
 import CollapseSections from '../collapse/CollapseSections';
+import ProductItem from './ProductItem';
 
-class AllProducts extends Component {
+class Products extends Component {
     constructor(props){
         super(props);
         this.state = {
+            items: [],
             showSectionForKey : undefined
         }
         this.toggleSection = this.toggleSection.bind(this);
+        this.addToShopping = this.addToShopping.bind(this);
+    }
+
+    componentDidMount() {
+        dbDataProducts.orderByChild('category').on('value', snap => {
+            let items = [];
+            snap.forEach(childSnap => {
+                items.push({key: childSnap.key, value: childSnap.val()});
+            });
+            this.setState({
+                items: items
+            })
+        });
     }
 
     toggleSection(key){
@@ -22,24 +36,37 @@ class AllProducts extends Component {
         });
     }
 
+    addToShopping(item){
+        if(item && item.value){
+            dbDataShoppingList.orderByChild('name').equalTo(item.value.name).once('value', snap=> {
+                let exists = snap.val();
+                if(!exists){
+                    dbDataShoppingList.push(item.value);
+                }
+            });
+           
+        }
+    }
+
     render() {
         return (
             <div>
                 <div className="section-header">
-                    <div className="section-title"> Products </div>
+                    <div className="section-title"> All Products </div>
                     <CollapseSections />
                 </div>
-              {this.props.categories.map((category) => {
-                  return <div key={category.key} onClick={()=> this.toggleSection(category.key)}>
-                            <CategoryWithProducts showSectionForKey={this.state.showSectionForKey}
-                                               category={category}/>
-                      </div>
+              {this.state.items.map((item) => {
+                  return (
+                    <ProductItem key={item.key}
+                                        product={item}
+                                        color={item.value.color}
+                                        addToShoppingList={(item)=> this.addToShopping(item)}/>
+                  )
+                  
              })}
             </div>
         )
     }
 }
-
-const Products = hocItems(AllProducts);
 
 export default Products;
