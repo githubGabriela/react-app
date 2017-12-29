@@ -4,28 +4,57 @@
 import React, { Component } from 'react';
 import FontAwesome from 'react-fontawesome';
 
-import { dbDataProducts } from '../../../../config/constants';
+import { dbDataProducts, dbDataCategories } from '../../../../config/constants';
 import { hocItemNameCreate } from '../../hoc/HocItemNameCreate';
 
 class ProductName extends Component {
 
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
+        this.state = {
+            name: '',
+            category: 'No category',
+            color: ''
+        }
         this.pushProductToDb = this.pushProductToDb.bind(this);
+    }
+
+    componentWillReceiveProps(props, nextProps){
+        if(props){
+            if(props.categoryForProduct && props.categoryForProduct !== this.state.category){
+                this.setState({
+                    category: props.categoryForProduct
+                });
+                this.getColor(props.categoryForProduct);
+            }
+            if(props.nameToUpdate && props.nameToUpdate !== this.state.nameToUpdate){
+                this.setState({
+                    nameToUpdate: props.nameToUpdate
+                })
+            }
+        }
     }
 
     pushProductToDb(event) {
         event.preventDefault();
-        let product = { 
-            name:this.props.nameToUpdate,
-            category: this.props.categoryForProduct
-        }
-
-        console.log(product);
         dbDataProducts.push(
-          product
+            { 
+                name:this.state.nameToUpdate,
+                category:this.state.category,
+                color: this.state.color
+            }
         ); 
    }
+
+    getColor(categoryName) {
+        dbDataCategories.orderByChild('name').equalTo(categoryName).on('value', snap => {
+            snap.forEach( childSnap => {
+                this.setState({
+                    color: childSnap.val().color
+                })
+            });
+        })
+}
    
     render() {
         return (

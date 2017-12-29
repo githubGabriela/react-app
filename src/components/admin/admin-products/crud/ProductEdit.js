@@ -33,7 +33,6 @@ class ProductEdit extends Component {
     }
 
     itemNameChanged(value){
-        console.log(value);
         this.setState({
             name: value
         })

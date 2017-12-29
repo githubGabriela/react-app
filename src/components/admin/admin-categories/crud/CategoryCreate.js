@@ -34,7 +34,6 @@ class CategoryCreate extends Component {
         this.setState({
             color: color
         });
-        console.log('color', color);
     }
 
     render() {

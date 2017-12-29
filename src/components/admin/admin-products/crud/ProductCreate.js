@@ -8,27 +8,27 @@ class ProductCreate extends Component {
     constructor() {
         super();
         this.state = {
-            categoryForProduct: {
-                key: '',
-                name: ''
-            }
+            category: {}
         }
-        this.categorySelected = this.categorySelected.bind(this);
+        this.categoryChanged = this.categoryChanged.bind(this);
     }
 
-    categorySelected(category) {
-            // this.setState({
-            //     categoryForProduct: category  //format of the categoryForProduct: ({key : '', name: ''}
-            // });
+    categoryChanged(event) {
+        this.setState({
+            category: {
+                key : event.value,
+                name: event.label
+            }
+        });
+        console.log('categoryChanged', this.state.category);
     }
 
 
     render() {
         return (
             <div> 
-                <DropdownCategories categories={this.props.categories} 
-                                    categoryChanged={(category) => {this.categorySelected(category)}}/>
-                <ProductNameCreate categoryForProduct={this.state.categoryForProduct.name}/>
+                <DropdownCategories categorySelected={(event) => this.categoryChanged(event)}/>
+                <ProductNameCreate categoryForProduct={this.state.category.name}/>
             </div>
           
         );

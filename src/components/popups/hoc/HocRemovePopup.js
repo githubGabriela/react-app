@@ -11,7 +11,6 @@ export function hocRemovePopup (WrappedComponent) {
                 <Modal
                 ariaHideApp={false}
                 isOpen={this.props.removePopupOpened}
-                onAfterOpen={this.afterOpenModal}
                 onRequestClose={() => this.props.closeRemovePopup(true)}>
 
                 <div className="popup-remove-container">

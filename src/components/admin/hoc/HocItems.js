@@ -29,8 +29,6 @@ export function hocItems (WrappedComponent) {
                     categories : items,
                     selectedCategory: items[0]
                 });
-                console.log(this.state.categories);
-                console.log('selectedCategory', this.state.selectedCategory);
             });
         }
 
@@ -43,25 +41,23 @@ export function hocItems (WrappedComponent) {
                 this.setState({
                     products : items
                 });
-                console.log(this.state.products);
             });
         }
 
 
-        categoryChanged(item) {
-            this.props.categories.forEach( item => {
-                if(item.value === item.value){
-                    this.setState({
-                        selectedCategory: item
-                    });
-                }
-            });
+        categoryChanged(event) {
+            this.setState({
+                    selectedCategory:  {
+                        key: event.value , 
+                        value: event.label}
+                });
         }
 
          render (){
             return <WrappedComponent categories={this.state.categories} 
                                      products={this.state.products}
                                      selectedCategory={this.state.selectedCategory} 
+                                     categorySelected= {(item) => this.categoryChanged(item)}
                                      {...this.props} />;
         }
     }

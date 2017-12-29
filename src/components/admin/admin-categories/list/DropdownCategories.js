@@ -1,25 +1,42 @@
 // Udage
-// <DropdownCategories categories={this.props.categories} />
+// <DropdownCategories/>
 
 import React, { Component } from 'react';
-
 import Dropdown from 'react-dropdown';
 import 'react-dropdown/style.css';
 
-class DropdownCategories extends Component {
-q
-    render() {
-        let options = [];
-        this.props.categories.forEach(item => {
-            options.push({ value: item.key, label : item.value.name });
-        });
+import { dbDataCategories } from '../../../../config/constants';
 
+class DropdownCategories extends Component {
+    constructor(){
+        super();
+        this.state = {
+            categories: []
+        }
+    }
+
+    componentDidMount(){
+        dbDataCategories.on('value', snap => {
+            const items = [];
+            snap.forEach( childSnap => {
+                items.push({ value: childSnap.key, label: childSnap.val().name});
+            });
+            this.setState({
+                categories: items
+            })
+        });
+    }
+
+
+    render() {
         return (
-            <Dropdown options={options}
-                      onChange={(event) => this.props.categoryChanged({key : event.value, name: event.label})} 
-                      placeholder="Select a category" />
+            <Dropdown options={this.state.categories}
+                      onChange={(event) => this.props.categorySelected(event)} 
+                      placeholder="Select a category"/>
         );
     }
 }
+
+
 
 export default DropdownCategories;

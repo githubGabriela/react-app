@@ -28,7 +28,6 @@ export function hocPopup (WrappedComponent, header, body, popupType) {
     
         componentWillReceiveProps(nextProps) {
             if(this.props != nextProps && nextProps.showModal) {
-                console.log('nextProps.showModal', nextProps.showModal);
                 this.setState({
                     modalIsOpened: nextProps.showModal
                 })

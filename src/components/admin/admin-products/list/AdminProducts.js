@@ -4,7 +4,6 @@
 import React, { Component } from 'react';
 
 import { hocItems } from '../../hoc/HocItems';
-import DropdownCategories from '../../admin-categories/list/DropdownCategories';
 import ProductsList from './ProductsList';
 import ProductCreate from '../crud/ProductCreate';
 
