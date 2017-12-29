@@ -20,9 +20,11 @@ class Products extends Component {
 
 const ProductsList = hocCategoriesProductsList(
     Products,
-    {headerTitle: 'Products'},
-    {dbDataType: dbDataProducts},
-    {type: 'products'}
+    {
+        headerTitle: 'Products',
+        dbDataType: dbDataProducts,
+        type: 'products'
+    }
 );
 
 export default ProductsList;

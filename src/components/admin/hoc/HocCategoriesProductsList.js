@@ -6,16 +6,16 @@ import RemoveItem from '../admin-categories-products/RemoveItem';
 import RemovePopup from '../../popups/RemovePopup';
 import CategoryItemInfo from '../admin-categories/crud/CategoryItemInfo';
 import ProductItemInfo from '../admin-products/crud/ProductItemInfo';
+import ProductEdit from '../admin-products/crud/ProductEdit';
 
-
-export function hocCategoriesProductsList (WrappedComponent, header, dbData, listType){
+export function hocCategoriesProductsList (WrappedComponent, options){
     return class extends React.Component {
         constructor(props) {
             super(props);
             this.state = {
-                headerTitle: header.headerTitle,
-                dbDataType: dbData.dbDataType, 
-                type: listType.type, // categories or products
+                headerTitle: options.headerTitle,
+                dbDataType: options.dbDataType, 
+                type: options.type, // categories or products
                 checkedItems: [],
                 allIsChecked : false,
                 itemsForRemovePopup: [],
@@ -115,13 +115,19 @@ export function hocCategoriesProductsList (WrappedComponent, header, dbData, lis
                      this.props.items.map((item) => {
                          return <div className="section-item" key={item.key}>
                                 { this.state.type === 'categories' ? 
-                                    <CategoryItemInfo isChecked={this.state.checkedItems.indexOf(item) !== -1} item={item} 
+                                    <div className="flex space-between"> 
+                                        <CategoryItemInfo isChecked={this.state.checkedItems.indexOf(item) !== -1} item={item} 
                                                     checkedItem={(checked, item) => this.toggleSelectedItems(false, item, checked)}/>
+                                        <NameEdit item={item} dbDataType={this.state.dbDataType}/>
+                                    </div>
                                     : 
-                                    <ProductItemInfo isChecked={this.state.checkedItems.indexOf(item) !== -1} item={item} 
-                                                     checkedItem={(checked, item) => this.toggleSelectedItems(false, item, checked)}/>
+                                    <div className="flex space-between"> 
+                                        <ProductItemInfo isChecked={this.state.checkedItems.indexOf(item) !== -1} item={item} 
+                                                        checkedItem={(checked, item) => this.toggleSelectedItems(false, item, checked)}/>
+                                        <ProductEdit item={item} dbDataType={this.state.dbDataType}/>
+                                    </div>
                                 }
-                                 <NameEdit item={item} dbDataType={this.state.dbDataType}/>
+                                 
                                  <RemoveItem item={item} showRemoveButton={this.state.checkedItems.indexOf(item) !== -1}
                                                  removeIconClicked={(item) => this.removeIconItemClicked(item)}/>
                          </div>

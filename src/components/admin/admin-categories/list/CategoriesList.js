@@ -41,9 +41,11 @@ class Categories extends Component {
 
 const CategoriesList = hocCategoriesProductsList(
     Categories,
-    {headerTitle: 'Categories'},
-    {dbDataType: dbDataCategories},
-    {type: 'categories'}
+    {
+        headerTitle: 'Categories',
+        dbDataType: dbDataCategories,
+        type: 'categories'
+    }
 );
 
 export default CategoriesList;
