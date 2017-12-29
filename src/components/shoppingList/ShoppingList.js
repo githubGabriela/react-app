@@ -4,16 +4,18 @@
 import React, { Component } from 'react';
 import FontAwesome from 'react-fontawesome';
 
-import { dbDataShoppingList, dbDataHistory } from '../../config/constants';
+import { dbDataShoppingList, dbDataHistory, dbDataCategories } from '../../config/constants';
 import '../../assets/css/General.css';
 import ProductItem from '../products/ProductItem';
 import LastModified from '../data-sync/LastModified';
+import ExportList from './ExportList';
 
 class ShoppingList extends Component {
     constructor() {
         super();
         this.state={
             items: [],
+            categories: [],
             hideCart: true
         }
         this.toggleRemoveIcons = this.toggleRemoveIcons.bind(this);
@@ -29,6 +31,17 @@ class ShoppingList extends Component {
                 items: items
             })
         });
+
+        dbDataCategories.orderByChild('name').on('value', snap => {
+            let items = [];
+            snap.forEach(childSnap => {
+                items.push(childSnap.val().name);
+            });
+            this.setState({
+                categories: items
+            })
+        });
+
     }
 
     removeFromShopping(item){
@@ -58,8 +71,11 @@ class ShoppingList extends Component {
                     <div className="flex space-between">
                         <LastModified />
                         {this.state.items.length > 0 ?
-                            <FontAwesome name="pencil" className={"styled-pencil " + (this.state.hideCart ? 'gray': 'red')}  
+                            <div>
+                                <FontAwesome name="pencil" className={"styled-pencil " + (this.state.hideCart ? 'gray': 'red')}  
                                          onClick={this.toggleRemoveIcons}/>
+                                <ExportList categories={this.state.categories} products={this.state.items}/>
+                            </div>
                         : null
                         }
                     </div>
