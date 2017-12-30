@@ -4,7 +4,7 @@
 import React, { Component } from 'react';
 import FontAwesome from 'react-fontawesome';
 
-import { dbDataShoppingList, dbDataHistory, dbDataCategories } from '../../config/constants';
+import * as DataSource from '../../config/DataSource';
 import '../../assets/css/General.css';
 import ProductItem from '../products/ProductItem';
 import LastModified from '../data-sync/LastModified';
@@ -22,39 +22,28 @@ class ShoppingList extends Component {
     }
 
     componentDidMount() {
-        dbDataShoppingList.orderByChild('category').on('value', snap => {
-            let items = [];
-            snap.forEach(childSnap => {
-                items.push({key: childSnap.key, value: childSnap.val()});
-            });
+        this.getShoppingList();
+        this.getCategoriesNames();
+    }
+
+    getShoppingList(){
+        DataSource.getShoppingList(items => {
             this.setState({
                 items: items
-            })
-        });
-
-        dbDataCategories.orderByChild('name').on('value', snap => {
-            let items = [];
-            snap.forEach(childSnap => {
-                items.push(childSnap.val().name);
             });
+        });
+    }
+    getCategoriesNames(){
+        DataSource.getCategoriesNames(items => {
             this.setState({
                 categories: items
-            })
+            });
         });
-
     }
 
     removeFromShopping(item){
-        if(item && item.key){
-           dbDataShoppingList.child(item.key).remove();
-           this.addToHistory(item);
-        }
-    }
-
-    addToHistory(item){
-      if(item && item.value) {
-            dbDataHistory.push(item.value);
-       }
+        DataSource.removeFromShoppingList(item);
+        DataSource.addToHistory(item);
     }
 
     toggleRemoveIcons() {

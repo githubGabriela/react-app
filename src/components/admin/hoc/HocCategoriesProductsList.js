@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 
+import * as DataSource from '../../../config/DataSource';
 import Header from '../admin-categories-products/Header';
 import NameEdit from '../admin-categories-products/NameEdit';
 import RemoveItem from '../admin-categories-products/RemoveItem';
@@ -95,11 +96,7 @@ export function hocCategoriesProductsList (WrappedComponent, options){
         }
 
         removeItemsFromDb(){
-            this.state.itemsForRemovePopup.forEach( item => {
-                if(item.key){
-                    this.state.dbDataType.child(item.key).remove();
-                }
-            })
+            DataSource.removeFromDb(this.state.itemsForRemovePopup, this.state.dbDataType);
             this.closeRemovePopup();
         }
 

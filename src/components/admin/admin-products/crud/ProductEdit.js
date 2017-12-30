@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import FontAwesome from 'react-fontawesome';
 
+import * as DataSource from '../../../../config/DataSource';
 import EditProductPopup from '../../../popups/EditProductPopup';
 
 class ProductEdit extends Component {

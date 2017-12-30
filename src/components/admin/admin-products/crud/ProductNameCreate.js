@@ -4,7 +4,7 @@
 import React, { Component } from 'react';
 import FontAwesome from 'react-fontawesome';
 
-import { dbDataProducts, dbDataCategories } from '../../../../config/constants';
+import * as DataSource from '../../../../config/DataSource';
 import { hocItemNameCreate } from '../../hoc/HocItemNameCreate';
 
 class ProductName extends Component {
@@ -37,23 +37,20 @@ class ProductName extends Component {
 
     pushProductToDb(event) {
         event.preventDefault();
-        dbDataProducts.push(
-            { 
-                name:this.state.nameToUpdate,
-                category:this.state.category,
-                color: this.state.color
-            }
-        ); 
+        let product =  { 
+            name:this.state.nameToUpdate,
+            category:this.state.category,
+            color: this.state.color
+        };
+        DataSource.addProduct(product); 
    }
 
     getColor(categoryName) {
-        dbDataCategories.orderByChild('name').equalTo(categoryName).on('value', snap => {
-            snap.forEach( childSnap => {
-                this.setState({
-                    color: childSnap.val().color
-                })
-            });
-        })
+        DataSource.getColorForCategory(categoryName, (color) => {
+            this.setState({
+                color: color
+            })
+        });
 }
    
     render() {

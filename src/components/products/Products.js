@@ -3,7 +3,7 @@
 
 import React, { Component } from 'react';
 
-import { dbDataProducts, dbDataShoppingList, dbDataCategories } from '../../config/constants';
+import * as DataSource from '../../config/DataSource';
 import CollapseSections from '../collapse/CollapseSections';
 import ProductItem from './ProductItem';
 
@@ -19,14 +19,14 @@ class Products extends Component {
     }
 
     componentDidMount() {
-        dbDataProducts.orderByChild('category').on('value', snap => {
-            let items = [];
-            snap.forEach(childSnap => {
-                items.push({key: childSnap.key, value: childSnap.val()});
-            });
+        this.getProductsByCategory();
+    }
+
+    getProductsByCategory(){
+        DataSource.getProductsByCategory( items => {
             this.setState({
                 items: items
-            })
+            });
         });
     }
 
@@ -37,15 +37,7 @@ class Products extends Component {
     }
 
     addToShopping(item){
-        if(item && item.value){
-            dbDataShoppingList.orderByChild('name').equalTo(item.value.name).once('value', snap=> {
-                let exists = snap.val();
-                if(!exists){
-                    dbDataShoppingList.push(item.value);
-                }
-            });
-           
-        }
+        DataSource.addToShoppingList(item);
     }
 
     render() {

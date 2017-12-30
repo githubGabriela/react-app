@@ -4,6 +4,7 @@
 import React, { Component } from 'react';
 import FontAwesome from 'react-fontawesome';
 
+import * as DataSource from '../../../config/DataSource';
 import '../../../assets/css/General.css';
 
 class NameEdit extends Component {
@@ -76,7 +77,8 @@ class NameEdit extends Component {
         event.preventDefault();
         let key = this.props.item.key;
         if(key){
-            this.props.dbDataType.child(key).update({name: this.state.item.value.name}); // dbDataType = dbDataCategories or dbDataProducts
+            let value = {name: this.state.item.value.name};
+            DataSource.update(this.props.dbDataType, key, value);
         }
     }
 

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { dbDataCategories, dbDataProducts } from '../../../config/constants';
+import * as DataSource from '../../../config/DataSource';
 
 export function hocItems (WrappedComponent) {
     return class extends React.Component {
@@ -20,11 +20,7 @@ export function hocItems (WrappedComponent) {
         }
         
         getCategories() {
-            dbDataCategories.on('value', snap => {
-                const items = [];
-                snap.forEach( childSnap => {
-                    items.push({ key: childSnap.key, value: childSnap.val()});
-                });
+            DataSource.getCategories( items => {
                 this.setState({
                     categories : items,
                     selectedCategory: items[0]
@@ -33,11 +29,7 @@ export function hocItems (WrappedComponent) {
         }
 
         getProducts() {
-            dbDataProducts.on('value', snap => {
-                const items = [];
-                snap.forEach( childSnap => {
-                    items.push({ key: childSnap.key, value: childSnap.val()});
-                });
+            DataSource.getProducts( items => {
                 this.setState({
                     products : items
                 });

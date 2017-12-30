@@ -4,7 +4,7 @@
 import React, { Component } from 'react';
 import FontAwesome from 'react-fontawesome';
 
-import { dbDataCategories } from '../../../../config/constants';
+import * as DataSource from '../../../../config/DataSource';
 import { hocItemNameCreate } from '../../hoc/HocItemNameCreate';
 
 import '../../../../assets/css/General.css';
@@ -18,12 +18,11 @@ class CategoryName extends Component {
 
     pushCategoryToDb(event) {
         event.preventDefault();
-        dbDataCategories.push(
-            { 
-                name:this.props.nameToUpdate, 
-                color: this.props.color
-            }
-        ); 
+        let category = { 
+            name:this.props.nameToUpdate, 
+            color: this.props.color
+        }
+        DataSource.addCategory(category);
    }
    
     render() {

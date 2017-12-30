@@ -3,7 +3,8 @@
 
 import React, { Component } from 'react';
 
-import { dbDataHistory, dbDataShoppingList } from '../../config/constants';
+import * as DataSource from '../../config/DataSource';
+
 import ProductItem from '../products/ProductItem';
 import LastModified from '../data-sync/LastModified';
 
@@ -20,33 +21,24 @@ class History extends Component {
     }
 
     componentDidMount() {
-        dbDataHistory.orderByChild('category').on('value', snap => {
-            let items = [];
-            snap.forEach(childSnap => {
-                items.push({key: childSnap.key, value: childSnap.val()});
-            });
+      this.getHistory();
+    }
+
+    getHistory(){
+        DataSource.getHistory( items => {
             this.setState({
                 items: items
-            })
+            });
         });
     }
 
-    addToShopping(item){
-        if(item && item.value){
-            dbDataShoppingList.orderByChild('name').equalTo(item.value.name).once('value', snap=> {
-                let exists = snap.val();
-                if(!exists){
-                    dbDataShoppingList.push(item.value);
-                }
-            });
-        }
+    addToShopping(item) {
+        DataSource.addToShoppingList(item);
     }
 
-    clearHistory(event){
+    clearHistory(event) {
         event.preventDefault();
-        this.state.items.forEach( item => {
-            dbDataHistory.child(item.key).remove();
-        })
+        DataSource.removeAllHistory(this.state.items);
     }
 
     render() {

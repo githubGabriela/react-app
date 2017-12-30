@@ -5,7 +5,7 @@ import React, { Component } from 'react';
 import Dropdown from 'react-dropdown';
 import 'react-dropdown/style.css';
 
-import { dbDataCategories } from '../../../../config/constants';
+import * as DataSource from '../../../../config/DataSource';
 
 class DropdownCategories extends Component {
     constructor(){
@@ -15,18 +15,17 @@ class DropdownCategories extends Component {
         }
     }
 
-    componentDidMount(){
-        dbDataCategories.on('value', snap => {
-            const items = [];
-            snap.forEach( childSnap => {
-                items.push({ value: childSnap.key, label: childSnap.val().name});
-            });
-            this.setState({
-                categories: items
-            })
-        });
+    componentDidMount() {
+        this.getCategoriesForDropdown();
     }
 
+    getCategoriesForDropdown(){
+        DataSource.getCategoriesForDropdown(items => {
+            this.setState({
+                categories: items
+            });
+        });
+    }
 
     render() {
         return (
