@@ -111,8 +111,15 @@ export function removeFromShoppingList(item){
     }
 }
 
-export function removeAllHistory(items){
+export function clearHistory(items){
     items.forEach( item => {
         dbDataHistory.child(item.key).remove();
+    });
+}
+
+export function clearShoppingList(items){
+    items.forEach( item => {
+        addToHistory(item);
+        dbDataShoppingList.child(item.key).remove();
     });
 }

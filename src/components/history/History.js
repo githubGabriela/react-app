@@ -38,7 +38,7 @@ class History extends Component {
 
     clearHistory(event) {
         event.preventDefault();
-        DataSource.removeAllHistory(this.state.items);
+        DataSource.clearHistory(this.state.items);
     }
 
     render() {

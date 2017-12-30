@@ -16,7 +16,7 @@ class ShoppingList extends Component {
         this.state={
             items: [],
             categories: [],
-            hideCart: true
+            showCrudIcons: false
         }
         this.toggleRemoveIcons = this.toggleRemoveIcons.bind(this);
     }
@@ -48,8 +48,13 @@ class ShoppingList extends Component {
 
     toggleRemoveIcons() {
         this.setState({
-            hideCart: !this.state.hideCart
+            showCrudIcons: !this.state.showCrudIcons
         });
+    }
+
+    clearShoppingList(event){
+        event.preventDefault();
+        DataSource.clearShoppingList(this.state.items);
     }
 
     render() {
@@ -61,9 +66,13 @@ class ShoppingList extends Component {
                         <LastModified />
                         {this.state.items.length > 0 ?
                             <div>
-                                <FontAwesome name="pencil" className={"styled-pencil " + (this.state.hideCart ? 'gray': 'red')}  
+                                <FontAwesome name="pencil" className={"styled-pencil " + (this.state.showCrudIcons ? 'gray': 'red')}  
                                          onClick={this.toggleRemoveIcons}/>
-                                <ExportList categories={this.state.categories} products={this.state.items}/>
+                                         {this.state.showCrudIcons ? 
+                                            <button onClick={(event) => this.clearShoppingList(event)}> Clear </button> 
+                                         : null
+                                         }
+                                <ExportList categories={this.state.categories} products={this.state.items}/>                                
                             </div>
                         : null
                         }
@@ -79,7 +88,7 @@ class ShoppingList extends Component {
                                  product={item}
                                  color={item.value.color}
                                  showRemoveCart="true"
-                                 hideCart={this.state.hideCart}
+                                 showCrudIcons={this.state.showCrudIcons}
                                  removeFromShoppingList={(item)=> this.removeFromShopping(item)}/>
                   )
                   

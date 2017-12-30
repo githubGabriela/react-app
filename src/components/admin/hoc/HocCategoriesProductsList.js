@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import FontAwesome from 'react-fontawesome';
 
 import * as DataSource from '../../../config/DataSource';
 import Header from '../admin-categories-products/Header';
@@ -100,6 +101,11 @@ export function hocCategoriesProductsList (WrappedComponent, options){
             this.closeRemovePopup();
         }
 
+        addToShoppingList(event, product){
+            event.preventDefault();
+            DataSource.addToShoppingList(product);
+        }
+
 
         render(){
             return (
@@ -122,6 +128,7 @@ export function hocCategoriesProductsList (WrappedComponent, options){
                                         <ProductItemInfo isChecked={this.state.checkedItems.indexOf(item) !== -1} item={item} 
                                                         checkedItem={(checked, item) => this.toggleSelectedItems(false, item, checked)}/>
                                         <ProductEdit item={item} dbDataType={this.state.dbDataType}/>
+                                        <FontAwesome name="cart-plus" className="cart-add" onClick={(event) => this.addToShoppingList(event, item)}/>
                                     </div>
                                 }
                                  
