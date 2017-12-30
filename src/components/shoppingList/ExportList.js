@@ -27,18 +27,23 @@ class ExportList extends Component {
         let keys = Object.keys(list);
         keys.forEach( key => {
             if(list[key].length > 0) {
-                formatedList += this.capitalizeValue(key) + ': '+ list[key].join(', ') + '\n';
+                formatedList += this.capitalizeValue(key) + list[key].join(', ') + '\n';
             }
         });
         return formatedList;
     }
 
     capitalizeValue(value) {
-        return value.charAt(0).toUpperCase() + value.slice(1);
+        if(value === 'No category') { 
+            return ''; 
+        }
+        return value.charAt(0).toUpperCase() + value.slice(1) + ': ';
     }
 
     createMapCategoriesProducts(){
-        let list = {};
+        let list = {
+            'No category' : []
+        };
         this.props.categories.forEach(name => {
             list[name] = [];
         });
