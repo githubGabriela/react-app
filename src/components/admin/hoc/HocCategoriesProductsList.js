@@ -66,12 +66,8 @@ export function hocCategoriesProductsList (WrappedComponent, options){
         }
 
         //  remove popup
-        removeIconAllClicked(){
+        removeItems(){
             this.openRemovePopup(this.state.checkedItems);
-        }
-
-        removeIconItemClicked(item){
-            this.openRemovePopup([item]);
         }
 
         openRemovePopup(items) {
@@ -111,9 +107,10 @@ export function hocCategoriesProductsList (WrappedComponent, options){
             return (
                 <div>         
                 <Header title={this.state.headerTitle}
-                                  isChecked={this.state.allIsChecked} 
+                                  allIsChecked={this.state.allIsChecked}
+                                  checkedItems={this.state.checkedItems} 
                                   checkedAllItems={(checked)=> { this.toggleSelectedItems(true, undefined, checked)}}
-                                  removeIconClicked={(item) => this.removeIconAllClicked()}/>
+                                  removeIconClicked={(item) => this.removeItems()}/>
                  {
                      this.props.items.map((item) => {
                          return <div className="section-item" key={item.key}>
@@ -132,8 +129,8 @@ export function hocCategoriesProductsList (WrappedComponent, options){
                                     </div>
                                 }
                                  
-                                 <RemoveItem item={item} showRemoveButton={this.state.checkedItems.indexOf(item) !== -1}
-                                                 removeIconClicked={(item) => this.removeIconItemClicked(item)}/>
+                                 {/* <RemoveItem item={item} showRemoveButton={this.state.checkedItems.indexOf(item) !== -1}
+                                                 removeIconClicked={(item) => this.removeIconItemClicked(item)}/> */}
                          </div>
                      })
                  }
