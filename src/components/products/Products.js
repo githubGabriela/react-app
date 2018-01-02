@@ -6,6 +6,7 @@ import React, { Component } from 'react';
 import * as DataSource from '../../config/DataSource';
 import CollapseSections from '../collapse/CollapseSections';
 import ProductItem from './ProductItem';
+import FilteringAndSorting from '../filtering-sorting/FilteringAndSorting';
 
 class Products extends Component {
     constructor(props){
@@ -47,15 +48,18 @@ class Products extends Component {
                     <div className="section-title"> All Products </div>
                     <CollapseSections />
                 </div>
-              {this.state.items.map((item) => {
-                  return (
-                    <ProductItem key={item.key}
-                                        product={item}
-                                        color={item.value.color}
-                                        addToShoppingList={(item)=> this.addToShopping(item)}/>
-                  )
-                  
-             })}
+                <FilteringAndSorting dataType='products' 
+                                 items={this.state.items} 
+                                 setFilteredItems = {items => this.setState({items: items})}/>
+                {this.state.items.map((item) => {
+                    return (
+                        <ProductItem key={item.key}
+                                            product={item}
+                                            color={item.value.color}
+                                            addToShoppingList={(item)=> this.addToShopping(item)}/>
+                    )
+                    
+                })}
             </div>
         )
     }

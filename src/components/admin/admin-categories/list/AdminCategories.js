@@ -6,7 +6,7 @@ import React, { Component } from 'react';
 import * as DataSource from '../../../../config/DataSource';
 import CategoriesList from './CategoriesList';
 import CategoryCreate from '../crud/CategoryCreate';
-import FilteringAndSorting from '../../FilteringAndSorting';
+import FilteringAndSorting from '../../../filtering-sorting/FilteringAndSorting';
 
 import '../../../../assets/css/General.css';
 
@@ -48,7 +48,8 @@ class AdminCategories extends Component {
                 <div className="category-create">
                     <CategoryCreate/>
                 </div>
-                <FilteringAndSorting items={this.state.categories} 
+                <FilteringAndSorting dataType='categories'
+                                     items={this.state.categories} 
                                      setFilteredItems = {items => this.setState({categories: items})}/>
                 <CategoriesList sectionTitle="Categories" items={this.state.categories}/>
             </div>

@@ -1,3 +1,7 @@
+// Usage:
+// <FilteringAndSorting items={this.state.categories} 
+// setFilteredItems = {items => this.setState({categories: items})}/>
+
 import React, { Component } from 'react';
 import Dropdown from 'react-dropdown';
 import 'react-dropdown/style.css';
@@ -51,13 +55,14 @@ class FilteringAndSorting extends Component {
     }
 
     getAsc() {
-        DataSource.orderAndFilter('categories', this.state.filterValue, items => {
+        // dataType can be 'categories', 'products', 'shoppingList', 'history'
+        DataSource.orderAndFilter(this.props.dataType, this.state.filterValue, items => {
             this.props.setFilteredItems(items);
         });
     }
 
     getDesc() {
-        DataSource.orderAndFilter('categories', this.state.filterValue, items => {
+        DataSource.orderAndFilter(this.props.dataType, this.state.filterValue, items => {
             let desc = items.reverse();
             this.props.setFilteredItems(desc);
         });
@@ -69,7 +74,7 @@ class FilteringAndSorting extends Component {
     }
 
     getFilteredItems(){
-        DataSource.orderAndFilter('categories', this.state.filterValue, items => {
+        DataSource.orderAndFilter(this.props.dataType, this.state.filterValue, items => {
             this.props.setFilteredItems(items);
         });
     }

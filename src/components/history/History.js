@@ -7,6 +7,7 @@ import * as DataSource from '../../config/DataSource';
 
 import ProductItem from '../products/ProductItem';
 import LastModified from '../data-sync/LastModified';
+import FilteringAndSorting from '../filtering-sorting/FilteringAndSorting';
 
 import '../../assets/css/General.css';
 
@@ -56,6 +57,9 @@ class History extends Component {
                     
                   </div>
               </div>
+              <FilteringAndSorting dataType='history' 
+                                 items={this.state.items} 
+                                 setFilteredItems = {items => this.setState({items: items})}/>
               {this.state.items.map((item) => {
                   return (
                     <ProductItem key={item.key}

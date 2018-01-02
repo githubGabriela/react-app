@@ -9,6 +9,7 @@ import '../../assets/css/General.css';
 import ProductItem from '../products/ProductItem';
 import LastModified from '../data-sync/LastModified';
 import ExportList from './ExportList';
+import FilteringAndSorting from '../filtering-sorting/FilteringAndSorting';
 
 class ShoppingList extends Component {
     constructor() {
@@ -82,6 +83,10 @@ class ShoppingList extends Component {
                     </div>
                 </div>
             </div>
+            <FilteringAndSorting dataType='shoppingList' 
+                                 items={this.state.items} 
+                                 setFilteredItems = {items => this.setState({items: items})}/>
+        
             {this.state.items.map((item) => {
                   return (
                     <ProductItem key={item.key}
