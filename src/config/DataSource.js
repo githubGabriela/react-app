@@ -1,16 +1,20 @@
 import { dbDataCategories, dbDataProducts, dbDataShoppingList, dbDataHistory } from './constants';
 
 //GET
-function getKeyValues(snap, customFct) { // customFct - function called in the component
+function getKeyValues(snap) { // customFct - function called in the component
     const items = [];
     snap.forEach( childSnap => {
         items.push({ key: childSnap.key, value: childSnap.val()});
     });
-    customFct(items);
+    return items;
 }
 
 export function getCategories(customFct) { 
-    dbDataCategories.on('value', snap => getKeyValues(snap, customFct));
+    dbDataCategories.on('value', snap => {
+        let recentlyAdded = getKeyValues(snap).reverse();
+        customFct(recentlyAdded);
+    }
+    );
 }
 
 export function getCategoriesNames(customFct){
@@ -19,7 +23,8 @@ export function getCategoriesNames(customFct){
         snap.forEach(childSnap => {
             items.push(childSnap.val().name);
         });
-        customFct(items);
+        let recentlyAdded = items.reverse();
+        customFct(recentlyAdded);
     });
 }
 
@@ -29,7 +34,8 @@ export function getCategoriesForDropdown(customFct) {
         snap.forEach( childSnap => {
             items.push({ value: childSnap.key, label: childSnap.val().name});
         });
-        customFct(items);
+        let recentlyAdded = items.reverse();
+        customFct(recentlyAdded);
     });
 }
 
@@ -44,19 +50,31 @@ export function getColorForCategory(categoryName, customFct){
 }
 
 export function getProducts(customFct) {
-    dbDataProducts.on('value', snap => getKeyValues(snap, customFct));
+    dbDataProducts.on('value', snap => {
+        let recentlyAdded = getKeyValues(snap).reverse();
+        customFct(recentlyAdded);
+    });
 }
 
 export function getProductsByCategory(customFct){
-    dbDataProducts.orderByChild('category').on('value', snap => getKeyValues(snap, customFct));
+    dbDataProducts.orderByChild('category').on('value', snap => {
+        let recentylAdded = getKeyValues(snap).reverse();
+        customFct(recentylAdded);
+    });
 }
 
 export function getShoppingList(customFct){
-    dbDataShoppingList.orderByChild('category').on('value', snap => getKeyValues(snap, customFct));
+    dbDataShoppingList.orderByChild('category').on('value', snap => {
+        let recentylAdded = getKeyValues(snap).reverse();
+        customFct(recentylAdded);
+    });
 }
 
 export function getHistory(customFct){
-    dbDataHistory.orderByChild('category').on('value', snap => getKeyValues(snap, customFct));
+    dbDataHistory.orderByChild('category').on('value', snap => {
+        let recentylAdded = getKeyValues(snap).reverse();
+        customFct(recentylAdded);
+    });
 }
 
 // PUSH
@@ -145,5 +163,7 @@ export function order(type, customFct) {
 }
 
 export function orderByName(dbDataType, customFct){
-    dbDataType.orderByChild('name').on("value", snap => getKeyValues(snap, customFct));
+    dbDataType.orderByChild('name').on("value", snap => {
+        customFct(getKeyValues(snap));
+    });
 }
