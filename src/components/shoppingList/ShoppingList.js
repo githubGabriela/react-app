@@ -4,6 +4,7 @@
 import React, { Component } from 'react';
 import FontAwesome from 'react-fontawesome';
 
+import * as Constants from '../../utils/Constants';
 import * as DataSource from '../../config/DataSource';
 import '../../assets/css/General.css';
 import ProductItem from '../products/ProductItem';
@@ -83,7 +84,7 @@ class ShoppingList extends Component {
                     </div>
                 </div>
             </div>
-            <FilteringAndSorting dataType='shoppingList' 
+            <FilteringAndSorting dataType={Constants.SHOPPING_LIST}
                                  items={this.state.items} 
                                  setFilteredItems = {items => this.setState({items: items})}/>
         

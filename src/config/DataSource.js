@@ -1,5 +1,5 @@
 import { dbDataCategories, dbDataProducts, dbDataShoppingList, dbDataHistory } from './constants';
-
+import * as Constants from '../utils/Constants';
 //GET
 function getKeyValues(snap) { // customFct - function called in the component
     const items = [];
@@ -145,16 +145,16 @@ export function clearShoppingList(items){
 // filtering & sorting
 export function orderAndFilter(type, value, customFct) {
     switch(type) {
-        case 'categories':
+        case Constants.CATEGORIES:
             orderFilterByName(dbDataCategories, value, customFct);
             break;
-        case 'products':
+        case Constants.PRODUCTS:
             orderFilterByName(dbDataProducts, value, customFct);
         break;
-        case 'shoppingList':
+        case Constants.SHOPPING_LIST:
             orderFilterByName(dbDataShoppingList, value, customFct);
         break;
-        case 'history':
+        case Constants.HISTORY:
             orderFilterByName(dbDataHistory, value, customFct);
         break;
         default:
@@ -167,13 +167,11 @@ export function orderFilterByName(dbDataType, value, customFct) {
         dbDataType.orderByChild('name').startAt(value).on("value", snap => {
             let items = getKeyValues(snap);
             customFct(items);
-            console.log('SERVER SIDE with value', value, items);
         });
     }else{
         dbDataType.orderByChild('name').on("value", snap => {
             let items = getKeyValues(snap);
             customFct(items);
-            console.log('SERVER SIDE without value', value, items);
         });
     }
 }

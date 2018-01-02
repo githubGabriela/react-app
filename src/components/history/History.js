@@ -3,8 +3,8 @@
 
 import React, { Component } from 'react';
 
+import * as Constants from '../../utils/Constants';
 import * as DataSource from '../../config/DataSource';
-
 import ProductItem from '../products/ProductItem';
 import LastModified from '../data-sync/LastModified';
 import FilteringAndSorting from '../filtering-sorting/FilteringAndSorting';
@@ -57,7 +57,7 @@ class History extends Component {
                     
                   </div>
               </div>
-              <FilteringAndSorting dataType='history' 
+              <FilteringAndSorting dataType={Constants.HISTORY}
                                  items={this.state.items} 
                                  setFilteredItems = {items => this.setState({items: items})}/>
               {this.state.items.map((item) => {

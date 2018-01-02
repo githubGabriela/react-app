@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import FontAwesome from 'react-fontawesome';
 
 import * as DataSource from '../../../config/DataSource';
+import * as Constants from '../../../utils/Constants';
 import Header from '../admin-categories-products/Header';
 import NameEdit from '../admin-categories-products/NameEdit';
 import RemoveItem from '../admin-categories-products/RemoveItem';
@@ -114,7 +115,7 @@ export function hocCategoriesProductsList (WrappedComponent, options){
                  {
                      this.props.items.map((item) => {
                          return <div className="section-item" key={item.key}>
-                                { this.state.type === 'categories' ? 
+                                { this.state.type === Constants.CATEGORIES ? 
                                     <div className="flex space-between"> 
                                         <CategoryItemInfo isChecked={this.state.checkedItems.indexOf(item) !== -1} item={item} 
                                                     checkedItem={(checked, item) => this.toggleSelectedItems(false, item, checked)}/>

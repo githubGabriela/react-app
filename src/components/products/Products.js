@@ -3,6 +3,7 @@
 
 import React, { Component } from 'react';
 
+import * as Constants from '../../utils/Constants';
 import * as DataSource from '../../config/DataSource';
 import CollapseSections from '../collapse/CollapseSections';
 import ProductItem from './ProductItem';
@@ -48,7 +49,7 @@ class Products extends Component {
                     <div className="section-title"> All Products </div>
                     <CollapseSections />
                 </div>
-                <FilteringAndSorting dataType='products' 
+                <FilteringAndSorting dataType={Constants.PRODUCTS}
                                  items={this.state.items} 
                                  setFilteredItems = {items => this.setState({items: items})}/>
                 {this.state.items.map((item) => {

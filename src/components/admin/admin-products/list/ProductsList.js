@@ -3,6 +3,7 @@
 
 import React, { Component } from 'react';
 
+import * as Constants from '../../../../utils/Constants';
 import { dbDataProducts } from '../../../../config/constants';
 import { hocCategoriesProductsList } from '../../hoc/HocCategoriesProductsList';
 
@@ -21,9 +22,9 @@ class Products extends Component {
 const ProductsList = hocCategoriesProductsList(
     Products,
     {
-        headerTitle: 'Products',
+        headerTitle: Constants.TITLES.PRODUCTS,
         dbDataType: dbDataProducts,
-        type: 'products'
+        type: Constants.PRODUCTS
     }
 );
 

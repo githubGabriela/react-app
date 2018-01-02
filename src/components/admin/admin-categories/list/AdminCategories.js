@@ -3,6 +3,7 @@
 
 import React, { Component } from 'react';
 
+import * as Constants from '../../../../utils/Constants';
 import * as DataSource from '../../../../config/DataSource';
 import CategoriesList from './CategoriesList';
 import CategoryCreate from '../crud/CategoryCreate';
@@ -48,7 +49,7 @@ class AdminCategories extends Component {
                 <div className="category-create">
                     <CategoryCreate/>
                 </div>
-                <FilteringAndSorting dataType='categories'
+                <FilteringAndSorting dataType={Constants.CATEGORIES}
                                      items={this.state.categories} 
                                      setFilteredItems = {items => this.setState({categories: items})}/>
                 <CategoriesList sectionTitle="Categories" items={this.state.categories}/>

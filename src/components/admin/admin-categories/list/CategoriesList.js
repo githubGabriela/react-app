@@ -3,6 +3,7 @@
 
 import React, { Component } from 'react';
 
+import * as Constants from '../../../../utils/Constants';
 import { dbDataCategories } from '../../../../config/constants';
 import { hocCategoriesProductsList } from '../../hoc/HocCategoriesProductsList';
 import ColorPopup from '../../../popups/ColorPopup';
@@ -41,9 +42,9 @@ class Categories extends Component {
 const CategoriesList = hocCategoriesProductsList(
     Categories,
     {
-        headerTitle: 'Categories',
+        headerTitle: Constants.TITLES.CATEGORIES,
         dbDataType: dbDataCategories,
-        type: 'categories'
+        type: Constants.CATEGORIES
     }
 );
 

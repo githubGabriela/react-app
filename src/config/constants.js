@@ -1,4 +1,5 @@
 import * as firebase from 'firebase';
+import * as Constants from '../utils/Constants';
 
 const config = {
     apiKey: "AIzaSyCcaraqh5VEYOO8zWh56fA276NXcwFXYbM",
@@ -12,7 +13,7 @@ const config = {
 firebase.initializeApp(config);
 
 export const dbRef= firebase.database().ref();
-export const dbDataCategories = dbRef.child('categories');
-export const dbDataProducts = dbRef.child('products');
-export const dbDataShoppingList = dbRef.child('shoppingList');
-export const dbDataHistory = dbRef.child('history');
+export const dbDataCategories = dbRef.child(Constants.CATEGORIES);
+export const dbDataProducts = dbRef.child(Constants.PRODUCTS);
+export const dbDataShoppingList = dbRef.child(Constants.SHOPPING_LIST);
+export const dbDataHistory = dbRef.child(Constants.HISTORY);
