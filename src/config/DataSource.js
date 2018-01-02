@@ -143,27 +143,37 @@ export function clearShoppingList(items){
 }
 
 // filtering & sorting
-export function order(type, customFct) {
+export function orderAndFilter(type, value, customFct) {
     switch(type) {
         case 'categories':
-            orderByName(dbDataCategories, customFct);
+            orderFilterByName(dbDataCategories, value, customFct);
             break;
         case 'products':
-            orderByName(dbDataProducts, customFct);
+            orderFilterByName(dbDataProducts, value, customFct);
         break;
         case 'shoppingList':
-            orderByName(dbDataShoppingList, customFct);
+            orderFilterByName(dbDataShoppingList, value, customFct);
         break;
         case 'history':
-            orderByName(dbDataHistory, customFct);
+            orderFilterByName(dbDataHistory, value, customFct);
         break;
         default:
         break;
     }
 }
 
-export function orderByName(dbDataType, customFct){
-    dbDataType.orderByChild('name').on("value", snap => {
-        customFct(getKeyValues(snap));
-    });
+export function orderFilterByName(dbDataType, value, customFct) {
+    if(value){
+        dbDataType.orderByChild('name').startAt(value).on("value", snap => {
+            let items = getKeyValues(snap);
+            customFct(items);
+            console.log('SERVER SIDE with value', value, items);
+        });
+    }else{
+        dbDataType.orderByChild('name').on("value", snap => {
+            let items = getKeyValues(snap);
+            customFct(items);
+            console.log('SERVER SIDE without value', value, items);
+        });
+    }
 }

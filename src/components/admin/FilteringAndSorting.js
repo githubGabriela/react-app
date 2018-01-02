@@ -5,41 +5,75 @@ import 'react-dropdown/style.css';
 import * as DataSource from '../../config/DataSource';
 
 class FilteringAndSorting extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            items: []
+    constructor() {
+        super();
+        this.state= {
+            order: 'recently_added',
+            filterValue: undefined
         }
+
         this.orderBy = this.orderBy.bind(this);
+        this.filterChanged = this.filterChanged.bind(this);
     }
 
-    orderBy(event) {
-        switch(event.value){
-            case 'ASC':
-            DataSource.order('categories', items => {
-                this.setState({
-                    items: items
-                });
-            });
-            break;
+    filterChanged(event) {
+        event.preventDefault();
+        this.setState({
+            filterValue: event.target.value
+        });
 
-            case 'DESC':
-            DataSource.order('categories', items => {
-                this.setState({
-                    items: items.reverse()
-                });
-            });
+        if(!this.state.filterValue){
+            this.orderBy(this.state.order);
+        } else { 
+           this.getFilteredItems();
+        }
+    }
+
+
+    orderBy(order) {
+        this.setState({
+            order: order
+        });
+
+        switch(order){
+            case 'ASC':
+                this.getAsc();
             break;
-            case 'recently_added': 
-                this.setState({
-                    items: this.props.items.reverse()
-                });
+            case 'DESC':
+                this.getDesc();
+            break;
+            case 'recently_added':
+                this.getRecentlyAdded();
             break;
             default:
-            break;          
+            break;
         }
-        this.props.setFilteredItems(this.state.items);
     }
+
+    getAsc() {
+        DataSource.orderAndFilter('categories', this.state.filterValue, items => {
+            this.props.setFilteredItems(items);
+        });
+    }
+
+    getDesc() {
+        DataSource.orderAndFilter('categories', this.state.filterValue, items => {
+            let desc = items.reverse();
+            this.props.setFilteredItems(desc);
+        });
+    }
+
+    getRecentlyAdded() {
+        this.props.setFilteredItems(this.props.items.reverse());
+        // NOT HANDLED
+    }
+
+    getFilteredItems(){
+        DataSource.orderAndFilter('categories', this.state.filterValue, items => {
+            this.props.setFilteredItems(items);
+        });
+    }
+
 
     render() {
         let options = [
@@ -49,8 +83,10 @@ class FilteringAndSorting extends Component {
         ]
         return (
             <div>
+
+                <input type="text" onChange={(event) => this.filterChanged(event)} />
                 <Dropdown options={options}
-                        onChange={(event) => this.orderBy(event)} 
+                        onChange={(event) => this.orderBy(event.value)}
                         placeholder="Order by..."/>
             </div>
         );
