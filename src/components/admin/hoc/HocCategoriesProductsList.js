@@ -9,12 +9,14 @@ import RemovePopup from '../../popups/RemovePopup';
 import CategoryItemInfo from '../admin-categories/crud/CategoryItemInfo';
 import ProductItemInfo from '../admin-products/crud/ProductItemInfo';
 import ProductEdit from '../admin-products/crud/ProductEdit';
+import FilteringAndSorting from '../FilteringAndSorting';
 
 export function hocCategoriesProductsList (WrappedComponent, options){
     return class extends React.Component {
         constructor(props) {
             super(props);
             this.state = {
+                items: [],
                 headerTitle: options.headerTitle,
                 dbDataType: options.dbDataType, 
                 type: options.type, // categories or products
@@ -102,7 +104,6 @@ export function hocCategoriesProductsList (WrappedComponent, options){
             DataSource.addToShoppingList(product);
         }
 
-
         render(){
             return (
                 <div>         
@@ -111,6 +112,7 @@ export function hocCategoriesProductsList (WrappedComponent, options){
                                   checkedItems={this.state.checkedItems} 
                                   checkedAllItems={(checked)=> { this.toggleSelectedItems(true, undefined, checked)}}
                                   removeIconClicked={(item) => this.removeItems()}/>
+                <FilteringAndSorting items={this.props.items} setFilteredItems={(items) => this.setState({items: items})}/>
                  {
                      this.props.items.map((item) => {
                          return <div className="section-item" key={item.key}>

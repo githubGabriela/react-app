@@ -123,3 +123,27 @@ export function clearShoppingList(items){
         dbDataShoppingList.child(item.key).remove();
     });
 }
+
+// filtering & sorting
+export function order(type, customFct) {
+    switch(type) {
+        case 'categories':
+            orderByName(dbDataCategories, customFct);
+            break;
+        case 'products':
+            orderByName(dbDataProducts, customFct);
+        break;
+        case 'shoppingList':
+            orderByName(dbDataShoppingList, customFct);
+        break;
+        case 'history':
+            orderByName(dbDataHistory, customFct);
+        break;
+        default:
+        break;
+    }
+}
+
+export function orderByName(dbDataType, customFct){
+    dbDataType.orderByChild('name').on("value", snap => getKeyValues(snap, customFct));
+}
