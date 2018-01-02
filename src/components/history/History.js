@@ -3,8 +3,8 @@
 
 import React, { Component } from 'react';
 
-import * as Constants from '../../utils/Constants';
 import * as DataSource from '../../config/DataSource';
+import * as Constants from '../../utils/Constants';
 import ProductItem from '../products/ProductItem';
 import LastModified from '../data-sync/LastModified';
 import FilteringAndSorting from '../filtering-sorting/FilteringAndSorting';
@@ -49,10 +49,10 @@ class History extends Component {
                   <div className="full-width">
                       <div className="flex space-between">
                           <LastModified />
-                          <button onClick={(event) => this.clearHistory(event)}> Clear </button>
+                          <button onClick={(event) => this.clearHistory(event)}> {Constants.TITLES.CLEAR} </button>
                       </div>
                       <div className="flex space-between">
-                          <div className="section-title"> History of shopping list </div>
+                          <div className="section-title"> {Constants.TITLES.HISTORY}</div>
                       </div>
                     
                   </div>

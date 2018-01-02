@@ -46,7 +46,7 @@ class Products extends Component {
         return (
             <div>
                 <div className="section-header">
-                    <div className="section-title"> All Products </div>
+                    <div className="section-title">{Constants.TITLES.ALL_PRODUCTS}</div>
                     <CollapseSections />
                 </div>
                 <FilteringAndSorting dataType={Constants.PRODUCTS}

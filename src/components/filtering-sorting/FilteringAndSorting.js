@@ -7,6 +7,7 @@ import Dropdown from 'react-dropdown';
 import 'react-dropdown/style.css';
 
 import * as DataSource from '../../config/DataSource';
+import * as Constants from '../../utils/Constants';
 
 class FilteringAndSorting extends Component {
     constructor() {
@@ -82,9 +83,9 @@ class FilteringAndSorting extends Component {
 
     render() {
         let options = [
-            { label: 'Recently added', value: 'recently_added'},
-            { label: 'Ascending', value: 'ASC'},
-            { label: 'Descending', value: 'DESC'}
+            { label: Constants.TITLES.RECENTLY_ADDED, value: 'recently_added'},
+            { label: Constants.TITLES.ASCENDING, value: 'ASC'},
+            { label: Constants.TITLES.DESCENDING, value: 'DESC'}
         ]
         return (
             <div>
@@ -92,7 +93,7 @@ class FilteringAndSorting extends Component {
                 <input type="text" onChange={(event) => this.filterChanged(event)} />
                 <Dropdown options={options}
                         onChange={(event) => this.orderBy(event.value)}
-                        placeholder="Order by..."/>
+                        placeholder={Constants.TITLES.ORDER_BY}/>
             </div>
         );
     }

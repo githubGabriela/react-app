@@ -5,6 +5,7 @@
 import React, { Component } from 'react';
 import FontAwesome from  'react-fontawesome';
 
+import * as Constants from '../../utils/Constants';
 import ProductItem from '../products/ProductItem';
 import CollapseArrows from '../collapse/CollapseArrows';
 
@@ -42,7 +43,7 @@ class CategoryWithProducts extends Component {
                     : 
                     <div> 
                         {this.props.showSectionForKey === this.props.category.key ?
-                            <div className="section-item"> No products for this category </div>
+                            <div className="section-item">{Constants.TITLES.NO_PRODUCTS_FOR_CATEGORY} </div>
                             : 
                             null
                         }

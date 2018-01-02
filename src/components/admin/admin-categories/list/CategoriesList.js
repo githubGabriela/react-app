@@ -21,7 +21,6 @@ class Categories extends Component {
             this.toggleColorPopup = this.toggleColorPopup.bind(this);
         }
 
-        //  color popup
         toggleColorPopup(item) {
             this.setState({
                 showColorPopup: true,

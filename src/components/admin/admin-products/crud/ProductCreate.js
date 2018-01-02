@@ -20,7 +20,6 @@ class ProductCreate extends Component {
                 name: event.label
             }
         });
-        console.log('categoryChanged', this.state.category);
     }
 
 

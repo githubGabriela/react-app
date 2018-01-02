@@ -11,6 +11,8 @@ import React, { Component } from 'react';
 import Modal from 'react-modal';
 import FontAwesome from 'react-fontawesome';
 
+import * as Constants from '../../../utils/Constants';
+
 export function hocPopup (WrappedComponent, header, body, popupType) {
     return class extends React.Component {
         constructor(props) {
@@ -58,38 +60,34 @@ export function hocPopup (WrappedComponent, header, body, popupType) {
               };
 
             return ( 
-                <div>
-                   opened: {this.state.modalIsOpened ? 'yes' : "no"}
                 <Modal
                 style={modalStyle}
                 ariaHideApp={false}
                 isOpen={this.state.modalIsOpened}>
 
-            <div className="popup-container">
-                <FontAwesome name="close" className="popup-close-icon" onClick={this.closeModal}/>
+                <div className="popup-container">
+                    <FontAwesome name="close" className="popup-close-icon" onClick={this.closeModal}/>
 
-                <div className={"popup-header " + this.state.type()}>
-                    {this.state.type() === 'warning' ?
-                        <div className="warning-icon">
-                           <FontAwesome name="exclamation-circle" size="lg" className="warning-icon"/>
-                        </div>
-                        : null
-                    }
+                    <div className={"popup-header " + this.state.type()}>
+                        {this.state.type() === Constants.POPUP.WARNING ?
+                            <div className="warning-icon">
+                            <FontAwesome name="exclamation-circle" size="lg" className="warning-icon"/>
+                            </div>
+                            : null
+                        }
+                        {this.state.headerContent()}
+                    </div>
 
-                    {this.state.headerContent()}
+                    <div className="popup-body">
+                        {this.state.bodyContent()}
+                    </div>
+                    <div className="popup-footer">
+                        <button className="popup-btn btn-ok" onClick={this.closeModal}> {Constants.POPUP.OK} </button>
+                        <button className="popup-btn btn-cancel" onClick={this.closeModal}>  {Constants.POPUP.CANCEL} </button>
+                    </div>
                 </div>
-
-                <div className="popup-body">
-                    {this.state.bodyContent()}
-                </div>
-                <div className="popup-footer">
-                    <button className="popup-btn btn-ok" onClick={this.closeModal}> Ok </button>
-                    <button className="popup-btn btn-cancel" onClick={this.closeModal}> Cancel </button>
-                </div>
-            </div>
            
             </Modal>
-            </div>
             ); 
             
 

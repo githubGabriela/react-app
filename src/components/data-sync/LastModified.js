@@ -3,6 +3,8 @@
 
 import React, { Component } from 'react';
 
+import * as Constants from '../../utils/Constants';
+
 class LastModified extends Component {
 
     constructor() {
@@ -19,7 +21,7 @@ class LastModified extends Component {
     render() {
         return (
             <div className="transparent-text small-font">
-                Last modified: {this.state.today}
+                {Constants.TITLES.LAST_MODIFIED}: {this.state.today}
             </div>
            
         );

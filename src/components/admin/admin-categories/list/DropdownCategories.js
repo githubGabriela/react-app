@@ -6,6 +6,7 @@ import Dropdown from 'react-dropdown';
 import 'react-dropdown/style.css';
 
 import * as DataSource from '../../../../config/DataSource';
+import * as Constants from '../../../../utils/Constants';
 
 class DropdownCategories extends Component {
     constructor(){
@@ -31,7 +32,7 @@ class DropdownCategories extends Component {
         return (
             <Dropdown options={this.state.categories}
                       onChange={(event) => this.props.categorySelected(event)} 
-                      placeholder="Select a category"/>
+                      placeholder={Constants.TITLES.SELECT_CATEGORY}/>
         );
     }
 }

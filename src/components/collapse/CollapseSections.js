@@ -3,6 +3,8 @@
 
 import React, { Component } from 'react';
 
+import * as Constants from '../../utils/Constants';
+
 class CollapseSections extends Component {
 
     constructor() {
@@ -23,9 +25,9 @@ class CollapseSections extends Component {
         return (
             <div className="collapse-sections small-font" onClick={this.toggle}>
                 {this.state.collapseAll ? 
-                        <div>Collapse All</div>
+                        <div>{Constants.TITLES.COLLAPSE_ALL}</div>
                         : 
-                        <div>Expand All</div>
+                        <div>{Constants.TITLES.EXPAND_ALL}</div>
                 }
             </div>
         );

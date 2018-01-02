@@ -52,7 +52,7 @@ class AdminCategories extends Component {
                 <FilteringAndSorting dataType={Constants.CATEGORIES}
                                      items={this.state.categories} 
                                      setFilteredItems = {items => this.setState({categories: items})}/>
-                <CategoriesList sectionTitle="Categories" items={this.state.categories}/>
+                <CategoriesList sectionTitle={Constants.TITLES.CATEGORIES} items={this.state.categories}/>
             </div>
         );
     }

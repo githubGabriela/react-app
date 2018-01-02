@@ -49,7 +49,7 @@ class AdminProducts extends Component {
                     <FilteringAndSorting dataType={Constants.PRODUCTS}
                                  items={this.state.products} 
                                  setFilteredItems = {items => this.setState({products: items})}/>
-                    <ProductsList sectionTitle="Products" items={this.state.products}/>
+                    <ProductsList sectionTitle={Constants.TITLES.PRODUCTS} items={this.state.products}/>
                 </div>
             </div>
         );
