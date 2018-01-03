@@ -17,6 +17,7 @@ class ShoppingList extends Component {
         super();
         this.state={
             items: [],
+            initialItems: [],
             categories: [],
             showCrudIcons: false
         }
@@ -31,7 +32,8 @@ class ShoppingList extends Component {
     getShoppingList(){
         DataSource.getShoppingList(items => {
             this.setState({
-                items: items
+                items: items,
+                initialItems: items
             });
         });
     }
@@ -86,6 +88,7 @@ class ShoppingList extends Component {
             </div>
             <FilteringAndSorting dataType={Constants.SHOPPING_LIST}
                                  items={this.state.items} 
+                                 initialItems={this.state.initialItems}
                                  setFilteredItems = {items => this.setState({items: items})}/>
         
             {this.state.items.map((item) => {

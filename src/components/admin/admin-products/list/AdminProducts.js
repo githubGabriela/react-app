@@ -16,7 +16,8 @@ class AdminProducts extends Component {
         super();
         this.state = {
             categories : [],
-            products: []
+            products: [],
+            initialProducts: []
         }
     }
 
@@ -36,11 +37,11 @@ class AdminProducts extends Component {
         getProducts() {
             DataSource.getProducts( items => {
                 this.setState({
-                    products : items
+                    products : items,
+                    initialProducts: items
                 });
             });
         }
-
 
     render() {
         return (
@@ -49,6 +50,7 @@ class AdminProducts extends Component {
                     <ProductCreateEdit type="create" popupTitle={Constants.TITLES.CREATE}/>
                     <FilteringAndSorting dataType={Constants.PRODUCTS}
                                  items={this.state.products} 
+                                 initialItems = {this.state.initialProducts}
                                  setFilteredItems = {items => this.setState({products: items})}/>
                     <ProductsList sectionTitle={Constants.TITLES.PRODUCTS} items={this.state.products}/>
                 </div>

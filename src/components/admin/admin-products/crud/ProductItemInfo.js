@@ -23,9 +23,7 @@ class ProductItemInfo extends Component {
                         </div>        
                     <div className="item-image product-image" style={borderStyle}></div>            
                 </div>
-                <label> category: {this.props.item.value.category}</label>
-                <label> name: {this.props.item.value.name}</label>
-                
+                <label>{this.props.item.value.name}</label>
             </div>
         );
     }

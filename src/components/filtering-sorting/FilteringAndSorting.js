@@ -9,16 +9,32 @@ import 'react-dropdown/style.css';
 import * as DataSource from '../../config/DataSource';
 import * as Constants from '../../utils/Constants';
 
+const options = [
+    { label: Constants.TITLES.RECENTLY_ADDED, value: 'recently_added'},
+    { label: Constants.TITLES.ASCENDING, value: 'ASC'},
+    { label: Constants.TITLES.DESCENDING, value: 'DESC'}
+]
+
 class FilteringAndSorting extends Component {
     constructor() {
         super();
         this.state= {
             order: 'recently_added',
-            filterValue: undefined
+            filterValue: undefined,
+            dropdownOptions: options,
+            dropdownSelected: undefined
         }
-
+        this._onSelect = this._onSelect.bind(this);
         this.orderBy = this.orderBy.bind(this);
         this.filterChanged = this.filterChanged.bind(this);
+    }
+
+
+    _onSelect(option){
+        this.setState({dropdownSelected: option});
+        if(option.value !== Constants.TITLES.ORDER_BY){
+            this.orderBy(option.value);
+        }
     }
 
     filterChanged(event) {
@@ -33,7 +49,6 @@ class FilteringAndSorting extends Component {
            this.getFilteredItems();
         }
     }
-
 
     orderBy(order) {
         this.setState({
@@ -70,8 +85,7 @@ class FilteringAndSorting extends Component {
     }
 
     getRecentlyAdded() {
-        this.props.setFilteredItems(this.props.items.reverse());
-        // NOT HANDLED
+        this.props.setFilteredItems(this.props.initialItems);
     }
 
     getFilteredItems(){
@@ -80,20 +94,16 @@ class FilteringAndSorting extends Component {
         });
     }
 
+   
 
     render() {
-        let options = [
-            { label: Constants.TITLES.RECENTLY_ADDED, value: 'recently_added'},
-            { label: Constants.TITLES.ASCENDING, value: 'ASC'},
-            { label: Constants.TITLES.DESCENDING, value: 'DESC'}
-        ]
         return (
             <div>
-
-                <input type="text" onChange={(event) => this.filterChanged(event)} />
-                <Dropdown options={options}
-                        onChange={(event) => this.orderBy(event.value)}
-                        placeholder={Constants.TITLES.ORDER_BY}/>
+                <input type="text" placeholder="Search..." onChange={(event) => this.filterChanged(event)} />
+                <Dropdown options={this.state.dropdownOptions}
+                         value={this.state.dropdownSelected}
+                         onChange={this._onSelect}
+                         placeholder={Constants.TITLES.ORDER_BY}/>
             </div>
         );
     }

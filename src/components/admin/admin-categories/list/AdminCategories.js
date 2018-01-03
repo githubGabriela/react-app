@@ -16,6 +16,7 @@ class AdminCategories extends Component {
         super();
         this.state = {
             categories : [],
+            initialCategories: [],
             selectedCategory: {key : '', value: ''}
         }
         this.categoryChanged = this.categoryChanged.bind(this);
@@ -29,6 +30,7 @@ class AdminCategories extends Component {
         DataSource.getCategories( items => {
             this.setState({
                 categories : items,
+                initialCategories : items,                
                 selectedCategory: items[0]
             });
         });
@@ -51,6 +53,7 @@ class AdminCategories extends Component {
                 </div>
                 <FilteringAndSorting dataType={Constants.CATEGORIES}
                                      items={this.state.categories} 
+                                     initialItems={this.state.initialCategories}
                                      setFilteredItems = {items => this.setState({categories: items})}/>
                 <CategoriesList sectionTitle={Constants.TITLES.CATEGORIES} items={this.state.categories}/>
             </div>

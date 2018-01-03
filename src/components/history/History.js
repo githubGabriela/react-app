@@ -15,7 +15,8 @@ class History extends Component {
     constructor() {
         super();
         this.state={
-            items: []
+            items: [],
+            initialItems: [],
         }
         this.addToShopping = this.addToShopping.bind(this);
         this.clearHistory = this.clearHistory.bind(this);
@@ -28,7 +29,8 @@ class History extends Component {
     getHistory(){
         DataSource.getHistory( items => {
             this.setState({
-                items: items
+                items: items,
+                initialItems: items
             });
         });
     }
@@ -59,6 +61,7 @@ class History extends Component {
               </div>
               <FilteringAndSorting dataType={Constants.HISTORY}
                                  items={this.state.items} 
+                                 initialItems={this.state.initialItems}
                                  setFilteredItems = {items => this.setState({items: items})}/>
               {this.state.items.map((item) => {
                   return (

@@ -14,6 +14,7 @@ class Products extends Component {
         super(props);
         this.state = {
             items: [],
+            initialItems:[],
             showSectionForKey : undefined
         }
         this.toggleSection = this.toggleSection.bind(this);
@@ -27,7 +28,8 @@ class Products extends Component {
     getProductsByCategory(){
         DataSource.getProductsByCategory( items => {
             this.setState({
-                items: items
+                items: items,
+                initialItems: items
             });
         });
     }
@@ -51,6 +53,7 @@ class Products extends Component {
                 </div>
                 <FilteringAndSorting dataType={Constants.PRODUCTS}
                                  items={this.state.items} 
+                                 initialItems={this.state.initialItems}
                                  setFilteredItems = {items => this.setState({items: items})}/>
                 {this.state.items.map((item) => {
                     return (
