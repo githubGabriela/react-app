@@ -4,7 +4,6 @@ import FontAwesome from 'react-fontawesome';
 import CreateEditProductPopup from '../../../popups/CreateEditProductPopup';
 
 class ProductCreateEdit extends Component {
-    
     constructor() {
         super();
         this.state = {
@@ -19,6 +18,7 @@ class ProductCreateEdit extends Component {
             productPopupOpened: true
         });
     }
+
     closeProductPopup(event){
         this.setState({
             productPopupOpened: false
@@ -35,9 +35,10 @@ class ProductCreateEdit extends Component {
                 }
                 <CreateEditProductPopup type={this.props.type}
                                         isOpened={this.state.productPopupOpened}
+                                        item={this.props.item}
                                         closePopup={(event) => this.closeProductPopup(event)}/>
             </div>
-        );
+            );
     }
 }
 

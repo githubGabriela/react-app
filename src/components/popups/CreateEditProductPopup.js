@@ -7,19 +7,19 @@ import * as Constants from '../../utils/Constants';
 import DropdownCategories from '../admin/admin-categories/list/DropdownCategories';
 import '../../assets/css/General.css';
 
-class CreateEditProductPopup extends Component {
-
-    constructor(props){
+class CreateEditProductPopup extends Component { 
+        constructor(props){
         super(props);
         this.state = {
             item: {
-                name : '',
+                name: '',
+                category: 'No category',
                 color: ''
             },
-            category: '',
+            initialCategory: undefined,
+            itemToEdit: {},
             errorMessage: undefined
         }
-
         this.inputChange = this.inputChange.bind(this);
         this.clearInput = this.clearInput.bind(this);
         this.categoryChanged = this.categoryChanged.bind(this);
@@ -28,33 +28,50 @@ class CreateEditProductPopup extends Component {
         this.close = this.close.bind(this);
     }
 
-    inputChange(event){
+    componentWillReceiveProps(props, nextProps) {
+        if(props){
+            if(props.item){
+                 this.setState({
+                    itemToEdit: props.item,
+                    item: props.item.value,
+                    initialCategory: props.item.value.category
+                });
+            }
+        }
+    }
+
+    inputChange(event) {
         let value = event.target.value;
         if(value){
-            let newItem = this.state.item;
-            newItem.name = value;
+            let modified = this.state.item;
+            modified.name = value;
             this.setState({
-                item : newItem
+                item : modified
             });
         }
         this.clearError();
     }
     
     clearInput(event){
-        event.preventDefault();
+        if(event) {
+            event.preventDefault();
+        }
+        let modified = this.state.item;
+        modified.name = '';
         this.setState({
-            item: undefined
+            item: modified
         });
     }
 
-    categoryChanged(event) {
-        this.setState({
-            category: {
-                key : event.value,
-                name: event.label
-            }
+    categoryChanged(category) {
+        let modified = this.state.item;
+        modified.category = category;
+        DataSource.getColorForCategory(category, color => {
+            modified.color = color;
+            this.setState({
+                item: modified
+            });
         });
-        console.log('categoryChanged', this.state.category);
     }
 
     confirm(event) {
@@ -86,24 +103,23 @@ class CreateEditProductPopup extends Component {
     }
 
     edit() {
-        DataSource.update(Constants.PRODUCTS, this.state.item.key, this.state.item, exists => this.setError(exists));
+        DataSource.update(Constants.PRODUCTS, this.state.itemToEdit.key, this.state.item, exists => this.setError(exists));
     }
-
+    
     setError(exists){
-        if(exists) {
+        if(exists && exists.message){
             this.setState({
-                errorMessage : 'This product already exists'
+                errorMessage : exists.message
             });
-        } else {
+        }else{
             this.props.closePopup(true);
+            this.clearInput();
         }
     }
 
     render() {
         return (
-            <Modal
-                ariaHideApp={false}
-                isOpen={this.props.isOpened}>
+            <Modal ariaHideApp={false} isOpen={this.props.isOpened}>
 
                 <div className="popup-remove-container">
                     <div className="popup-remove-header">
@@ -115,9 +131,11 @@ class CreateEditProductPopup extends Component {
                     </div>
 
                     <div className="popup-body">
-                        <DropdownCategories categorySelected={(event) => this.categoryChanged(event)}/>
+                        <DropdownCategories initialCategory={this.state.initialCategory}
+                                            categorySelected={(category) => this.categoryChanged(category)}/>
                         <div className="flex space-between"> 
-                            Name: <input type="text" onChange={(event) => this.inputChange(event)}/>
+                            Name: <input type="text" value={this.state.item.name}
+                                         onChange={(event) => this.inputChange(event)}/>
                             <FontAwesome name="close" onClick={(event) => this.clearInput(event)}/>
                          </div>
                             

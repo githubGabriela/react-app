@@ -90,15 +90,22 @@ export function addCategory(category, customFct) {
     }
 }
 
-export function addProduct(product, customFct){
-    if(product && product.name){
-        dbDataProducts.orderByChild('name').equalTo(product.name).once('value', snap => {
-            if(!snap.val()) {
-                dbDataProducts.push(product);
+export function addProduct(value, customFct){
+    if(value && value.name){
+        dbDataProducts.orderByChild('name').equalTo(value.name).once('value', snap => {
+            let prod = snap.val();
+            let keys;
+            if(prod){
+                keys = Object.keys(prod);
             }
-            customFct(snap.val());
-        });
-    } 
+            if(!prod || (prod[keys] && prod[keys].category !== value.category)) {
+                dbDataProducts.push(value);
+                customFct({message: ''});
+            } else {
+                customFct({message: 'This product already exists'});
+            }               
+        }); 
+    }
 }
 
 export function addToShoppingList(item){
@@ -123,7 +130,7 @@ export function addToHistory(item){
 export function update(dbDataType, key, value, customFct){
     switch(dbDataType){
         case Constants.PRODUCTS:
-            updateForDbType(dbDataProducts, key, value, customFct);
+            updateProduct(key, value, customFct);
         break;
         case Constants.CATEGORIES:
             updateForDbType(dbDataCategories, key, value, customFct);
@@ -134,10 +141,26 @@ export function update(dbDataType, key, value, customFct){
     }
 }
 
+export function updateProduct(key, value, customFct) {
+    dbDataProducts.orderByChild('name').equalTo(value.name).once("value", snap => {
+        let prod = snap.val();
+        let keys;
+        if(prod){
+            keys = Object.keys(prod);
+        }
+        if(!prod || (prod[keys] && prod[keys].category !== value.category)) {
+            dbDataProducts.child(key).update(value);
+            customFct({message: ''});
+        } else {
+            customFct({message: 'This product already exists'});
+        }
+    });
+}
+
+
 export function updateForDbType(dbType, key, value, customFct) {
-    dbType.orderByChild('name').equalTo(value).on("value", snap => {
-        console.log('update item exists - ', snap.val());
-        if(!snap.val()){
+    dbType.orderByChild('name').equalTo(value.name).on("value", snap => {
+    if(!snap.val()){
             dbType.child(key).update(value);
         } 
         customFct(snap.val());
