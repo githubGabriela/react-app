@@ -9,7 +9,7 @@ import RemoveItem from '../admin-categories-products/RemoveItem';
 import RemovePopup from '../../popups/RemovePopup';
 import CategoryItemInfo from '../admin-categories/crud/CategoryItemInfo';
 import ProductItemInfo from '../admin-products/crud/ProductItemInfo';
-import ProductEdit from '../admin-products/crud/ProductEdit';
+import ProductCreateEdit from '../admin-products/crud/ProductCreateEdit';
 
 export function hocCategoriesProductsList (WrappedComponent, options){
     return class extends React.Component {
@@ -125,7 +125,7 @@ export function hocCategoriesProductsList (WrappedComponent, options){
                                     <div className="flex space-between"> 
                                         <ProductItemInfo isChecked={this.state.checkedItems.indexOf(item) !== -1} item={item} 
                                                         checkedItem={(checked, item) => this.toggleSelectedItems(false, item, checked)}/>
-                                        <ProductEdit item={item} dbDataType={this.state.dbDataType}/>
+                                        <ProductCreateEdit type="edit" popupTitle={Constants.TITLES.EDIT} item={item}/>
                                         <FontAwesome name="cart-plus" className="cart-add" onClick={(event) => this.addToShoppingList(event, item)}/>
                                     </div>
                                 }

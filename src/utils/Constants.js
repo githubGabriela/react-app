@@ -17,7 +17,9 @@ export const TITLES = {
     ASCENDING: 'Ascending',
     DESCENDING: 'Descending',
     RECENTLY_ADDED : 'Recently added',
-    CLEAR: 'Clear'
+    CLEAR: 'Clear',
+    CREATE: 'Create',
+    EDIT: 'Edit'
 }
 
 export const UTILS = {

@@ -6,7 +6,7 @@ import React, { Component } from 'react';
 import * as Constants from '../../../../utils/Constants';
 import * as DataSource from '../../../../config/DataSource';
 import ProductsList from './ProductsList';
-import ProductCreate from '../crud/ProductCreate';
+import ProductCreateEdit from '../crud/ProductCreateEdit';
 import FilteringAndSorting from '../../../filtering-sorting/FilteringAndSorting';
 
 import '../../../../assets/css/General.css';
@@ -41,11 +41,12 @@ class AdminProducts extends Component {
             });
         }
 
+
     render() {
         return (
             <div>
                 <div className="product-create">
-                    <ProductCreate categories={this.state.categories}/> 
+                    <ProductCreateEdit type="create" popupTitle={Constants.TITLES.CREATE}/>
                     <FilteringAndSorting dataType={Constants.PRODUCTS}
                                  items={this.state.products} 
                                  setFilteredItems = {items => this.setState({products: items})}/>

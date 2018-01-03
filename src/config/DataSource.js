@@ -1,5 +1,6 @@
 import { dbDataCategories, dbDataProducts, dbDataShoppingList, dbDataHistory } from './constants';
 import * as Constants from '../utils/Constants';
+
 //GET
 function getKeyValues(snap) { // customFct - function called in the component
     const items = [];
@@ -78,15 +79,25 @@ export function getHistory(customFct){
 }
 
 // PUSH
-export function addCategory(category) {
-    if(category && category.name){
-        dbDataCategories.push(category);
+export function addCategory(category, customFct) {
+    if(category && category.name) {
+        dbDataCategories.orderByChild('name').equalTo(category.name).once('value', snap => {
+            if(!snap.val()) {
+                dbDataCategories.push(category);
+            } 
+            customFct(snap.val());
+        });
     }
 }
 
-export function addProduct(product){
+export function addProduct(product, customFct){
     if(product && product.name){
-        dbDataProducts.push(product);
+        dbDataProducts.orderByChild('name').equalTo(product.name).once('value', snap => {
+            if(!snap.val()) {
+                dbDataProducts.push(product);
+            }
+            customFct(snap.val());
+        });
     } 
 }
 
@@ -109,8 +120,28 @@ export function addToHistory(item){
 
 
 // UPDATE
-export function update(dbDataType, key, value){
-    dbDataType.child(key).update(value);
+export function update(dbDataType, key, value, customFct){
+    switch(dbDataType){
+        case Constants.PRODUCTS:
+            updateForDbType(dbDataProducts, key, value, customFct);
+        break;
+        case Constants.CATEGORIES:
+            updateForDbType(dbDataCategories, key, value, customFct);
+        break;
+        default:
+            updateForDbType(dbDataType, key, value, customFct);
+        break;
+    }
+}
+
+export function updateForDbType(dbType, key, value, customFct) {
+    dbType.orderByChild('name').equalTo(value).on("value", snap => {
+        console.log('update item exists - ', snap.val());
+        if(!snap.val()){
+            dbType.child(key).update(value);
+        } 
+        customFct(snap.val());
+    });
 }
 
 

@@ -13,6 +13,9 @@ class CategoryName extends Component {
 
     constructor() {
         super();
+        this.state = {
+            errorMessage : undefined
+        }
         this.pushCategoryToDb = this.pushCategoryToDb.bind(this);
     }
 
@@ -22,13 +25,26 @@ class CategoryName extends Component {
             name:this.props.nameToUpdate, 
             color: this.props.color
         }
-        DataSource.addCategory(category);
+        DataSource.addCategory(category, exists => {
+            if(exists) {
+                this.setState({
+                    errorMessage: 'This category already exists'
+                });
+            }
+        });
    }
    
     render() {
         return (
-            <FontAwesome name="check" className="icon-with-padding"
-                         onClick={this.pushCategoryToDb}/>
+            <div>
+                <FontAwesome name="check" className="icon-with-padding"
+                            onClick={this.pushCategoryToDb}/>
+                {this.state.errorMessage ? 
+                    <div className="red">{this.state.errorMessage}</div>
+                : null
+                }
+            </div>
+            
         );
     }
 }
