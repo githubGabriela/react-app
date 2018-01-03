@@ -5,7 +5,7 @@ import React, { Component } from 'react';
 
 import * as Constants from '../../../../utils/Constants';
 import * as DataSource from '../../../../config/DataSource';
-import ProductsList from './ProductsList';
+import List from './List';
 import ProductCreateEdit from '../crud/ProductCreateEdit';
 import FilteringAndSorting from '../../../filtering-sorting/FilteringAndSorting';
 
@@ -52,7 +52,7 @@ class AdminProducts extends Component {
                                  items={this.state.products} 
                                  initialItems = {this.state.initialProducts}
                                  setFilteredItems = {items => this.setState({products: items})}/>
-                    <ProductsList sectionTitle={Constants.TITLES.PRODUCTS} items={this.state.products}/>
+                    <List sectionTitle={Constants.TITLES.PRODUCTS} items={this.state.products}/>
                 </div>
             </div>
         );

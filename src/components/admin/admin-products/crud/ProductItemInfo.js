@@ -4,10 +4,6 @@ import '../../../../assets/css/General.css';
 
 class ProductItemInfo extends Component {
 
-    constructor(){
-        super();
-    }
-
     render() {
         let borderStyle = {
             borderColor: this.props.item.value.color
@@ -23,7 +19,8 @@ class ProductItemInfo extends Component {
                         </div>        
                     <div className="item-image product-image" style={borderStyle}></div>            
                 </div>
-                <label>{this.props.item.value.name}</label>
+                <label>name: {this.props.item.value.name}</label>
+                <label>category: {this.props.item.value.category}</label>
             </div>
         );
     }

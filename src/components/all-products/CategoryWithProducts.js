@@ -6,7 +6,7 @@ import React, { Component } from 'react';
 import FontAwesome from  'react-fontawesome';
 
 import * as Constants from '../../utils/Constants';
-import ProductItem from '../products/ProductItem';
+import ProductItem from '../all-products/ProductItem';
 import CollapseArrows from '../collapse/CollapseArrows';
 
 class CategoryWithProducts extends Component {

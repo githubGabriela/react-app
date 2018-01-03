@@ -5,7 +5,7 @@ import { BrowserRouter as Router,
 import FontAwesome from  'react-fontawesome';
 
  import ShoppingList  from '../components/shoppingList/ShoppingList';
- import Products from '../components/products/Products';
+ import AllProducts from '../components/all-products/AllProducts';
  import ProductDetail from '../components/products/ProductDetail';
  import Admin from '../components/admin/Admin';
  import History from '../components/history/History';
@@ -54,7 +54,7 @@ const HistoryItems = () => (
 )
 
 const ProductsStack = () => (
-    <Products/>
+    <AllProducts/>
 )
 
 const AdminPage = ({ match }) => (

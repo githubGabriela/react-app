@@ -7,7 +7,7 @@ import FontAwesome from 'react-fontawesome';
 import * as Constants from '../../utils/Constants';
 import * as DataSource from '../../config/DataSource';
 import '../../assets/css/General.css';
-import ProductItem from '../products/ProductItem';
+import ProductItem from '../all-products/ProductItem';
 import LastModified from '../data-sync/LastModified';
 import ExportList from './ExportList';
 import FilteringAndSorting from '../filtering-sorting/FilteringAndSorting';
@@ -37,6 +37,7 @@ class ShoppingList extends Component {
             });
         });
     }
+    
     getCategoriesNames(){
         DataSource.getCategoriesNames(items => {
             this.setState({

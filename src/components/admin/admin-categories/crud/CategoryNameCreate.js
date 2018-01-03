@@ -5,7 +5,7 @@ import React, { Component } from 'react';
 import FontAwesome from 'react-fontawesome';
 
 import * as DataSource from '../../../../config/DataSource';
-import { hocItemNameCreate } from '../../hoc/HocItemNameCreate';
+import { hocItemNameCreate } from './HocItemNameCreate';
 
 import '../../../../assets/css/General.css';
 

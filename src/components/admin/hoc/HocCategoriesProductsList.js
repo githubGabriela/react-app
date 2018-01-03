@@ -4,7 +4,7 @@ import FontAwesome from 'react-fontawesome';
 import * as DataSource from '../../../config/DataSource';
 import * as Constants from '../../../utils/Constants';
 import Header from '../admin-categories-products/Header';
-import NameEdit from '../admin-categories-products/NameEdit';
+import NameEdit from '../admin-categories/crud/NameEdit';
 import RemoveItem from '../admin-categories-products/RemoveItem';
 import RemovePopup from '../../popups/RemovePopup';
 import CategoryItemInfo from '../admin-categories/crud/CategoryItemInfo';
@@ -129,9 +129,6 @@ export function hocCategoriesProductsList (WrappedComponent, options){
                                         <FontAwesome name="cart-plus" className="cart-add" onClick={(event) => this.addToShoppingList(event, item)}/>
                                     </div>
                                 }
-                                 
-                                 {/* <RemoveItem item={item} showRemoveButton={this.state.checkedItems.indexOf(item) !== -1}
-                                                 removeIconClicked={(item) => this.removeIconItemClicked(item)}/> */}
                          </div>
                      })
                  }

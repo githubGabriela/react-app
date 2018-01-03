@@ -14,6 +14,7 @@ class CollapseSections extends Component {
         }
         this.toggle = this.toggle.bind(this);
     }
+    
     toggle(event){
         event.preventDefault();
         this.setState({

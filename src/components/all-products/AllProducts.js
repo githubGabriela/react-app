@@ -1,5 +1,5 @@
 // Usage:
-// <Products/>
+// <AllProducts/>
 
 import React, { Component } from 'react';
 
@@ -9,7 +9,7 @@ import CollapseSections from '../collapse/CollapseSections';
 import ProductItem from './ProductItem';
 import FilteringAndSorting from '../filtering-sorting/FilteringAndSorting';
 
-class Products extends Component {
+class AllProducts extends Component {
     constructor(props){
         super(props);
         this.state = {
@@ -69,4 +69,4 @@ class Products extends Component {
     }
 }
 
-export default Products;
+export default AllProducts;

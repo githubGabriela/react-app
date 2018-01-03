@@ -5,7 +5,7 @@ import React, { Component } from 'react';
 
 import * as DataSource from '../../config/DataSource';
 import * as Constants from '../../utils/Constants';
-import ProductItem from '../products/ProductItem';
+import ProductItem from '../all-products/ProductItem';
 import LastModified from '../data-sync/LastModified';
 import FilteringAndSorting from '../filtering-sorting/FilteringAndSorting';
 

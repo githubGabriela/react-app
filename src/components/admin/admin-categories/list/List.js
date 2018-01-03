@@ -38,7 +38,7 @@ class Categories extends Component {
     }
 }
 
-const CategoriesList = hocCategoriesProductsList(
+const List = hocCategoriesProductsList(
     Categories,
     {
         headerTitle: Constants.TITLES.CATEGORIES,
@@ -47,4 +47,4 @@ const CategoriesList = hocCategoriesProductsList(
     }
 );
 
-export default CategoriesList;
+export default List;

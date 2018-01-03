@@ -13,13 +13,12 @@ class Products extends Component {
 
     render() {
         return (
-            <div>
-            </div>
+            <div></div>
         )
     }
 }
 
-const ProductsList = hocCategoriesProductsList(
+const List = hocCategoriesProductsList(
     Products,
     {
         headerTitle: Constants.TITLES.PRODUCTS,
@@ -28,4 +27,4 @@ const ProductsList = hocCategoriesProductsList(
     }
 );
 
-export default ProductsList;
+export default List;

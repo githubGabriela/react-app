@@ -5,7 +5,7 @@ import React, { Component } from 'react';
 
 import * as Constants from '../../../../utils/Constants';
 import * as DataSource from '../../../../config/DataSource';
-import CategoriesList from './CategoriesList';
+import List from './List';
 import CategoryCreate from '../crud/CategoryCreate';
 import FilteringAndSorting from '../../../filtering-sorting/FilteringAndSorting';
 
@@ -55,7 +55,7 @@ class AdminCategories extends Component {
                                      items={this.state.categories} 
                                      initialItems={this.state.initialCategories}
                                      setFilteredItems = {items => this.setState({categories: items})}/>
-                <CategoriesList sectionTitle={Constants.TITLES.CATEGORIES} items={this.state.categories}/>
+                <List sectionTitle={Constants.TITLES.CATEGORIES} items={this.state.categories}/>
             </div>
         );
     }

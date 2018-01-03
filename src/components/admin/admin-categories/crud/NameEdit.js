@@ -4,8 +4,8 @@
 import React, { Component } from 'react';
 import FontAwesome from 'react-fontawesome';
 
-import * as DataSource from '../../../config/DataSource';
-import '../../../assets/css/General.css';
+import * as DataSource from '../../../../config/DataSource';
+import '../../../../assets/css/General.css';
 
 class NameEdit extends Component {
  
@@ -14,8 +14,7 @@ class NameEdit extends Component {
  
          this.state = {
              item : props.item,
-             isEditable : false,
-             showConfirmPopup: false
+             isEditable : false
          };
  
         this.edit = this.edit.bind(this);
@@ -47,13 +46,7 @@ class NameEdit extends Component {
              });
          }
      }
- 
-     showConfirmationPopup() {
-         this.setState({
-             showConfirmPopup: true
-         });
-     }
- 
+
     resetItem(event) {
          event.preventDefault();
          this.setState({
@@ -101,13 +94,6 @@ class NameEdit extends Component {
                         </div>
                 </div>
             }
-
-            {/* { this.state.showConfirmPopup ? 
-                    <div>confirmed
-                         <ConfirmationPopup item={this.props.item} showPopup={this.state.showConfirmPopup} />
-                    </div>
-                : <div>not confirmed </div>
-            } */}
         </div>
 
            
