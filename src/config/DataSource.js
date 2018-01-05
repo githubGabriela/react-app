@@ -90,8 +90,9 @@ export function addCategory(category, customFct) {
         dbDataCategories.orderByChild('name').equalTo(category.name).once('value', snap => {
             if(!snap.val()) {
                 dbDataCategories.push(category);
+                customFct({message: ''});
             } 
-            customFct(snap.val());
+            customFct({message: 'This category already exists'});
         });
     }
 }

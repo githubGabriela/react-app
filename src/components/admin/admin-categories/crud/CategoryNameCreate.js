@@ -5,6 +5,7 @@ import React, { Component } from 'react';
 import FontAwesome from 'react-fontawesome';
 
 import * as DataSource from '../../../../config/DataSource';
+import * as Utils from '../../../../utils/Utils';
 import { hocItemNameCreate } from './HocItemNameCreate';
 
 import '../../../../assets/css/General.css';
@@ -14,35 +15,31 @@ class CategoryName extends Component {
     constructor() {
         super();
         this.state = {
-            errorMessage : undefined
+            errorMessage : ''
         }
-        this.pushCategoryToDb = this.pushCategoryToDb.bind(this);
     }
 
-    pushCategoryToDb(event) {
-        event.preventDefault();
+    pushCategoryToDb() {
         let category = { 
             name:this.props.nameToUpdate, 
             color: this.props.color
         }
-        DataSource.addCategory(category, exists => {
-            if(exists) {
-                this.setState({
-                    errorMessage: 'This category already exists'
-                });
-            }
-        });
+        DataSource.addCategory(category, error => this.setError(error));
    }
-   
+ 
+   setError(error){
+    if(error && error.message){
+        this.setState({
+            errorMessage : error.message
+        });
+    }
+}
     render() {
         return (
             <div>
                 <FontAwesome name="check" className="icon-with-padding"
-                            onClick={this.pushCategoryToDb}/>
-                {this.state.errorMessage ? 
-                    <div className="red">{this.state.errorMessage}</div>
-                : null
-                }
+                            onClick={(event) => {Utils.preventDefault(event); this.pushCategoryToDb()}}/>
+                <div className="red">{this.state.errorMessage}</div>
             </div>
             
         );
