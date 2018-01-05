@@ -51,7 +51,8 @@ class AdminCategories extends Component {
                 <div className="category-create">
                     <CategoryCreate/>
                 </div>
-                <FilteringAndSorting dataType={Constants.CATEGORIES}
+                <FilteringAndSorting showComponent={this.state.categories.length > 0 }
+                                     dataType={Constants.CATEGORIES}
                                      items={this.state.categories} 
                                      initialItems={this.state.initialCategories}
                                      setFilteredItems = {items => this.setState({categories: items})}/>

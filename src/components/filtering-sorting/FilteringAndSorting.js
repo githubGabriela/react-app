@@ -99,11 +99,16 @@ class FilteringAndSorting extends Component {
     render() {
         return (
             <div>
-                <input type="text" placeholder="Search..." onChange={(event) => this.filterChanged(event)} />
-                <Dropdown options={this.state.dropdownOptions}
-                         value={this.state.dropdownSelected}
-                         onChange={this._onSelect}
-                         placeholder={Constants.TITLES.ORDER_BY}/>
+                { this.props.showComponent ? 
+                <div> 
+                    <input type="text" placeholder="Search..." onChange={(event) => this.filterChanged(event)} />
+                    <Dropdown options={this.state.dropdownOptions}
+                            value={this.state.dropdownSelected}
+                            onChange={this._onSelect}
+                            placeholder={Constants.TITLES.ORDER_BY}/>
+                </div>
+                : null
+                }
             </div>
         );
     }

@@ -6,7 +6,6 @@ import React, { Component } from 'react';
 import * as DataSource from '../../config/DataSource';
 import * as Constants from '../../utils/Constants';
 import ProductItem from '../all-products/ProductItem';
-import LastModified from '../data-sync/LastModified';
 import FilteringAndSorting from '../filtering-sorting/FilteringAndSorting';
 
 import '../../assets/css/General.css';
@@ -50,7 +49,6 @@ class History extends Component {
                  <div className="section-header">
                   <div className="full-width">
                       <div className="flex space-between">
-                          <LastModified />
                           <button onClick={(event) => this.clearHistory(event)}> {Constants.TITLES.CLEAR} </button>
                       </div>
                       <div className="flex space-between">
@@ -59,7 +57,8 @@ class History extends Component {
                     
                   </div>
               </div>
-              <FilteringAndSorting dataType={Constants.HISTORY}
+              <FilteringAndSorting showComponent={this.state.items.length > 0} 
+                                 dataType={Constants.HISTORY}
                                  items={this.state.items} 
                                  initialItems={this.state.initialItems}
                                  setFilteredItems = {items => this.setState({items: items})}/>

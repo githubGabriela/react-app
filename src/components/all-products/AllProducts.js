@@ -51,7 +51,8 @@ class AllProducts extends Component {
                     <div className="section-title">{Constants.TITLES.ALL_PRODUCTS}</div>
                     <CollapseSections />
                 </div>
-                <FilteringAndSorting dataType={Constants.PRODUCTS}
+                <FilteringAndSorting showComponent={this.state.items.length > 0}
+                                 dataType={Constants.PRODUCTS}
                                  items={this.state.items} 
                                  initialItems={this.state.initialItems}
                                  setFilteredItems = {items => this.setState({items: items})}/>
