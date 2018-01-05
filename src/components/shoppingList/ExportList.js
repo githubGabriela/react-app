@@ -62,7 +62,6 @@ class ExportList extends Component {
                          <FontAwesome name="share-square-o" onClick={(event) => this.copyToClipboard(event)}/>
                     </CopyToClipboard>
                     {this.state.copiedToClipboard ? <span style={{color: 'red'}}>Copied.</span> : null}
-
                 </div>
             );
     }

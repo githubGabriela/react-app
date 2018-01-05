@@ -80,7 +80,6 @@ export function getHistory(customFct){
 
 export function getLastModified(customFct){
     dbDataLastModified.orderByChild('lastModified').once('value', snap => {
-        console.log(snap.val().lastModified);
         customFct(snap.val().lastModified);
     });
 }

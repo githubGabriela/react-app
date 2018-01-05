@@ -3,25 +3,13 @@
 //color={this.props.category.color} hideCart="false" showRemoveCart="true"/>
 
 import React, { Component } from 'react';
-
-import '../../assets/css/General.css';
 import FontAwesome from  'react-fontawesome';
 
+import * as Utils from '../../utils/Utils';
+import '../../assets/css/General.css';
+
 class ProductItem extends Component {
-    constructor(){
-        super();
-        this.add = this.add.bind(this);
-    }
 
-    add(event){
-        event.preventDefault();
-        this.props.addToShoppingList(this.props.product);
-    }
-
-    remove(event){
-        event.preventDefault();
-        this.props.removeFromShoppingList(this.props.product);
-    }
 
     render() {
         let imageStyle = {
@@ -42,8 +30,8 @@ class ProductItem extends Component {
                     {!this.props.hideCart ? 
                         <div className="center-from-top icon-on-right">
                             { this.props.showRemoveCart ? 
-                            <FontAwesome name="shopping-cart" className="cart-remove" onClick={(event) => this.remove(event)}/>
-                            : <FontAwesome name="cart-plus" className="cart-add" onClick={(event) => this.add(event)}/>
+                            <FontAwesome name="shopping-cart" className="cart-remove" onClick={(event) => {Utils.preventDefault(event); this.props.removeFromShoppingList(this.props.product)}}/>
+                            : <FontAwesome name="cart-plus" className="cart-add" onClick={(event) => {Utils.preventDefault(event); this.props.addToShoppingList(this.props.product)}}/>
                              } 
                         </div>
                         :

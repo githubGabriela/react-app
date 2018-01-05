@@ -3,6 +3,7 @@ import FontAwesome from 'react-fontawesome';
 
 import * as DataSource from '../../../config/DataSource';
 import * as Constants from '../../../utils/Constants';
+import * as Utils from '../../../utils/Utils';
 import Header from '../admin-categories-products/Header';
 import NameEdit from '../admin-categories/crud/NameEdit';
 import RemoveItem from '../admin-categories-products/RemoveItem';
@@ -27,7 +28,6 @@ export function hocCategoriesProductsList (WrappedComponent, options){
             }
 
             this.toggleSelectedItems = this.toggleSelectedItems.bind(this);
-            this.removeItemsFromDb = this.removeItemsFromDb.bind(this);
             this.closeRemovePopup = this.closeRemovePopup.bind(this);
         }
 
@@ -68,10 +68,6 @@ export function hocCategoriesProductsList (WrappedComponent, options){
         }
 
         //  remove popup
-        removeItems(){
-            this.openRemovePopup(this.state.checkedItems);
-        }
-
         openRemovePopup(items) {
             this.setState({
                 removePopupOpened : true,
@@ -94,15 +90,6 @@ export function hocCategoriesProductsList (WrappedComponent, options){
             });
         }
 
-        removeItemsFromDb(){
-            DataSource.removeFromDb(this.state.itemsForRemovePopup, this.state.dbDataType);
-            this.closeRemovePopup();
-        }
-
-        addToShoppingList(event, product){
-            event.preventDefault();
-            DataSource.addToShoppingList(product);
-        }
 
         render(){
             return (
@@ -111,7 +98,7 @@ export function hocCategoriesProductsList (WrappedComponent, options){
                                   allIsChecked={this.state.allIsChecked}
                                   checkedItems={this.state.checkedItems} 
                                   checkedAllItems={(checked)=> { this.toggleSelectedItems(true, undefined, checked)}}
-                                  removeIconClicked={(item) => this.removeItems()}/>
+                                  removeIconClicked={(item) => this.openRemovePopup(this.state.checkedItems)}/>
                  {
                      this.props.items.map((item) => {
                          return <div className="section-item" key={item.key}>
@@ -126,7 +113,7 @@ export function hocCategoriesProductsList (WrappedComponent, options){
                                         <ProductItemInfo isChecked={this.state.checkedItems.indexOf(item) !== -1} item={item} 
                                                         checkedItem={(checked, item) => this.toggleSelectedItems(false, item, checked)}/>
                                         <ProductCreateEdit type="edit" popupTitle={Constants.TITLES.EDIT} item={item}/>
-                                        <FontAwesome name="cart-plus" className="cart-add" onClick={(event) => this.addToShoppingList(event, item)}/>
+                                        <FontAwesome name="cart-plus" className="cart-add" onClick={(event) => {Utils.preventDefault(event); DataSource.addToShoppingList(item)}}/>
                                     </div>
                                 }
                          </div>
@@ -135,7 +122,7 @@ export function hocCategoriesProductsList (WrappedComponent, options){
                  <WrappedComponent {...this.props}/>
                  <RemovePopup removePopupOpened={this.state.removePopupOpened} 
                               items={this.state.itemsForRemovePopup}
-                              confirmRemoveItems = {() => this.removeItemsFromDb()}
+                              confirmRemoveItems = {() => { DataSource.removeFromDb(this.state.itemsForRemovePopup, this.state.dbDataType); this.closeRemovePopup()}}
                               closeRemovePopup={()=> this.closeRemovePopup()}/> 
              </div>
             )

@@ -18,7 +18,6 @@ class AllProducts extends Component {
             showSectionForKey : undefined
         }
         this.toggleSection = this.toggleSection.bind(this);
-        this.addToShopping = this.addToShopping.bind(this);
     }
 
     componentDidMount() {
@@ -34,16 +33,13 @@ class AllProducts extends Component {
         });
     }
 
-    toggleSection(key){
+    toggleSection(key) {
         this.setState({
             showSectionForKey: key
         });
     }
 
-    addToShopping(item){
-        DataSource.addToShoppingList(item);
-    }
-
+   
     render() {
         return (
             <div>
@@ -61,7 +57,7 @@ class AllProducts extends Component {
                         <ProductItem key={item.key}
                                             product={item}
                                             color={item.value.color}
-                                            addToShoppingList={(item)=> this.addToShopping(item)}/>
+                                            addToShoppingList={(item)=> DataSource.addToShoppingList(item)}/>
                     )
                     
                 })}

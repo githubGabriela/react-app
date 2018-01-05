@@ -6,6 +6,7 @@ import FontAwesome from 'react-fontawesome';
 
 import * as Constants from '../../utils/Constants';
 import * as DataSource from '../../config/DataSource';
+import * as Utils from '../../utils/Utils';
 import '../../assets/css/General.css';
 import ProductItem from '../all-products/ProductItem';
 import LastModified from '../data-sync/LastModified';
@@ -56,20 +57,11 @@ class ShoppingList extends Component {
         });
     }
 
-    removeFromShopping(item){
-        DataSource.removeFromShoppingList(item);
-        DataSource.addToHistory(item);
-    }
 
     toggleRemoveIcons() {
         this.setState({
             showCrudIcons: !this.state.showCrudIcons
         });
-    }
-
-    clearShoppingList(event){
-        event.preventDefault();
-        DataSource.clearShoppingList(this.state.items);
     }
 
     render() {
@@ -83,7 +75,7 @@ class ShoppingList extends Component {
                             <div>
                                 <div onClick={this.toggleRemoveIcons}> EDIT </div>
                                          {this.state.showCrudIcons ? 
-                                            <button onClick={(event) => this.clearShoppingList(event)}> Clear </button> 
+                                            <button onClick={(event) => {Utils.preventDefault(event); DataSource.clearShoppingList(this.state.items)}}> Clear </button> 
                                          : null
                                          }
                                 <ExportList categories={this.state.categories} products={this.state.items}/>                                
@@ -109,7 +101,7 @@ class ShoppingList extends Component {
                                  color={item.value.color}
                                  showRemoveCart='true'
                                  showCrudIcons={this.state.showCrudIcons}
-                                 removeFromShoppingList={(item)=> this.removeFromShopping(item)}/>
+                                 removeFromShoppingList={(item)=> {DataSource.removeFromShoppingList(item); DataSource.addToHistory(item)}}/>
                   )
                   
              })}
