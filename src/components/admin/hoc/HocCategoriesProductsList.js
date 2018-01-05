@@ -26,67 +26,31 @@ export function hocCategoriesProductsList (WrappedComponent, options){
                 itemsForRemovePopup: [],
                 removePopupOpened: false
             }
-
-            this.toggleSelectedItems = this.toggleSelectedItems.bind(this);
-            this.closeRemovePopup = this.closeRemovePopup.bind(this);
         }
 
-       //  checkboxes
-        toggleSelectedItems(allSelected, selectedItem, checked) {
-            let propsItems = this.props.items;
-            let items = this.state.checkedItems;
-            let allChecked = this.state.allIsChecked;
-
-            if(allSelected && !selectedItem) {
-                   items = [];
-                   if(checked) {
-                       propsItems.forEach( item => {
-                           items.push(item);
-                       });
-                       allChecked = true;
-                   } else {
-                       allChecked = false;
-               }
-           } else if(selectedItem) {
-                   allChecked = false;
-                   if(checked) {
-                       items.push(selectedItem);
-                       if(items.length === propsItems.length){
-                           allChecked = true;
-                       }
-                   } else {
-                       let index = items.indexOf(selectedItem);
-                       if(index !== -1){
-                           items.splice(index, 1);
-                       }
-                   }
-           }
-           this.setState({
-               checkedItems: items,
-               allIsChecked: allChecked
-           });
-        }
-
-        //  remove popup
-        openRemovePopup(items) {
+        openRemovePopup() {
             this.setState({
                 removePopupOpened : true,
-                itemsForRemovePopup: items
             });
         }  
-        
+
         closeRemovePopup() {
             this.setState({
                 removePopupOpened : false
             });
-            this.setInitialStateCheckboxes();
         }
 
+        setItemsForPopup(){
+            this.setState({
+                itemsForRemovePopup: this.state.checkedItems
+            });
+        }
+        
         setInitialStateCheckboxes() {
             this.setState({ 
-                allIsChecked: false,
                 checkedItems: [],
-                itemsForRemovePopup: []
+                itemsForRemovePopup: [],
+                allIsChecked: false
             });
         }
 
@@ -97,21 +61,21 @@ export function hocCategoriesProductsList (WrappedComponent, options){
                 <Header title={this.state.headerTitle}
                                   allIsChecked={this.state.allIsChecked}
                                   checkedItems={this.state.checkedItems} 
-                                  checkedAllItems={(checked)=> { this.toggleSelectedItems(true, undefined, checked)}}
-                                  removeIconClicked={(item) => this.openRemovePopup(this.state.checkedItems)}/>
+                                  checkedAllItems={(checked)=> { Utils.toggleAllItems(this.props.items, checked, result => this.setState(result))}}
+                                  removeIconClicked={(item) => { this.openRemovePopup(); this.setItemsForPopup()}}/>
                  {
                      this.props.items.map((item) => {
                          return <div className="section-item" key={item.key}>
                                 { this.state.type === Constants.CATEGORIES ? 
                                     <div className="flex space-between"> 
                                         <CategoryItemInfo isChecked={this.state.checkedItems.indexOf(item) !== -1} item={item} 
-                                                    checkedItem={(checked, item) => this.toggleSelectedItems(false, item, checked)}/>
+                                                    checkedItem={(checked, item) => Utils.toggleSelectedItems(this.props.items, this.state.checkedItems, item, checked, result => this.setState(result))}/>
                                         <NameEdit item={item} dbDataType={this.state.dbDataType}/>
                                     </div>
                                     : 
                                     <div className="flex space-between"> 
                                         <ProductItemInfo isChecked={this.state.checkedItems.indexOf(item) !== -1} item={item} 
-                                                        checkedItem={(checked, item) => this.toggleSelectedItems(false, item, checked)}/>
+                                                        checkedItem={(checked, item) => Utils.toggleSelectedItems(this.props.items, this.state.checkedItems, item, checked, result => this.setState(result))}/>
                                         <ProductCreateEdit type="edit" popupTitle={Constants.TITLES.EDIT} item={item}/>
                                         <FontAwesome name="cart-plus" className="cart-add" onClick={(event) => {Utils.preventDefault(event); DataSource.addToShoppingList(item)}}/>
                                     </div>
@@ -122,7 +86,11 @@ export function hocCategoriesProductsList (WrappedComponent, options){
                  <WrappedComponent {...this.props}/>
                  <RemovePopup removePopupOpened={this.state.removePopupOpened} 
                               items={this.state.itemsForRemovePopup}
-                              confirmRemoveItems = {() => { DataSource.removeFromDb(this.state.itemsForRemovePopup, this.state.dbDataType); this.closeRemovePopup()}}
+                              confirmRemoveItems = {() => { 
+                                                    DataSource.removeFromDb(this.state.itemsForRemovePopup, this.state.dbDataType); 
+                                                    this.closeRemovePopup();
+                                                    this.setInitialStateCheckboxes()}
+                                                   }
                               closeRemovePopup={()=> this.closeRemovePopup()}/> 
              </div>
             )
