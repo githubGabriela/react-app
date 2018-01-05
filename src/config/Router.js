@@ -6,7 +6,7 @@ import FontAwesome from  'react-fontawesome';
 
  import ShoppingList  from '../components/shoppingList/ShoppingList';
  import AllProducts from '../components/all-products/AllProducts';
- import ProductDetail from '../components/products/ProductDetail';
+ import ProductDetail from '../components/all-products/ProductDetail';
  import Admin from '../components/admin/Admin';
  import History from '../components/history/History';
 
