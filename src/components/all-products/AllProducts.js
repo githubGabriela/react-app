@@ -2,42 +2,86 @@
 // <AllProducts/>
 
 import React, { Component } from 'react';
+import FontAwesome from 'react-fontawesome';
 
 import * as Constants from '../../utils/Constants';
 import * as DataSource from '../../config/DataSource';
 import CollapseSections from '../collapse/CollapseSections';
+import CollapseArrows from '../collapse/CollapseArrows';
 import ProductItem from './ProductItem';
 import FilteringAndSorting from '../filtering-sorting/FilteringAndSorting';
+
+import '../../assets/css/General.css';
+import ProductsForCategory from './ProductsForCategory';
+import { getProducts } from '../../config/DataSource';
+
+const no_category = {
+    key: 'no_category', 
+    value: {
+        name: 'No category',
+        color: '#bdc3c7'
+    }
+};
 
 class AllProducts extends Component {
     constructor(props){
         super(props);
         this.state = {
-            items: [],
-            initialItems:[],
+            categories: [],
+            products: [],
+            initialProducts:[],
+            mapCategoriesProducts : {},
             showSectionForKey : undefined
         }
-        this.toggleSection = this.toggleSection.bind(this);
+        this.expandSection = this.expandSection.bind(this);
+        // this.toggleSection = this.toggleSection.bind(this);
     }
 
     componentDidMount() {
-        this.getProductsByCategory();
+        this.getCategories();
+        this.getProducts();
     }
 
-    getProductsByCategory(){
-        DataSource.getProductsByCategory( items => {
-            this.setState({
-                items: items,
-                initialItems: items
+    getCategories() {
+        DataSource.getCategories( categories => {
+           this.setState({
+               categories: categories
             });
+           console.log('categories', categories);
         });
     }
 
-    toggleSection(key) {
-        this.setState({
-            showSectionForKey: key
+    getProducts() {
+        DataSource.getProducts( products => {
+            this.setState({
+                products: products,
+                initialProducts: products
+            });
+            console.log('products', products);
         });
     }
+
+    expandSection(category) {
+        let mapping = this.state.mapCategoriesProducts;
+        let name = category.value.name;
+        if(!mapping[name] || mapping[name].length <=0 ){
+            mapping[name] = this.filterProducts(name);
+            this.setState({
+                mapCategoriesProducts : mapping
+            });
+            console.log(this.state.mapCategoriesProducts);
+        }
+    }
+
+    filterProducts(categoryName){
+        return this.state.products.filter( product => product.value.category === categoryName);
+    }
+
+    // toggleSection(key) {
+    //     this.setState({
+    //         showSectionForKey: key
+    //     });
+    // }
 
    
     render() {
@@ -47,20 +91,27 @@ class AllProducts extends Component {
                     <div className="section-title">{Constants.TITLES.ALL_PRODUCTS}</div>
                     <CollapseSections />
                 </div>
-                <FilteringAndSorting showComponent={this.state.items.length > 0}
+                <FilteringAndSorting showComponent={this.state.products.length > 0}
                                  dataType={Constants.PRODUCTS}
-                                 items={this.state.items} 
+                                 items={this.state.products} 
                                  initialItems={this.state.initialItems}
-                                 setFilteredItems = {items => this.setState({items: items})}/>
-                {this.state.items.map((item) => {
+                                 setFilteredItems = {products => this.setState({products: products})}/>
+
+                {this.state.categories.map(category => {
                     return (
-                        <ProductItem key={item.key}
-                                            product={item}
-                                            color={item.value.color}
-                                            addToShoppingList={(item)=> DataSource.addToShoppingList(item)}/>
+                    <div className="accordion-header flex space-between" style={{backgroundColor: category.value.color}} key={category.key}> 
+                                <div>
+                                    <FontAwesome name='smile-o' className="icon-on-left"/>
+                                    <label>{category.value.name}</label>
+                                </div>
+                                <CollapseArrows arrowUp="false" expandSection={(event) => this.expandSection(category)}/>
+                                <ProductsForCategory products={this.state.mapCategoriesProducts[category.value.name] 
+                                                              ? this.state.mapCategoriesProducts[category.value.name]: 
+                                                              [] }/>
+                        </div>
                     )
-                    
                 })}
+
             </div>
         )
     }
