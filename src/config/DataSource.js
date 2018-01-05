@@ -91,8 +91,9 @@ export function addCategory(category, customFct) {
             if(!snap.val()) {
                 dbDataCategories.push(category);
                 customFct({message: ''});
-            } 
-            customFct({message: 'This category already exists'});
+            } else{
+                customFct({message: 'This category already exists'});
+            }
         });
     }
 }

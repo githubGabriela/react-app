@@ -2,7 +2,9 @@ export function preventDefault(event) {
     event.preventDefault();
 }
 
-
+export function isValidValue(value){
+    return value.trim().length > 0;
+}
 export function toggleSelectedItems(initialItems, checkedItems, selectedItem, checked, customFct) {
     let allIsChecked = false;
     if(checked) {

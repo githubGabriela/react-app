@@ -6,56 +6,84 @@ import FontAwesome from 'react-fontawesome';
 
 import * as DataSource from '../../../../config/DataSource';
 import * as Utils from '../../../../utils/Utils';
-import { hocItemNameCreate } from './HocItemNameCreate';
 
 import '../../../../assets/css/General.css';
 
-class CategoryName extends Component {
+class CategoryNameCreate extends Component {
 
     constructor() {
         super();
         this.state = {
+            inputValue : '',
             errorMessage : ''
         }
+        this.clearInput = this.clearInput.bind(this);
     }
-
+           
     pushCategoryToDb() {
         let category = { 
-            name:this.props.nameToUpdate, 
+            name: this.state.inputValue, 
             color: this.props.color
         }
-        DataSource.addCategory(category, error => this.setError(error));
+        if(Utils.isValidValue(this.state.inputValue)) {
+            DataSource.addCategory(category, error => this.setError(error));
+        }
    }
  
-   setError(error){
+   setError(error) {
     if(error && error.message){
         this.setState({
             errorMessage : error.message
         });
+        } else{
+            this.clearInput();
+        }  
     }
-}
-    render() {
-        return (
-            <div>
-                <FontAwesome name="check" className="icon-with-padding"
-                            onClick={(event) => {Utils.preventDefault(event); this.pushCategoryToDb()}}/>
-                <div className="red">{this.state.errorMessage}</div>
-            </div>
-            
-        );
+
+    clearError() {
+        this.setState({
+            errorMessage :''
+        });
     }
-}
 
-
-const CategoryNameCreate = hocItemNameCreate(
-    CategoryName,
-    (getInitialInput) => { 
-        return {
-                key: '',
-                value: ''
-            }
-        }
+    clearInput(){
+        this.setState({
+            inputValue : ''
+        });
+    }
     
-);
+    render() {
+        return  (
+            <div> 
+                <form className="flex space-between"> 
+                    <textarea className="input-text input-text-full"
+                              autoFocus
+                              value={this.state.inputValue}
+                              onChange={(event) => {
+                                                    Utils.preventDefault(event); 
+                                                    this.setState({inputValue : event.target.value});
+                                                    this.clearError();
+                                                    }}>
+                    </textarea>
+
+                    <div className="edit-icons-textarea center-margin-from-top">
+                        <FontAwesome name="check" className="icon-with-padding"
+                                     onClick={(event) => {
+                                                          Utils.preventDefault(event); 
+                                                          this.pushCategoryToDb();
+                                                          }}/>
+                        <FontAwesome name="close" className="icon-with-padding" 
+                                     onClick={(event) => {
+                                               Utils.preventDefault(event); 
+                                               this.clearInput();
+                                               this.clearError();
+                                               }}/>
+                        <div className="red">{this.state.errorMessage}</div>
+                    </div>
+                </form>
+            </div>
+            );
+    }
+}
 
 export default CategoryNameCreate;
