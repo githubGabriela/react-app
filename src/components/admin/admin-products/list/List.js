@@ -7,7 +7,7 @@ import FontAwesome from 'react-fontawesome';
 import * as Constants from '../../../../utils/Constants';
 import * as Utils from '../../../../utils/Utils';
 import * as DataSource from '../../../../config/DataSource';
-import Header from '../../admin-categories-products/Header';
+import Header from '../../common/Header';
 import ProductCreateEdit from '../crud/ProductCreateEdit';
 import ProductItemInfo from '../crud/ProductItemInfo';
 import RemovePopup from '../../../popups/RemovePopup';

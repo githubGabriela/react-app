@@ -6,7 +6,7 @@ import React, { Component } from 'react';
 import * as Constants from '../../../../utils/Constants';
 import * as Utils from '../../../../utils/Utils';
 import * as DataSource from '../../../../config/DataSource';
-import Header from '../../admin-categories-products/Header';
+import Header from '../../common/Header';
 import NameEdit from '../crud/NameEdit';
 import CategoryItemInfo from '../crud/CategoryItemInfo'; 
 import ColorPopup from '../../../popups/ColorPopup';
