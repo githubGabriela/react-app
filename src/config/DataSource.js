@@ -149,18 +149,14 @@ export function addToHistory(item){
 
 
 // UPDATE
-export function update(dbDataType, key, value, customFct){
-    switch(dbDataType){
-        case Constants.PRODUCTS:
-            updateProduct(key, value, customFct);
-        break;
-        case Constants.CATEGORIES:
-            updateForDbType(dbDataCategories, key, value, customFct);
-        break;
-        default:
-            updateForDbType(dbDataType, key, value, customFct);
-        break;
-    }
+export function updateCategory(key, value, customFct){
+    dbDataCategories.orderByChild('name').equalTo(value.name).once("value", snap => {
+        if(!snap.val()){
+            dbDataCategories.child(key).update(value);
+            customFct({message: ''});
+            } 
+            customFct({message: 'This category already exists'});
+        });
 }
 
 export function updateProduct(key, value, customFct) {
@@ -180,21 +176,19 @@ export function updateProduct(key, value, customFct) {
 }
 
 
-export function updateForDbType(dbType, key, value, customFct) {
-    dbType.orderByChild('name').equalTo(value.name).on("value", snap => {
-    if(!snap.val()){
-            dbType.child(key).update(value);
-        } 
-        customFct(snap.val());
-    });
-}
-
-
 // REMOVE
-export function removeFromDb(items, dbDataType){
+export function removeCategories(items){
     items.forEach( item => {
         if(item.key){
-            dbDataType.child(item.key).remove();
+            dbDataCategories.child(item.key).remove();
+        }
+    })
+}
+
+export function removeProducts(items){
+    items.forEach( item => {
+        if(item.key){
+            dbDataProducts.child(item.key).remove();
         }
     })
 }

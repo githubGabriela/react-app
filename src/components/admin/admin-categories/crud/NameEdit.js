@@ -71,7 +71,7 @@ class NameEdit extends Component {
         let key = this.props.item.key;
         if(key){
             let value = {name: this.state.item.value.name};
-            DataSource.update(this.props.dbDataType, key, value);
+            DataSource.updateCategory(key, value, error => {console.log('error update category', error);});
         }
     }
 
