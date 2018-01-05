@@ -1,13 +1,14 @@
 // Usage:
-// <NameEdit item={item}/>
+// <CategoryNameEdit item={item}/>
 
 import React, { Component } from 'react';
 import FontAwesome from 'react-fontawesome';
 
+import * as Utils from '../../../../utils/Utils';
 import * as DataSource from '../../../../config/DataSource';
 import '../../../../assets/css/General.css';
 
-class NameEdit extends Component {
+class CategoryNameEdit extends Component {
  
     constructor(props){
         super(props);
@@ -25,7 +26,7 @@ class NameEdit extends Component {
      }
  
      edit(event){
-         event.preventDefault();
+        Utils.preventDefault(event);
          this.setState({
              isEditable : true
          });
@@ -48,7 +49,7 @@ class NameEdit extends Component {
      }
 
     resetItem(event) {
-         event.preventDefault();
+        Utils.preventDefault(event);
          this.setState({
              item : this.props.item
          });
@@ -67,7 +68,7 @@ class NameEdit extends Component {
  
 
     confirm(event) {
-        event.preventDefault();
+        Utils.preventDefault(event);
         let key = this.props.item.key;
         if(key){
             let value = {name: this.state.item.value.name};
@@ -100,4 +101,4 @@ class NameEdit extends Component {
         );
     }
 }
-export default NameEdit;
+export default CategoryNameEdit;

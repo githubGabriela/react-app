@@ -7,7 +7,7 @@ import * as Constants from '../../../../utils/Constants';
 import * as Utils from '../../../../utils/Utils';
 import * as DataSource from '../../../../config/DataSource';
 import Header from '../../common/Header';
-import NameEdit from '../crud/NameEdit';
+import CategoryNameEdit from '../crud/CategoryNameEdit';
 import CategoryItemInfo from '../crud/CategoryItemInfo'; 
 import ColorPopup from '../../../popups/ColorPopup';
 import RemovePopup from '../../../popups/RemovePopup';
@@ -77,7 +77,7 @@ class List extends Component {
                                     <div className="flex space-between"> 
                                         <CategoryItemInfo isChecked={this.state.checkedItems.indexOf(item) !== -1} item={item} 
                                                     checkedItem={(checked, item) => Utils.toggleSelectedItems(this.props.items, this.state.checkedItems, item, checked, result => this.setState(result))}/>
-                                        <NameEdit item={item}/>
+                                        <CategoryNameEdit item={item}/>
                                     </div>
                         </div>
                     })

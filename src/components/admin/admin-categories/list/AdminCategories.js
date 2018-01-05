@@ -16,10 +16,8 @@ class AdminCategories extends Component {
         super();
         this.state = {
             categories : [],
-            initialCategories: [],
-            selectedCategory: {key : '', value: ''}
+            initialCategories: []
         }
-        this.categoryChanged = this.categoryChanged.bind(this);
     }
 
     componentDidMount() {
@@ -30,19 +28,9 @@ class AdminCategories extends Component {
         DataSource.getCategories( items => {
             this.setState({
                 categories : items,
-                initialCategories : items,                
-                selectedCategory: items[0]
+                initialCategories : items   
             });
         });
-    }
-
-    categoryChanged(event) {
-        this.setState({
-                selectedCategory:  {
-                    key: event.value, 
-                    value: event.label
-                }
-            });
     }
 
     render() {

@@ -5,8 +5,8 @@ import React, { Component } from 'react';
 import Dropdown from 'react-dropdown';
 import 'react-dropdown/style.css';
 
-import * as DataSource from '../../../../config/DataSource';
 import * as Constants from '../../../../utils/Constants';
+import * as DataSource from '../../../../config/DataSource';
 
 
 class DropdownCategories extends Component {
@@ -16,7 +16,6 @@ class DropdownCategories extends Component {
             categories: [],
             selected: {label: props.initialCategory, value: props.initialCategory}
         }
-        this._onSelect = this._onSelect.bind(this);
     }
 
     componentDidMount() {
@@ -33,16 +32,15 @@ class DropdownCategories extends Component {
         });
     }
 
-    _onSelect(option){
-        this.setState({selected: option});
-        this.props.categorySelected(option.label);
-    }
     
     render() {
         return (
             <Dropdown options={this.state.categories}
                       value={this.state.selected}
-                      onChange={this._onSelect} 
+                      onChange={(option) => {
+                                            this.setState({selected: option});
+                                            this.props.categorySelected(option.label);
+                                            }}
                       placeholder={Constants.TITLES.SELECT_CATEGORY}/>
         );
     }
