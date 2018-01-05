@@ -1,4 +1,4 @@
-import { dbDataCategories, dbDataProducts, dbDataShoppingList, dbDataHistory } from './constants';
+import { dbDataCategories, dbDataProducts, dbDataShoppingList, dbDataHistory, dbDataLastModified } from './constants';
 import * as Constants from '../utils/Constants';
 
 //GET
@@ -78,6 +78,13 @@ export function getHistory(customFct){
     });
 }
 
+export function getLastModified(customFct){
+    dbDataLastModified.orderByChild('lastModified').once('value', snap => {
+        console.log(snap.val().lastModified);
+        customFct(snap.val().lastModified);
+    });
+}
+
 // PUSH
 export function addCategory(category, customFct) {
     if(category && category.name) {
@@ -108,15 +115,31 @@ export function addProduct(value, customFct){
     }
 }
 
-export function addToShoppingList(item){
+export function addToShoppingList(item) {
     if(item && item.value){
         dbDataShoppingList.orderByChild('name').equalTo(item.value.name).once('value', snap=> {
             let exists = snap.val();
             if(!exists){
                 dbDataShoppingList.push(item.value);
+                setLastModified();
             }
         });
     }
+}
+
+function setLastModified(){
+    const date= new Date();
+    const month = date.getMonth() + 1;
+    const today = date.getDate() + '/' + month + '/' +date.getFullYear() + ' ' 
+                + date.getHours() + ':' +date.getMinutes()+ ':'+ date.getSeconds();
+    dbDataLastModified.orderByChild('lastModified').once('value', snap=> {
+        let exists = snap.val();
+        if(!exists) {
+            dbDataLastModified.push({lastModified: today});
+        }else{
+            dbDataLastModified.set({lastModified: today});
+        }
+    });
 }
 
 export function addToHistory(item){

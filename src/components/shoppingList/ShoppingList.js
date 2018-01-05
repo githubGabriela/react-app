@@ -19,13 +19,15 @@ class ShoppingList extends Component {
             items: [],
             initialItems: [],
             categories: [],
-            showCrudIcons: false
+            showCrudIcons: false,
+            lastModified: undefined
         }
         this.toggleRemoveIcons = this.toggleRemoveIcons.bind(this);
     }
 
     componentDidMount() {
         this.getShoppingList();
+        this.getLastModified();
         this.getCategoriesNames();
     }
 
@@ -38,6 +40,14 @@ class ShoppingList extends Component {
         });
     }
     
+    getLastModified(){
+        DataSource.getLastModified( result => {
+            this.setState({
+                lastModified : result
+            });
+        });
+    }
+
     getCategoriesNames(){
         DataSource.getCategoriesNames(items => {
             this.setState({
@@ -68,11 +78,10 @@ class ShoppingList extends Component {
             <div className="section-header">
                 <div className="full-width">
                     <div className="flex space-between">
-                        <LastModified />
+                        <LastModified lastModified={this.state.lastModified}/>
                         {this.state.items.length > 0 ?
                             <div>
-                                <FontAwesome name="pencil" className={"styled-pencil " + (this.state.showCrudIcons ? 'gray': 'red')}  
-                                         onClick={this.toggleRemoveIcons}/>
+                                <div onClick={this.toggleRemoveIcons}> EDIT </div>
                                          {this.state.showCrudIcons ? 
                                             <button onClick={(event) => this.clearShoppingList(event)}> Clear </button> 
                                          : null
@@ -87,7 +96,8 @@ class ShoppingList extends Component {
                     </div>
                 </div>
             </div>
-            <FilteringAndSorting dataType={Constants.SHOPPING_LIST}
+            <FilteringAndSorting showComponent={this.state.items.length > 0}
+                                 dataType={Constants.SHOPPING_LIST}
                                  items={this.state.items} 
                                  initialItems={this.state.initialItems}
                                  setFilteredItems = {items => this.setState({items: items})}/>
@@ -97,7 +107,7 @@ class ShoppingList extends Component {
                     <ProductItem key={item.key}
                                  product={item}
                                  color={item.value.color}
-                                 showRemoveCart="true"
+                                 showRemoveCart='true'
                                  showCrudIcons={this.state.showCrudIcons}
                                  removeFromShoppingList={(item)=> this.removeFromShopping(item)}/>
                   )

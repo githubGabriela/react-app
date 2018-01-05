@@ -17,3 +17,4 @@ export const dbDataCategories = dbRef.child(Constants.CATEGORIES);
 export const dbDataProducts = dbRef.child(Constants.PRODUCTS);
 export const dbDataShoppingList = dbRef.child(Constants.SHOPPING_LIST);
 export const dbDataHistory = dbRef.child(Constants.HISTORY);
+export const dbDataLastModified = dbRef.child(Constants.LAST_MODIFIED);
