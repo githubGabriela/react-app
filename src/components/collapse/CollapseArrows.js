@@ -2,6 +2,7 @@
 // <CollapseArrows arrowUp={this.props.showSectionForKey === this.props.category.key}/>
 
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import FontAwesome from  'react-fontawesome';
 
 import * as Utils from '../../utils/Utils';
@@ -18,6 +19,11 @@ class CollapseArrows extends Component {
                 </div>
         );
     }
+}
+
+CollapseArrows.propTypes = {
+    arrowUp: PropTypes.bool,
+    expandSection: PropTypes.func
 }
 
 export default CollapseArrows;

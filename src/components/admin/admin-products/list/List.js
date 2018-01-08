@@ -2,6 +2,7 @@
 // <AdminProducts />
 
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import FontAwesome from 'react-fontawesome';
 
 import * as Constants from '../../../../utils/Constants';
@@ -83,6 +84,10 @@ class List extends Component {
          </div>
         )
     }
+}
+
+List.propTypes = {
+    items: PropTypes.array
 }
 
 export default List;

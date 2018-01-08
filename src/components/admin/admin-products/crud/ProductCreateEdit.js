@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import FontAwesome from 'react-fontawesome';
 
 import CreateEditProductPopup from '../../../popups/CreateEditProductPopup';
@@ -40,6 +41,12 @@ class ProductCreateEdit extends Component {
             </div>
             );
     }
+}
+
+ProductCreateEdit.propTypes = {
+    type: PropTypes.string,
+    popupTitle: PropTypes.string,
+    item: PropTypes.object
 }
 
 export default ProductCreateEdit;

@@ -9,6 +9,7 @@ import * as Constants from '../../utils/Constants';
 import ProductItem from '../all-products/ProductItem';
 import CollapseArrows from '../collapse/CollapseArrows';
 
+// TODO - refactor - is the class needed ? 
 class CategoryWithProducts extends Component {
 
     render() {

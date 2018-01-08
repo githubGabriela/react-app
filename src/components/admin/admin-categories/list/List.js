@@ -2,6 +2,7 @@
 //  <CategoriesList sectionTitle="Categories" items={this.props.categories}/>
 
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import * as Constants from '../../../../utils/Constants';
 import * as Utils from '../../../../utils/Utils';
@@ -94,6 +95,10 @@ class List extends Component {
          </div>
         )
     }
+}
+
+List.propTypes = {
+    items: PropTypes.array
 }
 
 export default List;

@@ -24,17 +24,17 @@ const no_category = {
 };
 
 class AllProducts extends Component {
-    constructor(props){
-        super(props);
+    constructor(){
+        super();
         this.state = {
             categories: [],
             products: [],
             initialProducts:[],
             mapCategoriesProducts : {},
-            showSectionForKey : undefined
+            showSectionForKey : undefined,
+            arrowUp: true
         }
         this.expandSection = this.expandSection.bind(this);
-        // this.toggleSection = this.toggleSection.bind(this);
     }
 
     componentDidMount() {
@@ -76,13 +76,6 @@ class AllProducts extends Component {
     filterProducts(categoryName){
         return this.state.products.filter( product => product.value.category === categoryName);
     }
-
-    // toggleSection(key) {
-    //     this.setState({
-    //         showSectionForKey: key
-    //     });
-    // }
-
    
     render() {
         return (
@@ -104,7 +97,7 @@ class AllProducts extends Component {
                                     <FontAwesome name='smile-o' className="icon-on-left"/>
                                     <label>{category.value.name}</label>
                                 </div>
-                                <CollapseArrows arrowUp="false" expandSection={(event) => this.expandSection(category)}/>
+                                <CollapseArrows arrowUp={this.state.arrowUp} expandSection={(event) => this.expandSection(category)}/>
                                 <ProductsForCategory products={this.state.mapCategoriesProducts[category.value.name] 
                                                               ? this.state.mapCategoriesProducts[category.value.name]: 
                                                               [] }/>

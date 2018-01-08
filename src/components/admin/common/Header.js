@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import FontAwesome from 'react-fontawesome';
 
 import '../../../assets/css/General.css';
@@ -23,6 +24,14 @@ class Header extends Component {
         </div>
         );
     }
+}
+
+Header.propTypes = {
+    allIsChecked: PropTypes.bool,
+    title: PropTypes.string,
+    checkedItems: PropTypes.array,
+    checkedAllItems: PropTypes.func,
+    removeIconClicked: PropTypes.func
 }
 
 export default Header;

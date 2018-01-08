@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import * as DataSource from '../../config/DataSource';
 import ProductItem from './ProductItem';
@@ -18,6 +19,10 @@ class ProductsForCategory extends Component {
             </div>
         );
     }
+}
+
+ProductsForCategory.propTypes = {
+    products: PropTypes.array
 }
 
 export default ProductsForCategory;

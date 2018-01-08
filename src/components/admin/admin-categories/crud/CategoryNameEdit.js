@@ -2,6 +2,7 @@
 // <CategoryNameEdit item={item}/>
 
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import FontAwesome from 'react-fontawesome';
 
 import * as Utils from '../../../../utils/Utils';
@@ -10,10 +11,10 @@ import '../../../../assets/css/General.css';
 
 class CategoryNameEdit extends Component {
  
-    constructor(props){
-        super(props);
+    constructor(){
+        super();
          this.state = {
-             item : props.item,
+             item : { key: '', value: '' },
              errorMessage: '',
              isEditable : false
          };
@@ -21,7 +22,17 @@ class CategoryNameEdit extends Component {
         this.inputChange = this.inputChange.bind(this);
         this.setReadOnly = this.setReadOnly.bind(this);
      }
+
+     componentDidMount(){
+         this.setState({
+             item: this.props.item
+         })
+     }
  
+     componentWillUpdate(nextProps){
+         return this.props.item !== nextProps.item;
+     }
+
      inputChange(event){
          let updatedName = event.target.value;
          if(updatedName !== this.state.item.value.name){
@@ -40,7 +51,7 @@ class CategoryNameEdit extends Component {
      }
 
      confirm() {        
-        let key = this.props.item.key;
+        let key = this.state.item.key;
         if(key && Utils.isValidValue(this.state.item.value.name)) {
             let value = {name: this.state.item.value.name};
             DataSource.updateCategory(key, value, error => this.setError(error));
@@ -105,4 +116,9 @@ class CategoryNameEdit extends Component {
         );
     }
 }
+
+CategoryNameEdit.prroptypes = {
+    item: PropTypes.object
+}
+
 export default CategoryNameEdit;

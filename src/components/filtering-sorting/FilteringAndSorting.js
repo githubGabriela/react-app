@@ -3,6 +3,7 @@
 // setFilteredItems = {items => this.setState({categories: items})}/>
 
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Dropdown from 'react-dropdown';
 import 'react-dropdown/style.css';
 
@@ -112,6 +113,13 @@ class FilteringAndSorting extends Component {
             </div>
         );
     }
+}
+
+FilteringAndSorting.propTypes = {
+    showComponent: PropTypes.bool,
+    dataType: PropTypes.string,
+    initialItems: PropTypes.array,
+    setFilteredItems: PropTypes.func
 }
 
 export default FilteringAndSorting;

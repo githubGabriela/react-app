@@ -2,6 +2,7 @@
 // <ItemCreate placeholder='Add a category' dbEntryName='category' color={this.state.color}/>
 
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import FontAwesome from 'react-fontawesome';
 
 import * as DataSource from '../../../../config/DataSource';
@@ -84,6 +85,10 @@ class CategoryNameCreate extends Component {
             </div>
             );
     }
+}
+
+CategoryNameCreate.proptypes = {
+    color: PropTypes.string
 }
 
 export default CategoryNameCreate;

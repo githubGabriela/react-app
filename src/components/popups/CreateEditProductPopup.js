@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropType from 'prop-types';
 import Modal from 'react-modal';
 import FontAwesome from 'react-fontawesome';
 
@@ -28,7 +29,7 @@ class CreateEditProductPopup extends Component {
         this.close = this.close.bind(this);
     }
 
-    componentWillReceiveProps(props, nextProps) {
+    componentWillReceiveProps(props) {
         if(props){
             if(props.item){
                  this.setState({
@@ -38,6 +39,10 @@ class CreateEditProductPopup extends Component {
                 });
             }
         }
+    }
+
+    componentWillUpdate(nextProps) {
+        return this.props.item !== nextProps.item;
     }
 
     inputChange(event) {
@@ -152,6 +157,13 @@ class CreateEditProductPopup extends Component {
             </Modal>
         );
     }
+}
+
+CreateEditProductPopup.propTypes = {
+    item: PropType.object,
+    type: PropType.string,
+    closePopup: PropType.func,
+    isOpened: PropType.bool
 }
 
 export default CreateEditProductPopup;

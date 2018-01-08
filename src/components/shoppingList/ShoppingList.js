@@ -99,11 +99,10 @@ class ShoppingList extends Component {
                     <ProductItem key={item.key}
                                  product={item}
                                  color={item.value.color}
-                                 showRemoveCart='true'
+                                 showRemoveCart={this.state.showCrudIcons}
                                  showCrudIcons={this.state.showCrudIcons}
                                  removeFromShoppingList={(item)=> {DataSource.removeFromShoppingList(item); DataSource.addToHistory(item)}}/>
                   )
-                  
              })}
 
         </div>

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import FontAwesome from 'react-fontawesome';
 import CopyToClipboard from 'react-copy-to-clipboard';
 
@@ -7,10 +8,14 @@ class ExportList extends Component {
         super();
         this.state = {
             list: '',
-            copiedToClipboard : false
+            copiedToClipboard: false
         }
-
         this.copyToClipboard = this.copyToClipboard.bind(this);
+    }
+
+    componentWillUpdate(nextProps) {
+        return this.props.categories !== nextProps.categories || 
+               this.props.products !== nextProps.products;
     }
 
     copyToClipboard(event){
@@ -67,4 +72,10 @@ class ExportList extends Component {
     }
 }
 
+ExportList.propTypes = {
+    categories: PropTypes.array,
+    products: PropTypes.array
+}
+
 export default ExportList;
+

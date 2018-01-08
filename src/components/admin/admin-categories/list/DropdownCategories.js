@@ -2,6 +2,7 @@
 // <DropdownCategories/>
 
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Dropdown from 'react-dropdown';
 import 'react-dropdown/style.css';
 
@@ -10,21 +11,29 @@ import * as DataSource from '../../../../config/DataSource';
 
 
 class DropdownCategories extends Component {
-    constructor(props){
-        super(props);
+    constructor(){
+        super();
         this.state = {
             categories: [],
-            selected: {label: props.initialCategory, value: props.initialCategory}
+            selected: undefined
         }
     }
 
     componentDidMount() {
+        this.setState({
+            selected: {label: this.props.initialCategory, value: this.props.initialCategory}
+        })
         this.getCategoriesForDropdown();
+    }
+
+    componentWillUpdate(nextProps) {
+        return this.props.initialCategory !== nextProps.initialCategory 
+               || this.props.categories !== nextProps.categories;
     }
 
     getCategoriesForDropdown() {
         DataSource.getCategoriesForDropdown(items => {
-            let initialCategory = this.props.initialCategory ? this.props.initialCategory : items[0];
+            let initialCategory = this.state.initialCategory ? this.state.initialCategory : items[0];
             this.setState({
                 categories: items,
                 selected: initialCategory
@@ -44,6 +53,11 @@ class DropdownCategories extends Component {
                       placeholder={Constants.TITLES.SELECT_CATEGORY}/>
         );
     }
+}
+
+DropdownCategories.propTypes = {
+    initialCategory: PropTypes.object,
+    categorySelected: PropTypes.func
 }
 
 export default DropdownCategories;

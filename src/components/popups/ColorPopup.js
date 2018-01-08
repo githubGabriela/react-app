@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Modal from 'react-modal';
 import { SketchPicker } from 'react-color';
 import FontAwesome from 'react-fontawesome';
@@ -43,6 +44,13 @@ class ColorPopup extends Component {
                 </Modal>
         );
     }
+}
+
+ColorPopup.propTypes = {
+    showPopup: PropTypes.bool,
+    color: PropTypes.string,
+    colorChanged: PropTypes.func,
+    close: PropTypes.func
 }
 
 export default ColorPopup;

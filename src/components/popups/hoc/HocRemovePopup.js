@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-
+import PropTypes from 'prop-types';
 import Modal from 'react-modal';
 import * as Constants from '../../../utils/Constants';
 
 import '../../../assets/css/General.css';
 
 export function hocRemovePopup (WrappedComponent) {
-    return class extends React.Component {
+    class HocPopup extends React.Component {
       
          render (){
             return (
@@ -28,5 +28,13 @@ export function hocRemovePopup (WrappedComponent) {
         );
         }
     }
+
+    HocPopup.propTypes= {
+        removePopupOpened: PropTypes.bool,
+        confirmRemoveItems: PropTypes.func,
+        closeRemovePopup: PropTypes.func
+    }
+
+    return HocPopup;
 }
 

@@ -2,6 +2,7 @@
 // <LastModified/>
 
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import * as Constants from '../../utils/Constants';
 import * as DataSource from '../../config/DataSource';
@@ -20,6 +21,10 @@ class LastModified extends Component {
             </div>
         );
     }
+}
+
+LastModified.propTypes = {
+    lastModified: PropTypes.string
 }
 
 export default LastModified;

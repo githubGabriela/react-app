@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import '../../../../assets/css/General.css';
 
@@ -24,6 +25,12 @@ class ProductItemInfo extends Component {
             </div>
         );
     }
+}
+
+ProductItemInfo.propTypes = {
+    item: PropTypes.object,
+    isChecked: PropTypes.bool,
+    checkedItem: PropTypes.func
 }
 
 export default ProductItemInfo;

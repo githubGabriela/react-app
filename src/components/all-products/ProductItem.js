@@ -3,6 +3,7 @@
 //color={this.props.category.color} hideCart="false" showRemoveCart="true"/>
 
 import React, { Component } from 'react';
+import PropTypes, { bool } from 'prop-types';
 import FontAwesome from  'react-fontawesome';
 
 import * as Utils from '../../utils/Utils';
@@ -41,6 +42,14 @@ class ProductItem extends Component {
             </div>
         );
     }
+}
+
+ProductItem.propTypes = {
+    color: PropTypes.string,
+    product: PropTypes.object,
+    hideCart: PropTypes.bool,
+    showRemoveCart: PropTypes.bool,
+    removeFromShoppingList: PropTypes.func
 }
 
 export default ProductItem;

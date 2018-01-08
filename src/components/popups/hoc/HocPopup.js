@@ -13,6 +13,8 @@ import FontAwesome from 'react-fontawesome';
 
 import * as Constants from '../../../utils/Constants';
 
+//TODO - refactor - is the class needed ?
+
 export function hocPopup (WrappedComponent, header, body, popupType) {
     return class extends React.Component {
         constructor(props) {

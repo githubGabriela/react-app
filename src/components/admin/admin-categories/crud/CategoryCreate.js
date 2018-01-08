@@ -27,7 +27,7 @@ class CategoryCreate extends Component {
     closePopup(){
         this.setState({
             showPopup: false
-        })
+        });
     }
 
     colorSelected(color){

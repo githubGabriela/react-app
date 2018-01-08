@@ -2,10 +2,16 @@
 // <RemovePopup items={this.state.items} removePopupOpened={this.state.removePopupOpened}
 
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import { hocRemovePopup } from './hoc/HocRemovePopup';
 
 class Popup extends Component {
+    
+    componentWillUpdate(nextProps) {
+        return this.props.items !== nextProps.items;
+    }
+
     render() {
         return (
             <div>
@@ -22,5 +28,9 @@ class Popup extends Component {
 }
 
 const RemovePopup = hocRemovePopup(Popup);
+
+RemovePopup.propTypes = {
+    items: PropTypes.array
+}
 
 export default RemovePopup;
