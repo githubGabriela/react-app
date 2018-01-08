@@ -1,6 +1,6 @@
 //  Usage:
 // <ProductItem key={product.key} product={product} 
-//color={this.props.category.color} hideCart="false" showRemoveCart="true"/>
+//color={this.props.category.color} showOnlyRemoveCart="true"/>
 
 import React, { Component } from 'react';
 import PropTypes, { bool } from 'prop-types';
@@ -14,8 +14,8 @@ class ProductItem extends Component {
     shouldComponentUpdate(nextProps) {
         return this.props.color !== nextProps.color
             || this.props.product !== nextProps.product
-            || this.props.hideCart !== nextProps.hideCart
-            || this.props.showRemoveCart !== nextProps.showRemoveCart
+            || this.props.hideIcons !== nextProps.hideIcons
+            || this.props.showOnlyRemoveCart !== nextProps.showOnlyRemoveCart
     }
 
     render() {
@@ -32,19 +32,20 @@ class ProductItem extends Component {
                     </div>
                     <label className="center-from-top">{this.props.product.value.name}</label>
                 </div>
-
-                <div>
-                    {!this.props.hideCart ? 
-                        <div className="center-from-top icon-on-right">
-                            { this.props.showRemoveCart ? 
-                            <FontAwesome name="shopping-cart" className="cart-remove" onClick={(event) => {Utils.preventDefault(event); this.props.removeFromShoppingList(this.props.product)}}/>
-                            : <FontAwesome name="cart-plus" className="cart-add" onClick={(event) => {Utils.preventDefault(event); this.props.addToShoppingList(this.props.product)}}/>
-                             } 
-                        </div>
-                        :
-                        null
-                    }
-                </div>
+            
+                { !this.props.hideIcons ? 
+                    <div className="center-from-top icon-on-right">
+                        { this.props.showOnlyRemoveCart ? 
+                        <FontAwesome name="shopping-cart" className="cart-remove" 
+                                    onClick={(event) => { Utils.preventDefault(event); 
+                                                        this.props.removeFromShoppingList(this.props.product)}}/>
+                        : <FontAwesome name="cart-plus" className="cart-add" 
+                                    onClick={(event) => { Utils.preventDefault(event); 
+                                                        this.props.addToShoppingList(this.props.product)}}/>
+                        } 
+                    </div> 
+                    : null
+                }
             </div>
         );
     }
@@ -53,8 +54,8 @@ class ProductItem extends Component {
 ProductItem.propTypes = {
     color: PropTypes.string,
     product: PropTypes.object,
-    hideCart: PropTypes.bool,
-    showRemoveCart: PropTypes.bool,
+    showOnlyRemoveCart: PropTypes.bool,
+    hideIcons: PropTypes.bool,
     removeFromShoppingList: PropTypes.func
 }
 

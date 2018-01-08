@@ -14,8 +14,7 @@ class ExportList extends Component {
     }
 
     shouldComponentUpdate(nextProps) {
-        return this.props.categories !== nextProps.categories || 
-               this.props.products !== nextProps.products;
+        return true;
     }
 
     copyToClipboard(event){

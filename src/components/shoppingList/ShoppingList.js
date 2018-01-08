@@ -20,10 +20,10 @@ class ShoppingList extends Component {
             items: [],
             initialItems: [],
             categories: [],
-            showCrudIcons: false,
+            hideCrudIcons: true,
             lastModified: undefined
         }
-        this.toggleRemoveIcons = this.toggleRemoveIcons.bind(this);
+        this.toggleCrudIcons = this.toggleCrudIcons.bind(this);
     }
 
     componentDidMount() {
@@ -58,9 +58,11 @@ class ShoppingList extends Component {
     }
 
 
-    toggleRemoveIcons() {
+    toggleCrudIcons() {
+        let toggleHide = !this.state.hideCrudIcons;
+
         this.setState({
-            showCrudIcons: !this.state.showCrudIcons
+            hideCrudIcons: toggleHide
         });
     }
 
@@ -73,8 +75,8 @@ class ShoppingList extends Component {
                         <LastModified lastModified={this.state.lastModified}/>
                         {this.state.items.length > 0 ?
                             <div>
-                                <div onClick={this.toggleRemoveIcons}> EDIT </div>
-                                         {this.state.showCrudIcons ? 
+                                <div onClick={this.toggleCrudIcons}> EDIT </div>
+                                         {!this.state.hideCrudIcons ? 
                                             <button onClick={(event) => {Utils.preventDefault(event); DataSource.clearShoppingList(this.state.items)}}> Clear </button> 
                                          : null
                                          }
@@ -99,8 +101,8 @@ class ShoppingList extends Component {
                     <ProductItem key={item.key}
                                  product={item}
                                  color={item.value.color}
-                                 showRemoveCart={this.state.showCrudIcons}
-                                 showCrudIcons={this.state.showCrudIcons}
+                                 showOnlyRemoveCart={true}
+                                 hideIcons={this.state.hideCrudIcons}
                                  removeFromShoppingList={(item)=> {DataSource.removeFromShoppingList(item); DataSource.addToHistory(item)}}/>
                   )
              })}
