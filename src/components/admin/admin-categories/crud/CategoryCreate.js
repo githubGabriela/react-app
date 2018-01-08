@@ -12,11 +12,17 @@ class CategoryCreate extends Component {
     constructor() {
         super();
         this.state = {
-            color: '#372883',
+            color: '',
             showPopup: false
         }
         this.openPopup = this.openPopup.bind(this);
         this.colorSelected = this.colorSelected.bind(this);
+    }
+
+    componentDidMount(){
+        this.setState({
+            color: '#372883'
+        });
     }
 
     openPopup(){
