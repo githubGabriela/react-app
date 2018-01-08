@@ -24,6 +24,8 @@ export const TITLES = {
 }
 
 export const UTILS = {
+    CREATE: 'create',
+    EDIT: 'edit'
 }
 
 export const POPUP = {

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import FontAwesome from 'react-fontawesome';
 
+import * as Constants from '../../../../utils/Constants';
 import CreateEditProductPopup from '../../../popups/CreateEditProductPopup';
 
 class ProductCreateEdit extends Component {
@@ -33,7 +34,7 @@ class ProductCreateEdit extends Component {
     render() {
         return (
             <div>
-                {this.props.type === 'create' ? 
+                {this.props.type === Constants.UTILS.CREATE ? 
                     <button onClick={(event) => this.openProductPopup(event)}>{this.props.popupTitle}</button>
                     : 
                     <FontAwesome name="pencil" onClick={(event) => this.openProductPopup(event)}/>

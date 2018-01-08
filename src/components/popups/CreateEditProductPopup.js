@@ -82,7 +82,7 @@ class CreateEditProductPopup extends Component {
     confirm(event) {
         event.preventDefault();
         this.clearError();
-        if(this.props.type === 'create') {
+        if(this.props.type === Constants.UTILS.CREATE) {
             this.create();
         } else {
             this.edit();
@@ -128,7 +128,7 @@ class CreateEditProductPopup extends Component {
 
                 <div className="popup-remove-container">
                     <div className="popup-remove-header">
-                        {this.props.type === 'create' ? 
+                        {this.props.type === Constants.UTILS.CREATE ? 
                             <label> Create product </label>    
                         : 
                             <label> Edit product </label>
@@ -150,8 +150,8 @@ class CreateEditProductPopup extends Component {
                             <div className="red">{this.state.errorMessage} </div>
                             : null
                         }
-                        <button className="popup-btn btn-ok" onClick={(event) => this.confirm(event)}>Yes</button>
-                        <button className="popup-btn btn-cancel" onClick={(event) => this.close(event)}>No</button>
+                        <button className="popup-btn btn-ok" onClick={(event) => this.confirm(event)}>{Constants.POPUP.YES}</button>
+                        <button className="popup-btn btn-cancel" onClick={(event) => this.close(event)}>{Constants.POPUP.NO}</button>
                     </div>
                 </div>
             </Modal>

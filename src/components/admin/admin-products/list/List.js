@@ -71,7 +71,7 @@ class List extends Component {
                                     <div className="flex space-between"> 
                                         <ProductItemInfo isChecked={this.state.checkedItems.indexOf(item) !== -1} item={item} 
                                                         checkedItem={(checked, item) => Utils.toggleSelectedItems(this.props.items, this.state.checkedItems, item, checked, result => this.setState(result))}/>
-                                        <ProductCreateEdit type="edit" popupTitle={Constants.TITLES.EDIT} item={item}/>
+                                        <ProductCreateEdit type={Constants.UTILS.EDIT} popupTitle={Constants.TITLES.EDIT} item={item}/>
                                         <FontAwesome name="cart-plus" className="cart-add" onClick={(event) => {Utils.preventDefault(event); DataSource.addToShoppingList(item)}}/>
                                     </div>
                         </div>

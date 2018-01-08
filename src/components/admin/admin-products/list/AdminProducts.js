@@ -47,7 +47,7 @@ class AdminProducts extends Component {
         return (
             <div>
                 <div className="product-create">
-                    <ProductCreateEdit type="create" popupTitle={Constants.TITLES.CREATE}/>
+                    <ProductCreateEdit type={Constants.UTILS.CREATE} popupTitle={Constants.TITLES.CREATE}/>
                     <FilteringAndSorting showComponent={this.state.products.length > 0} 
                                  dataType={Constants.PRODUCTS}
                                  items={this.state.products} 
