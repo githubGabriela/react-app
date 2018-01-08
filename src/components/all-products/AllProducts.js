@@ -86,6 +86,7 @@ class AllProducts extends Component {
                 </div>
                 <FilteringAndSorting showComponent={this.state.products.length > 0}
                                  dataType={Constants.PRODUCTS}
+                                 hideOrdering={true}
                                  items={this.state.products} 
                                  initialItems={this.state.initialItems}
                                  setFilteredItems = {products => this.setState({products: products})}/>

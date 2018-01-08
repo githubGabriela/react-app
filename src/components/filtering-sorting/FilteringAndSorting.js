@@ -115,10 +115,13 @@ class FilteringAndSorting extends Component {
                 { this.props.showComponent ? 
                 <div> 
                     <input type="text" placeholder="Search..." onChange={(event) => this.filterChanged(event)} />
+                    {!this.props.hideOrdering ? 
                     <Dropdown options={this.state.dropdownOptions}
                             value={this.state.dropdownSelected}
                             onChange={this._onSelect}
                             placeholder={Constants.TITLES.ORDER_BY}/>
+                        : null 
+                    }
                 </div>
                 : null
                 }
@@ -130,6 +133,7 @@ class FilteringAndSorting extends Component {
 FilteringAndSorting.propTypes = {
     showComponent: PropTypes.bool,
     dataType: PropTypes.string,
+    hideOrdering: PropTypes.bool,
     initialItems: PropTypes.array,
     setFilteredItems: PropTypes.func
 }
