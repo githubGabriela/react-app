@@ -8,7 +8,7 @@ import { hocRemovePopup } from './hoc/HocRemovePopup';
 
 class Popup extends Component {
     
-    componentWillUpdate(nextProps) {
+    shouldComponentUpdate(nextProps) {
         return this.props.items !== nextProps.items;
     }
 

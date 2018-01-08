@@ -26,9 +26,8 @@ class DropdownCategories extends Component {
         this.getCategoriesForDropdown();
     }
 
-    componentWillUpdate(nextProps) {
-        return this.props.initialCategory !== nextProps.initialCategory 
-               || this.props.categories !== nextProps.categories;
+    shouldComponentUpdate(nextProps) {
+        return true;
     }
 
     getCategoriesForDropdown() {
@@ -56,7 +55,7 @@ class DropdownCategories extends Component {
 }
 
 DropdownCategories.propTypes = {
-    initialCategory: PropTypes.object,
+    initialCategory: PropTypes.string,
     categorySelected: PropTypes.func
 }
 

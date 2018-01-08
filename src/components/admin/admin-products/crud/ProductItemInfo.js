@@ -5,6 +5,11 @@ import '../../../../assets/css/General.css';
 
 class ProductItemInfo extends Component {
 
+    shouldComponentUpdate(nextProps) {
+        return this.props.item !== nextProps.item
+               || this.props.isChecked !== nextProps.isChecked;
+    }
+    
     render() {
         let borderStyle = {
             borderColor: this.props.item.value.color

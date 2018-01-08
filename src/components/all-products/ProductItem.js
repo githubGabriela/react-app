@@ -11,6 +11,12 @@ import '../../assets/css/General.css';
 
 class ProductItem extends Component {
 
+    shouldComponentUpdate(nextProps) {
+        return this.props.color !== nextProps.color
+            || this.props.product !== nextProps.product
+            || this.props.hideCart !== nextProps.hideCart
+            || this.props.showRemoveCart !== nextProps.showRemoveCart
+    }
 
     render() {
         let imageStyle = {

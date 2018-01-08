@@ -5,6 +5,12 @@ import FontAwesome from 'react-fontawesome';
 import '../../../assets/css/General.css';
 
 class Header extends Component {
+    
+    shouldComponentUpdate(nextProps) {
+        return this.props.allIsChecked !== nextProps.allIsChecked
+               || this.props.title !== nextProps.title
+               || this.props.checkedItems !== nextProps.checkedItems
+    }
 
     render() {
         return (

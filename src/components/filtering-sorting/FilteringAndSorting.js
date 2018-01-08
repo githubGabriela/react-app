@@ -20,9 +20,9 @@ class FilteringAndSorting extends Component {
     constructor() {
         super();
         this.state= {
-            order: 'recently_added',
+            order: '',
             filterValue: undefined,
-            dropdownOptions: options,
+            dropdownOptions: [],
             dropdownSelected: undefined
         }
         this._onSelect = this._onSelect.bind(this);
@@ -30,7 +30,19 @@ class FilteringAndSorting extends Component {
         this.filterChanged = this.filterChanged.bind(this);
     }
 
+    componentDidMount() {
+        this.setState({
+            order: 'recently_added',
+            dropdownOptions: options
+        });
+    }
 
+    shouldComponentUpdate(nexProps) {
+        return this.props.showComponent !== nexProps.showComponent 
+               || this.props.dataType !== nexProps.dataType
+               || this.props.initialItems !== nexProps.initialItems;
+    }
+    
     _onSelect(option){
         this.setState({dropdownSelected: option});
         if(option.value !== Constants.TITLES.ORDER_BY){

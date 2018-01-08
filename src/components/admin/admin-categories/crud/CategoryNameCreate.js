@@ -20,6 +20,10 @@ class CategoryNameCreate extends Component {
         }
         this.clearInput = this.clearInput.bind(this);
     }
+
+    shouldComponentUpdate(nextProps) {
+        return this.props.color !== nextProps.color;
+    }
            
     pushCategoryToDb() {
         let category = { 

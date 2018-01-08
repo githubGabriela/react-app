@@ -7,8 +7,12 @@ import '../../../assets/css/General.css';
 
 export function hocRemovePopup (WrappedComponent) {
     class HocPopup extends React.Component {
-      
-         render (){
+        
+        shouldComponentUpdate(nexProps) {
+            return this.props.removePopupOpened !== nexProps.removePopupOpened;
+        }
+        
+         render() {
             return (
                 <Modal
                 ariaHideApp={false}

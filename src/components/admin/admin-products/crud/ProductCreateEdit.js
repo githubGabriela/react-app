@@ -13,6 +13,10 @@ class ProductCreateEdit extends Component {
         this.openProductPopup = this.openProductPopup.bind(this);
     }
 
+    shouldComponentUpdate(nextProps) {
+        return true;
+    }
+
     openProductPopup(event){
         event.preventDefault();
         this.setState({

@@ -13,7 +13,7 @@ class ExportList extends Component {
         this.copyToClipboard = this.copyToClipboard.bind(this);
     }
 
-    componentWillUpdate(nextProps) {
+    shouldComponentUpdate(nextProps) {
         return this.props.categories !== nextProps.categories || 
                this.props.products !== nextProps.products;
     }

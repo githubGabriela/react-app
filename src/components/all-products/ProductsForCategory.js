@@ -5,6 +5,11 @@ import * as DataSource from '../../config/DataSource';
 import ProductItem from './ProductItem';
 
 class ProductsForCategory extends Component {
+
+    shouldComponentUpdate(nextProps) {
+        return this.props.products !== nextProps.products;
+    }
+
     render() {
         return (
             <div style={{backgroundColor: '#34495e'}}>

@@ -9,6 +9,11 @@ class CategoryItemInfo extends Component {
         this.toggleColorPopup = this.toggleColorPopup.bind(this);
     }
 
+    shouldComponentUpdate(nextProps) {
+        return this.props.isChecked !== nextProps.isChecked
+               || this.props.item !== nextProps.item;
+    }
+
     toggleColorPopup(){}
 
 
@@ -23,9 +28,8 @@ class CategoryItemInfo extends Component {
             <div className="item-image category-image"></div>
             <div className="color-bullet center-bullet-from-top" 
                             style={{backgroundColor: this.props.item.value.color}}
-                            onClick={()=> this.toggleColorPopup(this.props.item)}>
+                            onClick={(event)=> this.toggleColorPopup(this.props.item)}>
             </div>
-                                  
         </div>
         );
     }

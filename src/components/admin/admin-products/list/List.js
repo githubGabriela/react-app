@@ -25,7 +25,11 @@ class List extends Component {
             removePopupOpened: false
         }
     }
-
+    
+    shouldComponentUpdate(nextProps) {
+        return true;
+    }
+    
     openRemovePopup() {
         this.setState({
             removePopupOpened : true,

@@ -8,6 +8,11 @@ import * as Constants from '../../utils/Constants';
 
 class ColorPopup extends Component {
   
+    shouldComponentUpdate(nextProps) {
+        return this.props.showPopup !== nextProps.showPopup 
+               || this.props.color !== nextProps.color;
+    }
+
     render() {
         const modalStyle = {
             content : {

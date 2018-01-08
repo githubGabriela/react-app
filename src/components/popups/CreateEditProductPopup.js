@@ -29,6 +29,10 @@ class CreateEditProductPopup extends Component {
         this.close = this.close.bind(this);
     }
 
+    shouldComponentUpdate(nextProps) {
+        return true;
+    }
+
     componentWillReceiveProps(props) {
         if(props){
             if(props.item){
@@ -39,10 +43,6 @@ class CreateEditProductPopup extends Component {
                 });
             }
         }
-    }
-
-    componentWillUpdate(nextProps) {
-        return this.props.item !== nextProps.item;
     }
 
     inputChange(event) {
@@ -162,8 +162,8 @@ class CreateEditProductPopup extends Component {
 CreateEditProductPopup.propTypes = {
     item: PropType.object,
     type: PropType.string,
-    closePopup: PropType.func,
-    isOpened: PropType.bool
+    isOpened: PropType.bool,
+    closePopup: PropType.func
 }
 
 export default CreateEditProductPopup;

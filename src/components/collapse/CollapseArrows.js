@@ -8,6 +8,11 @@ import FontAwesome from  'react-fontawesome';
 import * as Utils from '../../utils/Utils';
 
 class CollapseArrows extends Component {
+    
+    shouldComponentUpdate(nextProps) {
+        return this.props.arrowUp !== nextProps.arrowUp;
+    }
+
     render() {
         return (
                 <div className="arrow">

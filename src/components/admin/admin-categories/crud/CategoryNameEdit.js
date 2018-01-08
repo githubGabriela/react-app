@@ -29,8 +29,8 @@ class CategoryNameEdit extends Component {
          })
      }
  
-     componentWillUpdate(nextProps){
-         return this.props.item !== nextProps.item;
+     shouldComponentUpdate(nextProps){
+         return true;
      }
 
      inputChange(event){
@@ -117,7 +117,7 @@ class CategoryNameEdit extends Component {
     }
 }
 
-CategoryNameEdit.prroptypes = {
+CategoryNameEdit.propTypes = {
     item: PropTypes.object
 }
 

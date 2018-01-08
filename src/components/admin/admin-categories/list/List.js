@@ -30,6 +30,10 @@ class List extends Component {
             this.toggleColorPopup = this.toggleColorPopup.bind(this);
         }
 
+        shouldComponentUpdate(nextProps){
+            return true;
+        }
+
         openRemovePopup() {
             this.setState({
                 removePopupOpened : true,

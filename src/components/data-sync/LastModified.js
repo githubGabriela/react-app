@@ -9,6 +9,10 @@ import * as DataSource from '../../config/DataSource';
 
 class LastModified extends Component {
 
+    shouldComponentUpdate(nextProps) {
+        return this.props.lastModified !== nextProps.lastModified;
+    }
+
     render() {
         return (
             <div>
