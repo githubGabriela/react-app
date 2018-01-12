@@ -43,9 +43,9 @@ class CreateUser extends Component {
                             <input type="text" placeholder="E-mail" className="connection-input"
                                     onChange={(event) => this.setState({email: event.target.value})}/>
                         <div className="password-inputs">
-                            <input type="text" placeholder="Mot de passe" className="connection-input"
+                            <input type="password" placeholder="Mot de passe" className="connection-input"
                                         onChange={(event) => this.setState({password: event.target.value})}/>  
-                            <input type="text" placeholder="Confirmer le mot de passe" className="connection-input"
+                            <input type="password" placeholder="Confirmer le mot de passe" className="connection-input"
                                         onChange={(event) => this.setState({passwordVerification: event.target.value})}/>  
                         </div>
                     {

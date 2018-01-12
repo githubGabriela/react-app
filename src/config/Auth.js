@@ -22,7 +22,7 @@ export function isAuthenticated(customFct) {
     auth.onAuthStateChanged(user => {
         if (user) {
             console.log('authenticated true');
-            customFct(true);
+            customFct(user);
         }else{
             customFct(false);
         }
@@ -31,9 +31,8 @@ export function isAuthenticated(customFct) {
 
 export function signOut(customFct){
     auth.signOut().then(result => {
-        customFct('Sign out');
     }).catch(function(error) {
-        customFct('Error sign out');
+        customFct('Cannot sign out');
     });
 }
 
