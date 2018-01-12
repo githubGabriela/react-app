@@ -27,7 +27,8 @@ class App extends Component {
       <div className="main-app">
         <link href='https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css' rel='stylesheet'></link>
         { !this.state.authenticated ? 
-          <CreateUser/>
+          // <CreateUser/>
+          <Login/>
           : 
           <Router/>
         }

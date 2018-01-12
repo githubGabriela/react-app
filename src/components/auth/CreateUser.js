@@ -38,16 +38,14 @@ class CreateUser extends Component {
                     Shopping App
                 </div>
                     <div className="connection-title">Créer un nouvel utilisateur </div>
-                        <div>
-                            <input type="text" placeholder="Name" className="connection-input"
+                            <input type="text" placeholder="Nom" className="connection-input"
                                     onChange={(event) => this.setState({name: event.target.value})}/>
                             <input type="text" placeholder="E-mail" className="connection-input"
                                     onChange={(event) => this.setState({email: event.target.value})}/>
-                        </div>
                         <div className="password-inputs">
-                            <input type="text" placeholder="Créer un mot de passe" className="connection-input"
+                            <input type="text" placeholder="Mot de passe" className="connection-input"
                                         onChange={(event) => this.setState({password: event.target.value})}/>  
-                            <input type="text" placeholder="Entrer à nouveau le mot de passe" className="connection-input"
+                            <input type="text" placeholder="Confirmer le mot de passe" className="connection-input"
                                         onChange={(event) => this.setState({passwordVerification: event.target.value})}/>  
                         </div>
                     {
@@ -56,14 +54,14 @@ class CreateUser extends Component {
                         : null
                     }
                 <div className="connection-form-buttons">
-                    <div className="connection-button" onClick={(event) => this.create(event)}> Créer</div>
+                    <button className="connection-button" onClick={(event) => this.create(event)}> Valider </button>
 
                     <div className="separator">ou</div>
 
-                    <div className="connection-facebook" onClick={(event) => this.connectExternal(event, Constants.TITLES.FACEBOOK)}> 
-                        <FontAwesome className="connection-external-logo" name="facebook-official" size="lg"/>Continuer avec Facebook </div>
-                    <div className="connection-google" onClick={(event) => this.connectExternal(event,  Constants.TITLES.GOOGLE)}> 
-                        <FontAwesome className="connection-external-logo" name="google" size="lg"/>Continuer avec Google </div>
+                    <button className="connection-facebook" onClick={(event) => this.connectExternal(event, Constants.TITLES.FACEBOOK)}> 
+                        <FontAwesome className="connection-external-logo" name="facebook-official" size="lg"/>Continuer avec Facebook </button>
+                    <button className="connection-google" onClick={(event) => this.connectExternal(event,  Constants.TITLES.GOOGLE)}> 
+                        <FontAwesome className="connection-external-logo" name="google" size="lg"/>Continuer avec Google </button>
                 </div>
             </div>
     );
