@@ -20,7 +20,9 @@ export const TITLES = {
     RECENTLY_ADDED : 'Recently added',
     CLEAR: 'Clear',
     CREATE: 'Create',
-    EDIT: 'Edit'
+    EDIT: 'Edit',
+    FACEBOOK: 'facebook',
+    GOOGLE: 'google'
 }
 
 export const UTILS = {

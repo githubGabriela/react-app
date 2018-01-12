@@ -4,13 +4,33 @@ import Modal from 'react-modal';
 import { SketchPicker } from 'react-color';
 import FontAwesome from 'react-fontawesome';
 
+import * as Utils from '../../utils/Utils';
 import * as Constants from '../../utils/Constants';
 
 class ColorPopup extends Component {
   
+    constructor() {
+        super();
+        this.state = {
+            color: ''
+        };
+        this.confirm = this.confirm.bind(this);
+        this.handleColorChange = this.handleColorChange.bind(this);
+    }
+
     shouldComponentUpdate(nextProps) {
         return this.props.showPopup !== nextProps.showPopup 
                || this.props.color !== nextProps.color;
+    }
+
+    confirm(color) {
+        this.props.confirmColorChange(this.state.color);
+        this.props.close();
+    }
+
+    handleColorChange(color){
+        this.setState({color: color});
+        this.props.colorChanged(color);
     }
 
     render() {
@@ -39,10 +59,13 @@ class ColorPopup extends Component {
                         {Constants.POPUP.CHOOSE_COLOR}
                     </div>
                     <div className="popup-body">
-                        <SketchPicker onChange={(event) => this.props.colorChanged(event.hex)}/> 
+                        <SketchPicker onChange={(event) => this.handleColorChange(event.hex)}/> 
                     </div>
                     <div className="popup-footer">
-                        <button className="popup-btn btn-ok" onClick={() => this.props.close()}>{Constants.POPUP.OK} </button>
+                        <button className="popup-btn btn-ok" onClick={(event) => {Utils.preventDefault(event);
+                                                                                  this.confirm()}}>
+                            {Constants.POPUP.OK} 
+                        </button>
                         <button className="popup-btn btn-cancel" onClick={() => this.props.close()}> {Constants.POPUP.CANCEL} </button>
                     </div>
                 </div>
@@ -55,6 +78,7 @@ ColorPopup.propTypes = {
     showPopup: PropTypes.bool,
     color: PropTypes.string,
     colorChanged: PropTypes.func,
+    confirmColorChange: PropTypes.func,
     close: PropTypes.func
 }
 

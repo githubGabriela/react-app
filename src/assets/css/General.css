@@ -221,3 +221,121 @@
 .color-picker-container {
     width: 32px;
 }
+
+
+.input-file {
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    overflow: hidden;
+    opacity: 0;
+}
+
+.input-file-pencil {
+    /* margin-top: 30px; */
+    margin-left:30px;
+}
+
+.file-image {
+    object-fit: fill;
+}
+
+img {
+    width: 100%;
+    height: 100%;
+}
+
+.app-title {
+    padding-top: 40px;
+    padding-bottom: 20px;
+    font-size: 30px;   
+}
+
+.connection-form {
+    text-align: center;
+    padding: 20px;
+}
+.connection-title {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.connection-input {
+    margin: 5px;
+    width: 80%;
+    height: 25px;
+    border-radius: 5px;
+    border-color: black;
+    padding: 5px;
+    background-color: black;
+    color: white;
+}
+.connection-input::placeholder {
+    color: white;
+    opacity: 0.5;
+}
+
+input[type="text"] {
+    padding-left: 10px;
+}
+
+.password-inputs {
+    padding-top: 10px;
+}
+
+.connection-form-buttons {
+    margin-top:  10px;
+}
+
+.connection-button {
+    width: 80%;
+    height: 20px;
+    border-radius: 5px;
+    border: 2px solid white;
+    background-color: transparent;
+    color: white;
+    margin: auto;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-right: 2px;
+    padding-left: 7px;
+}
+.separator {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.connection-facebook {
+    width: 80%;
+    height: 20px;
+    border-radius: 5px;
+    border: 2px solid #3B5998;
+    background-color: #3B5998;
+    color: white;
+    margin: auto;
+    text-align: left;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-right: 2px;
+    padding-left: 7px;
+    margin-bottom: 8px;
+}
+.connection-external-logo {
+    padding-left: 5px;
+    padding-right: 10px;
+}
+
+.connection-google {
+    text-align: left;
+    width: 80%;
+    height: 20px;
+    border-radius: 5px;
+    border: 2px solid #4885ed;
+    background-color: #4885ed;
+    color: white;
+    margin: auto;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-right: 2px;
+    padding-left: 7px;
+}

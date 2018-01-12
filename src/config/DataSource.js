@@ -1,4 +1,4 @@
-import { dbDataCategories, dbDataProducts, dbDataShoppingList, dbDataHistory, dbDataLastModified } from './constants';
+import { dbDataCategories, dbDataProducts, dbDataShoppingList, dbDataHistory, dbDataLastModified, storage } from './constants';
 import * as Constants from '../utils/Constants';
 
 //GET
@@ -149,15 +149,40 @@ export function addToHistory(item){
      }
 }
 
+export function saveImage(categoryName, file){
+    let storageRef = storage.ref(categoryName +'/image/'+file.name);
+    console.log('file.name', file.name);
+    storageRef.put(file);
+}
+
+export function getImage(categoryName, fileName) {
+    let storageRef = storage.ref(categoryName);
+    if(storageRef.on(function(url) {
+        console.log('url', url);
+    }).catch(function(error) {
+        console.log('error', error);
+    }));
+}
+
+export function removeImage(categoryName){
+    
+}
 
 // UPDATE
-export function updateCategory(key, value, customFct){
+export function updateCategoryName(key, value, customFct){
     dbDataCategories.orderByChild('name').equalTo(value.name).once("value", snap => {
         if(!snap.val()){
             dbDataCategories.child(key).update(value);
             customFct({message: ''});
             } 
             customFct({message: 'This category already exists'});
+        });
+}
+
+export function updateCategoryColor(key, value, customFct){
+    dbDataCategories.orderByChild('name').once("value", snap => {
+            dbDataCategories.child(key).update(value);
+            customFct(value);
         });
 }
 

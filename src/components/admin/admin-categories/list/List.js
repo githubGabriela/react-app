@@ -81,13 +81,13 @@ class List extends Component {
                         return <div className="section-item" key={item.key}>
                                     <div className="flex space-between"> 
                                         <CategoryItemInfo isChecked={this.state.checkedItems.indexOf(item) !== -1} item={item} 
-                                                    checkedItem={(checked, item) => Utils.toggleSelectedItems(this.props.items, this.state.checkedItems, item, checked, result => this.setState(result))}/>
+                                                          checkedItem={(checked, item) => 
+                                                                        Utils.toggleSelectedItems(this.props.items, this.state.checkedItems, item, checked, result => this.setState(result))}/>
                                         <CategoryNameEdit item={item}/>
                                     </div>
                         </div>
                     })
                 }
-                <ColorPopup showPopup={this.state.showColorPopup} color={this.state.colorForPopup}/>
                 <RemovePopup removePopupOpened={this.state.removePopupOpened} 
                             items={this.state.itemsForRemovePopup}
                             confirmRemoveItems = {() => { 

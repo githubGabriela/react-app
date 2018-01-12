@@ -54,7 +54,7 @@ class CategoryNameEdit extends Component {
         let key = this.state.item.key;
         if(key && Utils.isValidValue(this.state.item.value.name)) {
             let value = {name: this.state.item.value.name};
-            DataSource.updateCategory(key, value, error => this.setError(error));
+            DataSource.updateCategoryName(key, value, error => this.setError(error));
         }
     }
   
