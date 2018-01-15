@@ -30,10 +30,10 @@ export function isAuthenticated(customFct) {
 }
 
 export function signOut(customFct){
-    auth.signOut().then(result => {
-    }).catch(function(error) {
+     auth.signOut().then(result => {
+     }).catch(function(error) {
         customFct('Cannot sign out');
-    });
+     });
 }
 
 export function connectExternalApp(app){

@@ -1,8 +1,6 @@
 // Usage:
 // const ConfirmationPopup = hocPopup(
 //     Confirmation,
-//     (header) => getHeaderContent(), // DOM content
-//     (body) => getBodyContent(), // DOM content
 //     (type) => getPopupType() // string E.g.: 'warning'
 // );
 
@@ -13,39 +11,25 @@ import FontAwesome from 'react-fontawesome';
 
 import * as Constants from '../../../utils/Constants';
 
-//TODO - refactor - is the class needed ?
 
-export function hocPopup (WrappedComponent, header, body, popupType) {
+export function hocPopupType (WrappedComponent, type, bodyText) {
     return class extends React.Component {
-        constructor(props) {
-            super(props);
+        constructor() {
+            super();
             this.state = {
-                headerContent: header,
-                bodyContent: body,
-                type: popupType,
-                modalIsOpened: props.showModal
+                type: '',
+                bodyText: '',
+                modalIsOpened: false
             };
-    
-            this.openModal = this.openModal.bind(this);
-            this.closeModal = this.closeModal.bind(this);
         }
     
-        componentWillReceiveProps(nextProps) {
-            if(this.props != nextProps && nextProps.showModal) {
-                this.setState({
-                    modalIsOpened: nextProps.showModal
-                })
-            }
-          }
-
-        openModal() {
-            this.setState({modalIsOpened: true});
+        componentDidMount() {
+            let body = bodyText ? bodyText() : undefined;
+            this.setState({
+                type: type(),
+                bodyText: body
+            })
         }
-    
-        closeModal() {
-            this.setState({modalIsOpened: false});
-        }
-    
 
         render() {
             const modalStyle = {
@@ -61,34 +45,67 @@ export function hocPopup (WrappedComponent, header, body, popupType) {
                 }
               };
 
+              const popupType = (type) => {
+                switch(type){
+                    case Constants.POPUP.WARNING:
+                        return warningPopup();
+                    break;
+                    case Constants.POPUP.CONFIRMATION:
+                        return confirmationPopup();
+                    break;
+                    default:
+                    break;
+                }
+            }
+
+            const warningPopup = () => {
+            return (
+                <div>
+                    <div className="popup-header-icon">
+                        <FontAwesome name="exclamation-circle" size="lg" className="popup-header-icon"/>
+                    </div>
+                </div>
+                );
+            }
+
+            const confirmationPopup = () => {
+                return (
+                    <div>
+                        <div className="popup-header-icon">
+                            <FontAwesome name="check" size="lg" className="popup-header-icon"/>
+                        </div>
+                    </div>
+                    );
+                }
+
+            const showBodyText = () => {
+                return ( <div className="popup-body">
+                    {this.state.bodyText ? 
+                        <div> {this.state.bodyText} </div>
+                    : null
+                    }
+                </div>);
+            }
             return ( 
                 <Modal
                 style={modalStyle}
                 ariaHideApp={false}
-                isOpen={this.state.modalIsOpened}>
+                isOpen={this.props.showPopup}>
 
                 <div className="popup-container">
-                    <FontAwesome name="close" className="popup-close-icon" onClick={this.closeModal}/>
-
-                    <div className={"popup-header " + this.state.type()}>
-                        {this.state.type() === Constants.POPUP.WARNING ?
-                            <div className="warning-icon">
-                            <FontAwesome name="exclamation-circle" size="lg" className="warning-icon"/>
-                            </div>
-                            : null
-                        }
-                        {this.state.headerContent()}
+                    <FontAwesome name="close" className="popup-close-icon" onClick={this.props.closePopup}/>
+                    <div className={"popup-header " + this.state.type}>
+                       {popupType(this.state.type)}
                     </div>
 
                     <div className="popup-body">
-                        {this.state.bodyContent()}
+                        {showBodyText()}
                     </div>
                     <div className="popup-footer">
-                        <button className="popup-btn btn-ok" onClick={this.closeModal}> {Constants.POPUP.OK} </button>
-                        <button className="popup-btn btn-cancel" onClick={this.closeModal}>  {Constants.POPUP.CANCEL} </button>
+                        <button className="popup-btn btn-ok" onClick={this.props.confirmAndClosePopup}> {Constants.POPUP.YES} </button>
+                        <button className="popup-btn btn-cancel" onClick={this.props.closePopup}> {Constants.POPUP.NO} </button>
                     </div>
                 </div>
-           
             </Modal>
             ); 
             

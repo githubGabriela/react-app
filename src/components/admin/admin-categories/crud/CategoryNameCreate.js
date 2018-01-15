@@ -51,7 +51,7 @@ class CategoryNameCreate extends Component {
         });
     }
 
-    clearInput(){
+    clearInput() {
         this.setState({
             inputValue : ''
         });
@@ -63,14 +63,12 @@ class CategoryNameCreate extends Component {
                 <form className="flex space-between"> 
                     <textarea className="input-text input-text-full"
                               autoFocus
-                              value={this.state.inputValue}
                               onChange={(event) => {
                                                     Utils.preventDefault(event); 
                                                     this.setState({inputValue : event.target.value});
-                                                    this.clearError();
+                                                    this.clearError()
                                                     }}>
                     </textarea>
-
                     <div className="edit-icons-textarea center-margin-from-top">
                         <FontAwesome name="check" className="icon-with-padding"
                                      onClick={(event) => {

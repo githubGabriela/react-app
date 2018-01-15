@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import FontAwesome from 'react-fontawesome';
 import { Link, Route } from 'react-router-dom';
 
-import * as Auth from '../../config/Auth';
 import * as Utils from '../../utils/Utils';
-import Login from '../auth/Login';
+import SignOutPopup from './SignOutPopup';
+
+import * as Auth from '../../config/Auth';
 import '../../assets/css/General.css';
 
 class SignOut extends Component {
@@ -12,12 +13,24 @@ class SignOut extends Component {
     constructor() {
         super();
         this.state = {
+            showPopup: false,
             errorMessage: ''
         }
-        this.signOut = this.signOut.bind(this);
+        this.open = this.open.bind(this);
+        this.close = this.close.bind(this);
+        this.signOutAndClose = this.signOutAndClose.bind(this);
+    }
+   
+    open(event){
+        Utils.preventDefault(event);
+        this.setState({showPopup: true});
     }
 
-    signOut(){
+    close(){
+        this.setState({showPopup: false});
+    }
+   
+    signOutAndClose() {
         Auth.signOut(error => {
             if(error) {
                 this.setState({
@@ -25,19 +38,28 @@ class SignOut extends Component {
                 });
             }
         });
+        this.close();
     }
-    
+
     render() {
-        return (
-            <div>
-               <Link to='/Login' className="white">
-                   <FontAwesome name="sign-out" size="lg" onClick={this.signOut}/>
-                </Link>
-                
-               { this.state.errorMessage ? 
-                    <div className="red"> Error msg{ this.state.errorMessage } </div>
+        const showErrorMessage = () => {
+            return ( <div>
+                { this.state.errorMessage ? 
+                    <div className="red"> { this.state.errorMessage } </div>
                 : null
                 }
+                </div>
+            );
+        }
+
+        return (
+            <div>
+                <FontAwesome name="sign-out" size="lg" onClick={(event) => this.open(event)}/>
+                <SignOutPopup showPopup= {this.state.showPopup}
+                              closePopup = {this.close}
+                              confirmAndClosePopup = {this.signOutAndClose}
+                />
+               {showErrorMessage()}
             </div>
         );
     }

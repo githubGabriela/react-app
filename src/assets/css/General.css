@@ -41,7 +41,12 @@ button {
 .warning {
     background-color: #e74c3c;
 }
-.warning-icon {
+.confirmation {
+    background-color: green;
+}
+
+
+.popup-header-icon {
     margin: 5px;
 }
 

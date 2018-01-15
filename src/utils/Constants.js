@@ -32,6 +32,7 @@ export const UTILS = {
 
 export const POPUP = {
     WARNING : 'warning',
+    CONFIRMATION: 'confirmation',
     OK: 'Ok',
     CANCEL: 'Cancel',
     YES : 'Yes',
