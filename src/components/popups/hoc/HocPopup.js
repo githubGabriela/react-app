@@ -12,25 +12,16 @@ import FontAwesome from 'react-fontawesome';
 import * as Constants from '../../../utils/Constants';
 
 
-export function hocPopupType (WrappedComponent, type, bodyText) {
+export function hocPopupType (WrappedComponent, type) {
     return class extends React.Component {
         constructor() {
             super();
             this.state = {
-                type: '',
-                bodyText: '',
+                type: type(),
                 modalIsOpened: false
             };
         }
     
-        componentDidMount() {
-            let body = bodyText ? bodyText() : undefined;
-            this.setState({
-                type: type(),
-                bodyText: body
-            })
-        }
-
         render() {
             const modalStyle = {
                 content : {
@@ -78,14 +69,6 @@ export function hocPopupType (WrappedComponent, type, bodyText) {
                     );
                 }
 
-            const showBodyText = () => {
-                return ( <div className="popup-body">
-                    {this.state.bodyText ? 
-                        <div> {this.state.bodyText} </div>
-                    : null
-                    }
-                </div>);
-            }
             return ( 
                 <Modal
                 style={modalStyle}
@@ -99,7 +82,7 @@ export function hocPopupType (WrappedComponent, type, bodyText) {
                     </div>
 
                     <div className="popup-body">
-                        {showBodyText()}
+                        <WrappedComponent {...this.props} />
                     </div>
                     <div className="popup-footer">
                         <button className="popup-btn btn-ok" onClick={this.props.confirmAndClosePopup}> {Constants.POPUP.YES} </button>

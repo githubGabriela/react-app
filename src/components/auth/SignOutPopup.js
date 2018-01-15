@@ -6,17 +6,14 @@ import { hocPopupType } from '../popups/hoc/HocPopup';
 class SignOut extends Component {
     render() {
         return (
-            <div></div>
+            <div>Confirm Sign out?</div>
         );
     }
 }
 
 const SignOutPopup = hocPopupType (
     SignOut,
-    (type) => { return Constants.POPUP.CONFIRMATION; },
-    (bodyText) => {
-        return 'Confirm Sign out?';
-    }
+    (type) => { return Constants.POPUP.CONFIRMATION; }
 );
 
 export default SignOutPopup;
