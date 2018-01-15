@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import FontAwesome from 'react-fontawesome';
 
 import * as Utils from '../../utils/Utils';
@@ -34,10 +34,11 @@ class CreateUser extends Component {
     render() {
         return (
         <div>
-            <Link to='/Login'>
-                <FontAwesome name="arrow-left" />
-            </Link>
-
+            <div className="header flex space-between">
+            <NavLink to='/Login' className="white">
+                <FontAwesome name="arrow-left" size="lg"/>
+            </NavLink>
+            </div>
              <div className="connection-form"> 
                 <div className="app-title">
                     Shopping App

@@ -13,7 +13,11 @@ import { Switch, Route } from 'react-router-dom';
  import './Router.css';
 
  class AppRouter extends Component {
-     render(){
+     render() {
+        // const routeIsActive = (match, location) => {
+        //     if(!match) return false;
+        //     return match.path === location.pathname;
+        // }
          return (
             <div> 
                 { this.props.userAuthenticated ? 

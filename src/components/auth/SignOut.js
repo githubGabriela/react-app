@@ -29,12 +29,13 @@ class SignOut extends Component {
     
     render() {
         return (
-            <div className="underlined-link small-font">
-            <Link to='/Login'>
-                <FontAwesome name="sign-out" size="lg" onClick={this.signOut}/>
-            </Link>
-                { this.state.errorMessage ? 
-                    <div className="red"> { this.state.errorMessage } </div>
+            <div>
+               <Link to='/Login' className="white">
+                   <FontAwesome name="sign-out" size="lg" onClick={this.signOut}/>
+                </Link>
+                
+               { this.state.errorMessage ? 
+                    <div className="red"> Error msg{ this.state.errorMessage } </div>
                 : null
                 }
             </div>

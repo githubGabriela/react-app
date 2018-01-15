@@ -1,53 +1,60 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import FontAwesome from  'react-fontawesome';
 
 import SignOut from '../auth/SignOut';
 
+import '../../config/Router.css';
+
 class Header extends Component {
+    
+
+
     render() {
+     
         return (
             <header>
             { this.props.userAuthenticated ?
             <div>
                 <div className="header flex space-between">
-                        {/* <div className="small-font"> Connected as {this.props.user.name ? this.props.user.name : this.props.user.email}</div> */}
-                        <SignOut/>
+                    <div className="small-font"> Connected as { this.props.userAuthenticated.name ? this.props.userAuthenticated.name : this.props.userAuthenticated.email}
+                    </div>
+                    <SignOut/>
                 </div>
                 <nav>
                     <ul>
                         <li className="shoppingList">
-                            <Link to='/'>
+                            <NavLink to='/' activeClassName="selected">
                                 <FontAwesome name='shopping-basket'/>
-                            </Link>
+                            </NavLink>
                         </li>
-                        <li><Link to='/Products'> 
+                        <li><NavLink to='/Products' activeClassName="selected"> 
                                 <FontAwesome name='list'/>
-                            </Link>
+                            </NavLink>
                         </li>
-                        <li><Link to='/History'> 
+                        <li><NavLink to='/History' activeClassName="selected"> 
                                 <FontAwesome name='history'/>
-                            </Link>
+                            </NavLink>
                         </li>
-                        <li><Link to='/Admin/Categories'>
+                        <li><NavLink to='/Admin/Categories' activeClassName="selected">
                                 <FontAwesome name='user-circle-o'/>
-                            </Link>
+                            </NavLink>
                             <ul>
-                                <li><Link to="/Admin/Categories">
+                                <li><NavLink to="/Admin/Categories" activeClassName="selected">
                                     <FontAwesome name='copyright'/>  
-                                    </Link>
+                                    </NavLink>
                                 </li>
-                                <li><Link to="/Admin/Products">
+                                <li><NavLink to="/Admin/Products" activeClassName="selected">
                                         <FontAwesome name='product-hunt'/>
-                                    </Link>
+                                    </NavLink>
                                 </li> 
                             </ul>
                         </li> 
                     </ul>
                 </nav>
             </div>
-            
-            : null
+            : 
+            null
             }
         </header>
     )};

@@ -56,12 +56,12 @@ class Login extends Component {
 
                 <div className="register-form-buttons">
                 <div className="connection-title">Pas encore inscrit?</div>
-                    <Link to="/CreateUser"> 
-                        <div className="underlined-link small-font">
+                
+                <div className="underlined-link small-font">
+                    <Link to="/CreateUser" className="white"> 
                             Créer un compte
-                        </div>
                     </Link> 
-                  
+                </div>
                 </div>
                 
             </div>

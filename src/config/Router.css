@@ -27,8 +27,8 @@ a {
 a:hover {
     color: white;
 }
-.active {
-    color: blue;
+.selected {
+    color:white;
 }
 
 .shoppingList {

@@ -33,6 +33,11 @@ button {
 .red {
     color: #c0392b;
 }
+
+.white {
+    color: white;
+}
+
 .warning {
     background-color: #e74c3c;
 }
@@ -257,7 +262,7 @@ img {
 }
 
 .app-title {
-    padding-top:40px;
+    padding-top:20px;
     padding-bottom: 20px;
     font-size: 30px;   
 }
@@ -364,8 +369,6 @@ input[type="text"], input[type="password"]{
     text-decoration: underline;
     cursor: pointer;
 }
-
-
 
 .header {
     padding: 10px;
