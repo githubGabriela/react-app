@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import FontAwesome from 'react-fontawesome';
+import { Link } from 'react-router-dom';
 
 import * as Utils from '../../utils/Utils';
 import * as Constants from '../../utils/Constants';
@@ -54,14 +55,18 @@ class Login extends Component {
 
                 <div className="register-form-buttons">
                 <div className="connection-title">Pas encore inscrit?</div>
-                     <div className="underlined-link small-font">
-                        <a href="" onClick={(event) => this.login(event)}/> Créer un compte
-                    </div>
+                    <Link to="/CreateUser"> 
+                        <div className="underlined-link small-font">
+                            Créer un compte
+                        </div>
+                    </Link> 
+                  
                 </div>
                 
             </div>
         );
     }
 }
+
 
 export default Login;

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import FontAwesome from 'react-fontawesome';
 
 import * as Utils from '../../utils/Utils';
@@ -21,8 +22,7 @@ class CreateUser extends Component {
     create(event) {
         Utils.preventDefault(event);
         Auth.createUser(this.state.email, this.state.password, result => {
-            console.log('result', result);
-                this.setState({errorMessage: result});
+            this.setState({errorMessage: result});
         });
     }
     connectExternal(event, app) {
@@ -33,6 +33,11 @@ class CreateUser extends Component {
 
     render() {
         return (
+        <div>
+            <Link to='/Login'>
+                <FontAwesome name="arrow-left" />
+            </Link>
+
              <div className="connection-form"> 
                 <div className="app-title">
                     Shopping App
@@ -64,6 +69,8 @@ class CreateUser extends Component {
                         <FontAwesome className="connection-external-logo" name="google" size="lg"/>Continuer avec Google </button>
                 </div>
             </div>
+
+        </div>
     );
     }
 }

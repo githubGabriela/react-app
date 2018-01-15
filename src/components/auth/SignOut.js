@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import FontAwesome from 'react-fontawesome';
+import { Link } from 'react-router-dom';
 
 import * as Auth from '../../config/Auth';
 import * as Utils from '../../utils/Utils';
@@ -29,7 +30,10 @@ class SignOut extends Component {
     render() {
         return (
             <div className="underlined-link small-font">
-                <FontAwesome name="sign-out" size="lg" onClick={(event) => this.signOut(event)}/> 
+              <Link to='/Login'>
+                Go to Login
+                {/* <FontAwesome name="sign-out" size="lg" onClick={(event) => this.signOut(event)}/>  */}
+              </Link>
                 { this.state.errorMessage ? 
                     <div className="red"> { this.state.errorMessage } </div>
                 : null
@@ -38,5 +42,6 @@ class SignOut extends Component {
         );
     }
 }
+
 
 export default SignOut;
