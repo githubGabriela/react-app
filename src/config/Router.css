@@ -1,21 +1,24 @@
-ul {
+.links {
     display: flex;
     justify-content: space-between;
     list-style-type: none;
     padding: 0;
-    margin: 0;    
+    margin: 0;   
+}
+.links li {
+    list-style-type: none;
+    width: 100%;
 }
 
-li {
+.link {
     background-color: #d0d0ff;
     border: 1px solid #9595ca;
     padding-top: 10px;
     padding-bottom: 10px;
-    width: 100%;
     text-align: center;
 }
 
-li:hover {
+.link:hover {
     background-color: #9595ca;
     cursor: pointer;
 }
@@ -29,6 +32,9 @@ a:hover {
 }
 .selected {
     color:white;
+}
+.selected .link {
+    background-color: yellowgreen;
 }
 
 .shoppingList {

@@ -4,6 +4,8 @@ import { Switch, Route } from 'react-router-dom';
  import ShoppingList  from '../components/shoppingList/ShoppingList';
  import AllProducts from '../components/all-products/AllProducts';
  import ProductDetail from '../components/all-products/ProductDetail';
+ import AdminRouter from '../components/admin/common/AdminRouter';
+ 
  import AdminCategories from '../components/admin/admin-categories/list/AdminCategories';
  import AdminProducts from '../components/admin/admin-products/list/AdminProducts';
  import History from '../components/history/History';
@@ -14,10 +16,6 @@ import { Switch, Route } from 'react-router-dom';
 
  class AppRouter extends Component {
      render() {
-        // const routeIsActive = (match, location) => {
-        //     if(!match) return false;
-        //     return match.path === location.pathname;
-        // }
          return (
             <div> 
                 { this.props.userAuthenticated ? 
@@ -25,16 +23,15 @@ import { Switch, Route } from 'react-router-dom';
                         <Route exact path="/" component={ShoppingListStack}/>
                         <Route path="/Products" component={ProductsStack}/>
                         <Route path="/History" component={HistoryItems}/>
-                        <Route path="/Admin/Categories" component={AdminWithCategories}/>      
-                        <Route path="/Admin/Products" component={AdminWithProducts}/>         
-                        <Route exact path="*" component={ShoppingListStack}/>
+                        <Route path="/Admin" component={AdminStack}/>           
+                        {/* <Route exact path="*" component={ShoppingListStack}/> */}
                     </Switch>
                     : 
                     <Switch>
-                        <Route exact path="/" component={LoginPage}/>
-                        <Route path="/Login" component={LoginPage}/>
-                        <Route path="/CreateUser" component={CreateUserPage}/>
-                        <Route exact path="*" component={LoginPage}/>
+                        <Route exact path="/" component={LoginStack}/>
+                        <Route path="/Login" component={LoginStack}/>
+                        <Route path="/CreateUser" component={CreateUserStack}/>
+                        <Route exact path="*" component={LoginStack}/>
                    </Switch>
                 }
         </div>
@@ -54,19 +51,15 @@ const ProductsStack = () => (
     <AllProducts/>
 )
 
-const LoginPage = () => (
+const LoginStack = () => (
     <Login/>
 )
 
-const CreateUserPage = () => (
+const CreateUserStack = () => (
     <CreateUser/>
 )
-const AdminWithProducts = ({ match }) => (
-    <AdminProducts/>
-)
-
-const AdminWithCategories = ({ match }) => (
-    <AdminCategories/>
+const AdminStack = ({ match }) => (
+    <AdminRouter/>
 )
 
 export default AppRouter;

@@ -7,11 +7,8 @@ import SignOut from '../auth/SignOut';
 import '../../config/Router.css';
 
 class Header extends Component {
-    
-
 
     render() {
-     
         return (
             <header>
             { this.props.userAuthenticated ?
@@ -22,34 +19,32 @@ class Header extends Component {
                     <SignOut/>
                 </div>
                 <nav>
-                    <ul>
+                    <ul className="links">
                         <li className="shoppingList">
                             <NavLink to='/' activeClassName="selected">
-                                <FontAwesome name='shopping-basket'/>
+                                <div className="link">
+                                    <FontAwesome name='shopping-basket'/>
+                                </div>
                             </NavLink>
                         </li>
                         <li><NavLink to='/Products' activeClassName="selected"> 
-                                <FontAwesome name='list'/>
+                                <div className="link">
+                                    <FontAwesome name='list'/>
+                                </div>
                             </NavLink>
                         </li>
                         <li><NavLink to='/History' activeClassName="selected"> 
-                                <FontAwesome name='history'/>
+                                <div className="link">
+                                    <FontAwesome name='history'/>
+                                </div>
                             </NavLink>
                         </li>
                         <li><NavLink to='/Admin/Categories' activeClassName="selected">
-                                <FontAwesome name='user-circle-o'/>
+                                <div className="link">
+                                    <FontAwesome name='user-circle-o'/>
+                                </div>
                             </NavLink>
-                            <ul>
-                                <li><NavLink to="/Admin/Categories" activeClassName="selected">
-                                    <FontAwesome name='copyright'/>  
-                                    </NavLink>
-                                </li>
-                                <li><NavLink to="/Admin/Products" activeClassName="selected">
-                                        <FontAwesome name='product-hunt'/>
-                                    </NavLink>
-                                </li> 
-                            </ul>
-                        </li> 
+                        </li>                         
                     </ul>
                 </nav>
             </div>
