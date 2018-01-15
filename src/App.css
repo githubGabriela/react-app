@@ -12,7 +12,7 @@
 
 body {
     /* background-color: #34495e; */
-    background-image: url('assets/img/trees_big_size.jpg');
+    background-image: url('assets/img/trees_big_size_coloured.jpg');
     background-position: center;
     background-repeat: no-repeat;
     background-color: #776ea7;
@@ -23,10 +23,3 @@ body {
     flex: 1;
   }
   
-  .main-app {
-    background-color: #776ea7;
-    height: 100vh;
-    opacity: 0.8;
-    display:block;
-    overflow:auto;
-  }
