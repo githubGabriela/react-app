@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import FontAwesome from 'react-fontawesome';
-import { Link } from 'react-router-dom';
+import { Link, Route } from 'react-router-dom';
 
 import * as Auth from '../../config/Auth';
 import * as Utils from '../../utils/Utils';
+import Login from '../auth/Login';
 import '../../assets/css/General.css';
 
 class SignOut extends Component {
@@ -16,8 +17,7 @@ class SignOut extends Component {
         this.signOut = this.signOut.bind(this);
     }
 
-    signOut(event){
-        Utils.preventDefault(event);
+    signOut(){
         Auth.signOut(error => {
             if(error) {
                 this.setState({
@@ -30,10 +30,9 @@ class SignOut extends Component {
     render() {
         return (
             <div className="underlined-link small-font">
-              <Link to='/Login'>
-                Go to Login
-                {/* <FontAwesome name="sign-out" size="lg" onClick={(event) => this.signOut(event)}/>  */}
-              </Link>
+            <Link to='/Login'>
+                <FontAwesome name="sign-out" size="lg" onClick={this.signOut}/>
+            </Link>
                 { this.state.errorMessage ? 
                     <div className="red"> { this.state.errorMessage } </div>
                 : null

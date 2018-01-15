@@ -28,12 +28,8 @@ class App extends Component {
     return (
       <div className="main-app">
         <link href='https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css' rel='stylesheet'></link>
-         { this.state.userAuthenticated ? 
-         <Header/> 
-          : 
-         null
-        } 
-         <Router/>
+         <Header userAuthenticated={this.state.userAuthenticated}/>
+         <Router userAuthenticated={this.state.userAuthenticated}/>
      </div>      
     );
   }

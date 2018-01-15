@@ -18,8 +18,7 @@ class Login extends Component {
     }
 
 
-    login(event) {
-        Utils.preventDefault(event);
+    login() {
         Auth.login(this.state.email, this.state.password, result => {
            this.setState({errorMessage: result});
         });
@@ -46,7 +45,9 @@ class Login extends Component {
                         : null
                     }
                 <div className="connection-form-buttons">
-                    <button className="connection-button" onClick={(event) => this.login(event)}> Connexion </button>
+                    <Link to='/'>
+                        <button className="connection-button" onClick={this.login}> Connexion </button>
+                    </Link>
                     <button className="connection-facebook" onClick={(event) => this.connectExternal(event, Constants.TITLES.FACEBOOK)}> 
                         <FontAwesome className="connection-external-logo" name="facebook-official" size="lg"/>Connexion avec Facebook </button>
                     <button className="connection-google" onClick={(event) => this.connectExternal(event,  Constants.TITLES.GOOGLE)}> 
