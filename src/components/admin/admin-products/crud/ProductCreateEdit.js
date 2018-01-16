@@ -39,7 +39,7 @@ class ProductCreateEdit extends Component {
                     : 
                     <FontAwesome name="pencil" onClick={(event) => this.openProductPopup(event)}/>
                 }
-                <CreateEditProductPopup type={this.props.type}
+                    <CreateEditProductPopup type={this.props.type}
                                         isOpened={this.state.productPopupOpened}
                                         item={this.props.item}
                                         closePopup={(event) => this.closeProductPopup(event)}/>

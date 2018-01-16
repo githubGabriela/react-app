@@ -87,30 +87,32 @@ class CategoryNameEdit extends Component {
             {!this.state.isEditable ? 
                 <div className="center-from-top flex space-between">
                     <label>{this.state.item.value.name}</label>
-                    <FontAwesome name="pencil" onClick={(event) => {
+                    <FontAwesome name="pencil" className="icon-with-margin" onClick={(event) => {
                                                         Utils.preventDefault(event); 
                                                         this.setState({isEditable : true})
                                                         }}/>
                 </div>
             : 
-                <div className="center-from-top-input flex space-between">
-                        <input type="text" className="input-text" value={this.state.item.value.name} onChange={this.inputChange}/>
-                        <div className="edit-icons">
-                            <FontAwesome name="check" className="icon-with-padding" 
-                                                      onClick={(event) => {
-                                                                Utils.preventDefault(event);
-                                                                this.confirm();
-                                                                }}/>
-                            <FontAwesome name="close" className="icon-with-padding" 
-                                                      onClick={(event) => {
-                                                                Utils.preventDefault(event);
-                                                                this.setState({item : this.props.item});
-                                                                this.setReadOnly();
-                                                                this.clearError();
-                                                      }}/>
-                        </div>
-                    <div className="red">{this.state.errorMessage}</div>
-                </div>
+                <div>
+                    <div className="center-from-top-input flex space-between">
+                            <input type="text" className="input-text" value={this.state.item.value.name} onChange={this.inputChange}/>
+                            <div className="edit-icons">
+                                <FontAwesome name="check" className="icon-with-margin" 
+                                                        onClick={(event) => {
+                                                                    Utils.preventDefault(event);
+                                                                    this.confirm();
+                                                                    }}/>
+                                <FontAwesome name="close" className="icon-with-margin" 
+                                                        onClick={(event) => {
+                                                                    Utils.preventDefault(event);
+                                                                    this.setState({item : this.props.item});
+                                                                    this.setReadOnly();
+                                                                    this.clearError();
+                                                        }}/>
+                            </div>
+                    </div>
+                    <div className="white">{this.state.errorMessage}</div>
+               </div>
             }
         </div>
         );

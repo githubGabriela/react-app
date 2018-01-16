@@ -69,13 +69,13 @@ class CategoryNameCreate extends Component {
                                                     this.setState({inputValue : event.target.value});
                                                     this.clearError()
                                                     }}/>
-                    <div className="edit-icons-textarea center-margin-from-top">
-                        <FontAwesome name="check" className="icon-with-padding"
+                    <div className="edit-icons center-margin-from-top">
+                        <FontAwesome name="check" className="icon-with-margin"
                                      onClick={(event) => {
                                                           Utils.preventDefault(event); 
                                                           this.pushCategoryToDb();
                                                           }}/>
-                        <FontAwesome name="close" className="icon-with-padding" 
+                        <FontAwesome name="close" className="icon-with-margin" 
                                      onClick={(event) => {
                                                Utils.preventDefault(event); 
                                                this.clearInput();
