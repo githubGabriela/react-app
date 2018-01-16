@@ -61,7 +61,7 @@ button {
 
 /* container */
 .container-category-img{
-    width: 100px;
+    /* width: 100px; */
     margin-right: 7px;
 }
 .container-product-img {
@@ -91,14 +91,14 @@ button {
 .section-item {
    display: flex;
    justify-content: space-between;
-   padding: 9px;
+   padding: 5px;
    border-bottom: 1px solid #414d58;
 }
 .center-from-top {
     margin-top: 17px; 
 }
 .center-from-top-input {
-    margin-top: 14px; 
+    margin-top: 11px; 
 }
 .collapse-sections {
     width: 23%;
@@ -161,7 +161,7 @@ button {
     border-radius: 15px;
     color: white;
     padding: 7px;
-    width: 76%;
+    box-sizing: border-box;
 }
 
 .input-text::-webkit-input-placeholder {

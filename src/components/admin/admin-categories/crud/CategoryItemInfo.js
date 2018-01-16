@@ -60,7 +60,7 @@ class CategoryItemInfo extends Component {
         return (
         <div className="container-category-img flex">
         
-     <ImagePopup categoryName={this.props.item.value.name}/> 
+     {/* <ImagePopup categoryName={this.props.item.value.name}/>  */}
                 <div className="center-from-top icon-on-left">
                     <input type="checkbox" checked={this.props.isChecked}
                                            value={this.props.item.value.name}
