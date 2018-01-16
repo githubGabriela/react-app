@@ -82,20 +82,33 @@ class CategoryNameEdit extends Component {
     }
     
     render() {
-        return (
-            <div className="item-edit">
-            {!this.state.isEditable ? 
+        let showEditIcon = () => {
+            return (
+                <div>
+                    {this.props.showSettingsFields ? 
+                        <FontAwesome name="pencil" className="icon-with-margin" onClick={(event) => {
+                                    Utils.preventDefault(event); 
+                                    this.setState({isEditable : true})
+                                    }}/>
+                    : null
+                    }
+                </div>
+            );
+        }        
+
+        let showInfo = () => {
+            return (
                 <div className="center-from-top flex space-between">
                     <label>{this.state.item.value.name}</label>
-                    <FontAwesome name="pencil" className="icon-with-margin" onClick={(event) => {
-                                                        Utils.preventDefault(event); 
-                                                        this.setState({isEditable : true})
-                                                        }}/>
+                   {showEditIcon()}
                 </div>
-            : 
-                <div>
-                    <div className="center-from-top-input flex space-between">
-                            <input type="text" className="input-text" value={this.state.item.value.name} onChange={this.inputChange}/>
+            );
+        }
+
+        let showEditField = () => {
+            return (
+                        <div className="center-from-top-input flex space-between">
+                            <input type="text" className="category-input" value={this.state.item.value.name} onChange={this.inputChange}/>
                             <div className="edit-icons">
                                 <FontAwesome name="check" className="icon-with-margin" 
                                                         onClick={(event) => {
@@ -110,7 +123,19 @@ class CategoryNameEdit extends Component {
                                                                     this.clearError();
                                                         }}/>
                             </div>
-                    </div>
+                        </div>
+            );
+        }
+
+        return (
+            <div className="item-edit">
+            {!this.state.isEditable ? 
+                <div>   
+                    {showInfo()}
+                </div>
+            : 
+                <div>
+                    {showEditField()}
                     <div className="white">{this.state.errorMessage}</div>
                </div>
             }

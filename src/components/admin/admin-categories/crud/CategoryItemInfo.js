@@ -23,9 +23,6 @@ class CategoryItemInfo extends Component {
 
     shouldComponentUpdate(nextProps) {
         return true;
-        // return this.props.isChecked !== nextProps.isChecked
-        //        || this.props.item.value.name !== nextProps.item.value.name
-        //        || this.props.item.value.color !== nextProps.item.value.color;
     }
 
     componentDidMount() {
@@ -57,15 +54,26 @@ class CategoryItemInfo extends Component {
     }
 
     render() {
+        let showCheckbox = () => {
+            return (
+                <div>
+                    {this.props.showSettingsFields ? 
+                      <div className="center-from-top icon-on-left">
+                        <input type="checkbox" checked={this.props.isChecked}
+                                           value={this.props.item.value.name}
+                                           onChange={(event)=> this.props.checkedItem(event.target.checked, this.props.item)}/>
+                     </div>
+                    : null
+                    }
+                </div>
+            );
+        }
+
         return (
         <div className="container-category-img flex">
         
      {/* <ImagePopup categoryName={this.props.item.value.name}/>  */}
-                <div className="center-from-top icon-on-left">
-                    <input type="checkbox" checked={this.props.isChecked}
-                                           value={this.props.item.value.name}
-                                           onChange={(event)=> this.props.checkedItem(event.target.checked, this.props.item)}/>
-                </div>
+            {showCheckbox()}
             <div className="item-image category-image"></div>
             <div className="color-bullet center-bullet-from-top"
                             style={{backgroundColor: this.state.color}}

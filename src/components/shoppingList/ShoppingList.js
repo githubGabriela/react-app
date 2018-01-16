@@ -12,6 +12,7 @@ import ProductItem from '../all-products/ProductItem';
 import LastModified from '../data-sync/LastModified';
 import ExportList from './ExportList';
 import FilteringAndSorting from '../filtering-sorting/FilteringAndSorting';
+import Settings from '../common/Settings';
 
 class ShoppingList extends Component {
     constructor() {
@@ -20,10 +21,9 @@ class ShoppingList extends Component {
             items: [],
             initialItems: [],
             categories: [],
-            hideCrudIcons: true,
-            lastModified: undefined
+            lastModified: undefined,
+            showSettingsFields: false
         }
-        this.toggleCrudIcons = this.toggleCrudIcons.bind(this);
     }
 
     componentDidMount() {
@@ -57,42 +57,39 @@ class ShoppingList extends Component {
         });
     }
 
-
-    toggleCrudIcons() {
-        let toggleHide = !this.state.hideCrudIcons;
-
+    toggleSettingsFields(){
+        let toggle = !this.state.showSettingsFields;
         this.setState({
-            hideCrudIcons: toggleHide
+            showSettingsFields: toggle
         });
     }
 
     render() {
         let showClearButton = () => {
             return (
-                <div className="display-inline shopping-clear">
-                    {!this.state.hideCrudIcons ? 
-                        <button onClick={(event) => {Utils.preventDefault(event); DataSource.clearShoppingList(this.state.items)}}> Clear </button> 
+                <div>
+                    {this.state.showSettingsFields ? 
+                        <div className="align-right center-margin-from-top">
+                            <button onClick={(event) => {Utils.preventDefault(event); DataSource.clearShoppingList(this.state.items)}}> Clear </button> 
+                        </div>
                     : null
                     }
                  </div>
             )
         };
 
-        let showEditIcon = () => {
+        let showExport = () => {
             return (
                 <div>
                         {this.state.items.length > 0 ?
                             <div className="flex space-between">
-                                <div onClick={this.toggleCrudIcons}> EDIT
-                                    {showClearButton()}
-                                 </div>
-                                <ExportList categories={this.state.categories} products={this.state.items}/>                                
-                            </div>
-                        : null
-                        }
+                               <ExportList categories={this.state.categories} products={this.state.items}/>                              
+                            </div>                            
+                         : null
+                        } 
                     </div>
             )
-        };
+        }
 
         let showItems = () => {
             return (
@@ -103,7 +100,7 @@ class ShoppingList extends Component {
                                             product={item}
                                             color={item.value.color}
                                             showOnlyRemoveCart={true}
-                                            hideIcons={this.state.hideCrudIcons}
+                                            hideIcons={!this.state.showSettingsFields}
                                             removeFromShoppingList={(item)=> {DataSource.removeFromShoppingList(item); DataSource.addToHistory(item)}}/>
                             )
                         })}
@@ -113,11 +110,16 @@ class ShoppingList extends Component {
 
         let showFilteringSorting = () => {
             return (
+                <div>
+                { this.state.showSettingsFields ? 
                 <FilteringAndSorting showComponent={this.state.items.length > 0}
                                  dataType={Constants.SHOPPING_LIST}
                                  items={this.state.items} 
                                  initialItems={this.state.initialItems}
                                  setFilteredItems = {items => this.setState({items: items})}/>
+                : null 
+                }
+                </div>
             );
         }
 
@@ -125,14 +127,18 @@ class ShoppingList extends Component {
         <div>
             <div className="section-header">
                 <div className="full-width">
-                    <div>
+                    <div className="flex space-between">
                         <LastModified lastModified={this.state.lastModified}/>
+                        <Settings toggleSettings={(event) => this.toggleSettingsFields(event)}/>
                     </div>
                     <div className="flex space-between">
                         <div className="section-title">
-                            <div className="align-left"> {showEditIcon()}</div>
+                            {showExport()}
                             {Constants.TITLES.SHOPPING_LIST}
                             {showFilteringSorting()}
+
+                            
+                                {showClearButton()}
                         </div>
                     </div>
                 </div>

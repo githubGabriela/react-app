@@ -8,6 +8,7 @@ import * as Constants from '../../utils/Constants';
 import * as Utils from '../../utils/Utils';
 import ProductItem from '../all-products/ProductItem';
 import FilteringAndSorting from '../filtering-sorting/FilteringAndSorting';
+import Settings from '../common/Settings';
 
 import '../../assets/css/General.css';
 
@@ -17,6 +18,7 @@ class History extends Component {
         this.state={
             items: [],
             initialItems: [],
+            showSettingsFields: false
         }
     }
 
@@ -33,15 +35,39 @@ class History extends Component {
         });
     }
 
+    toggleSettingsFields(){
+        let toggle = !this.state.showSettingsFields;
+        this.setState({
+            showSettingsFields: toggle
+        });
+    }
+
 
     render() {
         let showFilteringSorting = () => {
             return (
-                <FilteringAndSorting showComponent={this.state.items.length > 0} 
-                                 dataType={Constants.HISTORY}
-                                 items={this.state.items} 
-                                 initialItems={this.state.initialItems}
-                                 setFilteredItems = {items => this.setState({items: items})}/>
+               <div>
+                    { this.state.showSettingsFields ? 
+                    <FilteringAndSorting showComponent={this.state.items.length > 0} 
+                                    dataType={Constants.HISTORY}
+                                    items={this.state.items} 
+                                    initialItems={this.state.initialItems}
+                                    setFilteredItems = {items => this.setState({items: items})}/>
+                    : null
+                    }
+            </div>
+            );
+        }
+
+        let showClearButton = () => {
+            return (
+                <div>
+                    { this.state.showSettingsFields ? 
+                        <button onClick={(event) => {Utils.preventDefault(event); DataSource.clearHistory(this.state.items)}}>
+                        {Constants.TITLES.CLEAR} </button>
+                    : null
+                    }
+                </div>
             );
         }
 
@@ -50,8 +76,8 @@ class History extends Component {
                  <div className="section-header">
                   <div className="full-width">
                       <div className="flex space-between">
-                          <button onClick={(event) => {Utils.preventDefault(event); DataSource.clearHistory(this.state.items)}}>
-                           {Constants.TITLES.CLEAR} </button>
+                            {showClearButton()}
+                           <Settings toggleSettings={(event) => this.toggleSettingsFields(event)}/>
                       </div>
                       <div className="flex space-between">
                           <div className="section-title"> 

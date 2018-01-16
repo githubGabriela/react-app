@@ -14,6 +14,7 @@ import FilteringAndSorting from '../filtering-sorting/FilteringAndSorting';
 import '../../assets/css/General.css';
 import ProductsForCategory from './ProductsForCategory';
 import { getProducts } from '../../config/DataSource';
+import Settings from '../common/Settings';
 
 const no_category = {
     key: 'no_category', 
@@ -32,8 +33,10 @@ class AllProducts extends Component {
             initialProducts:[],
             mapCategoriesProducts : {},
             showSectionForKey : undefined,
-            arrowUp: true
+            arrowUp: true,
+            showSettingsFields : false
         }
+
         this.expandSection = this.expandSection.bind(this);
     }
 
@@ -76,16 +79,49 @@ class AllProducts extends Component {
     filterProducts(categoryName){
         return this.state.products.filter( product => product.value.category === categoryName);
     }
-   
+
+    toggleSettingsFields(){
+        let toggle = !this.state.showSettingsFields;
+        this.setState({
+            showSettingsFields: toggle
+        });
+    }
+
     render() {
         let showFilteringSorting = () => {
             return (
-                <FilteringAndSorting showComponent={this.state.products.length > 0}
-                    dataType={Constants.PRODUCTS}
-                    hideOrdering={true}
-                    items={this.state.products} 
-                    initialItems={this.state.initialItems}
-                    setFilteredItems = {products => this.setState({products: products})}/>
+                <div>
+                    { this.state.showSettingsFields ? 
+                        <FilteringAndSorting showComponent={this.state.products.length > 0}
+                            dataType={Constants.PRODUCTS}
+                            hideOrdering={true}
+                            items={this.state.products} 
+                            initialItems={this.state.initialItems}
+                            setFilteredItems = {products => this.setState({products: products})}/>
+                    : null
+                    }
+                </div>
+            );
+        }
+
+        let showItems = () => {
+            return (
+                <div>
+                    {this.state.categories.map(category => {
+                        return (
+                        <div className="accordion-header flex space-between" style={{backgroundColor: category.value.color}} key={category.key}> 
+                                    <div>
+                                        <FontAwesome name='smile-o' className="icon-on-left"/>
+                                        <label>{category.value.name}</label>
+                                    </div>
+                                    <CollapseArrows arrowUp={this.state.arrowUp} expandSection={(event) => this.expandSection(category)}/>
+                                    <ProductsForCategory products={this.state.mapCategoriesProducts[category.value.name] 
+                                                                ? this.state.mapCategoriesProducts[category.value.name]: 
+                                                                [] }/>
+                            </div>
+                        )
+                    })}
+                </div>
             );
         }
 
@@ -93,26 +129,21 @@ class AllProducts extends Component {
             <div>
                 <div className="section-header">
                     <div className="section-title"> 
+                   
+                    <div className="flex space-between">
                         <CollapseSections />
+                        <div>
+                        <Settings toggleSettings={(event) => this.toggleSettingsFields(event)}/>
+                        </div>
+                    </div>
+                    
+                    <div>
                         {Constants.TITLES.ALL_PRODUCTS}
                         {showFilteringSorting()}
+                    </div>
                     </div>                  
                 </div>
-               
-                {this.state.categories.map(category => {
-                    return (
-                    <div className="accordion-header flex space-between" style={{backgroundColor: category.value.color}} key={category.key}> 
-                                <div>
-                                    <FontAwesome name='smile-o' className="icon-on-left"/>
-                                    <label>{category.value.name}</label>
-                                </div>
-                                <CollapseArrows arrowUp={this.state.arrowUp} expandSection={(event) => this.expandSection(category)}/>
-                                <ProductsForCategory products={this.state.mapCategoriesProducts[category.value.name] 
-                                                              ? this.state.mapCategoriesProducts[category.value.name]: 
-                                                              [] }/>
-                        </div>
-                    )
-                })}
+               {showItems()}
 
             </div>
         )

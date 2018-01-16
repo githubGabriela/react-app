@@ -61,7 +61,7 @@ class CategoryNameCreate extends Component {
         return  (
             <div> 
                 <form className="flex space-between"> 
-                    <input type="text" className="input-text full-width"
+                    <input type="text" className="category-input full-width"
                               placeholder="Create"
                               autoFocus
                               onChange={(event) => {

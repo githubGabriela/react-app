@@ -11,6 +11,7 @@ import ProductCreateEdit from '../crud/ProductCreateEdit';
 import FilteringAndSorting from '../../../filtering-sorting/FilteringAndSorting';
 import ProductItemInfo from '../crud/ProductItemInfo';
 import RemovePopup from '../../../popups/RemovePopup';
+import Settings from '../../../common/Settings';
 
 import '../../../../assets/css/General.css';
 
@@ -24,7 +25,8 @@ class AdminProducts extends Component {
             checkedItems: [],
             allIsChecked : false,
             itemsForRemovePopup: [],
-            removePopupOpened: false
+            removePopupOpened: false,
+            showSettingsFields: false
         }
     }
 
@@ -78,10 +80,25 @@ class AdminProducts extends Component {
                 allIsChecked: false
             });
         }
-    
 
+        toggleSettingsFields(){
+            let toggle = !this.state.showSettingsFields;
+            this.setState({
+                showSettingsFields: toggle
+            });
+        }
+
+       
 
     render() {
+        let showCart = (item) => {
+            return (
+                <div className="center-margin-from-top">
+                    <FontAwesome name="cart-plus" className="cart-add" onClick={(event) => {Utils.preventDefault(event); DataSource.addToShoppingList(item)}}/>
+                </div>
+            );
+        }
+
         let showAllItems = () => {
             return (
                 <div>         
@@ -90,9 +107,12 @@ class AdminProducts extends Component {
                             return <div className="section-item" key={item.key}>
                                         <div className="flex space-between"> 
                                             <ProductItemInfo isChecked={this.state.checkedItems.indexOf(item) !== -1} item={item} 
-                                                            checkedItem={(checked, item) => Utils.toggleSelectedItems(this.state.products, this.state.checkedItems, item, checked, result => this.setState(result))}/>
-                                            <ProductCreateEdit type={Constants.UTILS.EDIT} popupTitle={Constants.TITLES.EDIT} item={item}/>
-                                            <FontAwesome name="cart-plus" className="cart-add" onClick={(event) => {Utils.preventDefault(event); DataSource.addToShoppingList(item)}}/>
+                                                             showSettingsFields={this.state.showSettingsFields}
+                                                             checkedItem={(checked, item) => Utils.toggleSelectedItems(this.state.products, this.state.checkedItems, item, checked, result => this.setState(result))}/>
+                                            <ProductCreateEdit type={Constants.UTILS.EDIT} popupTitle={Constants.TITLES.EDIT} 
+                                                               item={item}
+                                                               showSettingsFields={this.state.showSettingsFields}/>
+                                            {showCart(item)}
                                         </div>
                             </div>
                         })
@@ -103,9 +123,14 @@ class AdminProducts extends Component {
 
         let showCheckAll = () => {
             return (
-                <input type="checkbox" value="allChecked" 
-                    checked={this.state.allIsChecked}
-                    onChange={(event)=> { Utils.toggleAllItems(this.state.products, event.target.checked, result => this.setState(result))}}/> 
+                <div>
+                    { this.state.showSettingsFields ? 
+                        <input type="checkbox" value="allChecked" 
+                            checked={this.state.allIsChecked}
+                            onChange={(event)=> { Utils.toggleAllItems(this.state.products, event.target.checked, result => this.setState(result))}}/> 
+                    : null
+                    }
+                </div>
             );
         }
         
@@ -122,22 +147,42 @@ class AdminProducts extends Component {
 
         let showFilteringSorting = () => {
             return (
-                <FilteringAndSorting showComponent={this.state.products.length > 0} 
-                    dataType={Constants.PRODUCTS}
-                    items={this.state.products} 
-                    initialItems = {this.state.initialProducts}
-                    setFilteredItems = {items => this.setState({products: items})}/>
+                <div>
+                    { this.state.showSettingsFields ? 
+                        <FilteringAndSorting showComponent={this.state.products.length > 0} 
+                            dataType={Constants.PRODUCTS}
+                            items={this.state.products} 
+                            initialItems = {this.state.initialProducts}
+                            setFilteredItems = {items => this.setState({products: items})}/>
+                    : null
+                    }
+                </div>
             )
         }
         
+        let showCreateButton = () => {
+            return (
+                <div>
+                     { this.state.showSettingsFields ? 
+                        <div className="create-input align-left">
+                            <ProductCreateEdit type={Constants.UTILS.CREATE} popupTitle={Constants.TITLES.CREATE}/>
+                        </div>  
+                    : null
+                    }
+               </div>  
+            );
+        }
+
         let showHeader = () => {
             return (
                 <div className="section-header">
                     <div className="section-title"> 
+                        <div className="align-right">
+                            <Settings toggleSettings={(event) => this.toggleSettingsFields(event)}/>
+                        </div>
                             {Constants.TITLES.PRODUCTS}
-                            <div className="create-input align-left">
-                                <ProductCreateEdit type={Constants.UTILS.CREATE} popupTitle={Constants.TITLES.CREATE}/>
-                            </div>
+                            {showCreateButton()}
+                           
                             {showFilteringSorting()}
                         <div className="flex space-between center-margin-from-top">
                             {showCheckAll()}
@@ -150,7 +195,6 @@ class AdminProducts extends Component {
         
         return (
             <div>
-                <div className="create-input">
                     {showHeader()}
                     {showAllItems()}
                     <RemovePopup removePopupOpened={this.state.removePopupOpened} 
@@ -161,7 +205,6 @@ class AdminProducts extends Component {
                                                         this.setInitialStateCheckboxes()}
                                                     }
                                 closeRemovePopup={()=> this.closeRemovePopup()}/> 
-                </div>
             </div>
         );
     }

@@ -12,6 +12,7 @@ import FilteringAndSorting from '../../../filtering-sorting/FilteringAndSorting'
 import CategoryNameEdit from '../crud/CategoryNameEdit';
 import CategoryItemInfo from '../crud/CategoryItemInfo'; 
 import RemovePopup from '../../../popups/RemovePopup';
+import Settings from '../../../common/Settings';
 
 import '../../../../assets/css/General.css';
 
@@ -26,7 +27,8 @@ class AdminCategories extends Component {
             itemsForRemovePopup: [],
             removePopupOpened: false,
             showColorPopup: false,
-            colorForPopup: ''
+            colorForPopup: '',
+            showSettingsFields: false
         }
         this.toggleColorPopup = this.toggleColorPopup.bind(this);
     }
@@ -81,6 +83,14 @@ class AdminCategories extends Component {
         })
      }
 
+     toggleSettingsFields(){
+        let toggle = !this.state.showSettingsFields;
+        this.setState({
+            showSettingsFields: toggle
+        });
+    }
+
+
     render() {
         let showAllItems = () => {
             return  (<div>         
@@ -89,9 +99,10 @@ class AdminCategories extends Component {
                             return <div className="section-item" key={item.key}>
                                         <div className="flex space-between"> 
                                             <CategoryItemInfo isChecked={this.state.checkedItems.indexOf(item) !== -1} item={item} 
+                                                              showSettingsFields={this.state.showSettingsFields}
                                                               checkedItem={(checked, item) => 
                                                                             Utils.toggleSelectedItems(this.state.categories, this.state.checkedItems, item, checked, result => this.setState(result))}/>
-                                            <CategoryNameEdit item={item}/>
+                                            <CategoryNameEdit item={item} showSettingsFields={this.state.showSettingsFields}/>
                                         </div>
                             </div>
                         })
@@ -103,10 +114,15 @@ class AdminCategories extends Component {
 
         let showCheckAll = () => {
             return (
-                <input type="checkbox" value="allChecked" 
-                    checked={this.state.allIsChecked}
-                    onChange={(event)=> { Utils.toggleAllItems(this.state.categories, event.target.checked, result => this.setState(result))}}/> 
-            );
+                <div>
+                    {this.state.showSettingsFields ? 
+                        <input type="checkbox" value="allChecked" 
+                            checked={this.state.allIsChecked}
+                            onChange={(event)=> { Utils.toggleAllItems(this.state.categories, event.target.checked, result => this.setState(result))}}/> 
+                    : null
+                    }
+                </div>
+                );
         }
 
         let showRemoveIcon= () => {
@@ -122,11 +138,29 @@ class AdminCategories extends Component {
 
         let showFilteringSorting = () => {
             return (
-                <FilteringAndSorting showComponent={this.state.categories.length > 0 }
-                    dataType={Constants.CATEGORIES}
-                    items={this.state.categories} 
-                    initialItems={this.state.initialCategories}
-                    setFilteredItems = {items => this.setState({categories: items})}/> 
+                <div>
+                    {this.state.showSettingsFields ? 
+                        <FilteringAndSorting showComponent={this.state.categories.length > 0 }
+                            dataType={Constants.CATEGORIES}
+                            items={this.state.categories} 
+                            initialItems={this.state.initialCategories}
+                            setFilteredItems = {items => this.setState({categories: items})}/> 
+                    : null
+                    }
+                </div>
+            );
+        }
+
+        let showCreate = () => {
+            return (
+                <div>
+                    {this.state.showSettingsFields ? 
+                        <div className="create-input">
+                            <CategoryCreate/>
+                        </div>
+                    : null
+                    }
+                </div>
             );
         }
 
@@ -134,10 +168,11 @@ class AdminCategories extends Component {
             return (
                 <div className="section-header">
                     <div className="section-title"> 
+                    <div className="align-right">
+                        <Settings toggleSettings={(event) => this.toggleSettingsFields(event)}/>
+                    </div>
                             {Constants.TITLES.CATEGORIES}
-                            <div className="create-input">
-                                <CategoryCreate/>
-                            </div>
+                            {showCreate()}
                             {showFilteringSorting()}
                         <div className="flex space-between center-margin-from-top">
                             {showCheckAll()}

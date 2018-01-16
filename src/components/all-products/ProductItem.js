@@ -24,7 +24,7 @@ class ProductItem extends Component {
         }
 
         return (
-            <div className="section-item">
+            <div className="flex space-between section-item">
                 <div className="flex">
                     <div className="container-product-img">
                         <div className="item-image product-image" style={imageStyle}>

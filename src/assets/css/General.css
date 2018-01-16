@@ -151,17 +151,17 @@ button {
 .item-edit {
     width: 100%;
 }
-.input-text {
+.category-input {
     background: transparent;
     border: 1px solid white;
     border-radius: 15px;
     color: white;
     padding: 7px;
     box-sizing: border-box;
-    width: 100%;
+    width: 80%;
 }
 
-.input-text::-webkit-input-placeholder {
+.category-input::-webkit-input-placeholder {
     color: white;
     opacity: 0.7;
 }
@@ -404,3 +404,6 @@ input[type="text"], input[type="password"]{
     /* opacity: 0.8; */
 } 
 
+.settings-icon {
+    color: white;
+}

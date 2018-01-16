@@ -32,14 +32,35 @@ class ProductCreateEdit extends Component {
     }
 
     render() {
+        let showEdit = () => {
+            return (
+                <div>
+                    {this.props.type === Constants.UTILS.EDIT && this.props.showSettingsFields ? 
+                        <FontAwesome name="pencil" onClick={(event) => this.openProductPopup(event)}/>
+                        : null
+                    }
+                </div>
+            );
+        }
+
+        let showCreate = () => {
+            return (
+                <div>
+                    {this.props.type === Constants.UTILS.CREATE ? 
+                        <button onClick={(event) => this.openProductPopup(event)}>{this.props.popupTitle}</button>
+                        : 
+                        null
+                    }
+                </div>
+            );
+        }
+
+
         return (
             <div>
-                {this.props.type === Constants.UTILS.CREATE ? 
-                    <button onClick={(event) => this.openProductPopup(event)}>{this.props.popupTitle}</button>
-                    : 
-                    <FontAwesome name="pencil" onClick={(event) => this.openProductPopup(event)}/>
-                }
-                    <CreateEditProductPopup type={this.props.type}
+                {showCreate()}
+                {showEdit()}
+                <CreateEditProductPopup type={this.props.type}
                                         isOpened={this.state.productPopupOpened}
                                         item={this.props.item}
                                         closePopup={(event) => this.closeProductPopup(event)}/>
