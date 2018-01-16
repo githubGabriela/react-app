@@ -67,46 +67,77 @@ class ShoppingList extends Component {
     }
 
     render() {
-        return (
-        <div>
-            <div className="section-header">
-                <div className="full-width">
-                    <div className="flex space-between">
-                        <LastModified lastModified={this.state.lastModified}/>
+        let showClearButton = () => {
+            return (
+                <div className="display-inline shopping-clear">
+                    {!this.state.hideCrudIcons ? 
+                        <button onClick={(event) => {Utils.preventDefault(event); DataSource.clearShoppingList(this.state.items)}}> Clear </button> 
+                    : null
+                    }
+                 </div>
+            )
+        };
+
+        let showEditIcon = () => {
+            return (
+                <div>
                         {this.state.items.length > 0 ?
-                            <div>
-                                <div onClick={this.toggleCrudIcons}> EDIT </div>
-                                         {!this.state.hideCrudIcons ? 
-                                            <button onClick={(event) => {Utils.preventDefault(event); DataSource.clearShoppingList(this.state.items)}}> Clear </button> 
-                                         : null
-                                         }
+                            <div className="flex space-between">
+                                <div onClick={this.toggleCrudIcons}> EDIT
+                                    {showClearButton()}
+                                 </div>
                                 <ExportList categories={this.state.categories} products={this.state.items}/>                                
                             </div>
                         : null
                         }
                     </div>
-                    <div className="flex space-between">
-                        <div className="section-title"> Shopping List </div>
-                    </div>
+            )
+        };
+
+        let showItems = () => {
+            return (
+                <div>
+                    {this.state.items.map((item) => {
+                            return (
+                                <ProductItem key={item.key}
+                                            product={item}
+                                            color={item.value.color}
+                                            showOnlyRemoveCart={true}
+                                            hideIcons={this.state.hideCrudIcons}
+                                            removeFromShoppingList={(item)=> {DataSource.removeFromShoppingList(item); DataSource.addToHistory(item)}}/>
+                            )
+                        })}
                 </div>
-            </div>
-            <FilteringAndSorting showComponent={this.state.items.length > 0}
+            );
+        }
+
+        let showFilteringSorting = () => {
+            return (
+                <FilteringAndSorting showComponent={this.state.items.length > 0}
                                  dataType={Constants.SHOPPING_LIST}
                                  items={this.state.items} 
                                  initialItems={this.state.initialItems}
                                  setFilteredItems = {items => this.setState({items: items})}/>
-        
-            {this.state.items.map((item) => {
-                  return (
-                    <ProductItem key={item.key}
-                                 product={item}
-                                 color={item.value.color}
-                                 showOnlyRemoveCart={true}
-                                 hideIcons={this.state.hideCrudIcons}
-                                 removeFromShoppingList={(item)=> {DataSource.removeFromShoppingList(item); DataSource.addToHistory(item)}}/>
-                  )
-             })}
+            );
+        }
 
+        return (
+        <div>
+            <div className="section-header">
+                <div className="full-width">
+                    <div>
+                        <LastModified lastModified={this.state.lastModified}/>
+                    </div>
+                    <div className="flex space-between">
+                        <div className="section-title">
+                            <div className="align-left"> {showEditIcon()}</div>
+                            {Constants.TITLES.SHOPPING_LIST}
+                            {showFilteringSorting()}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {showItems()}
         </div>
         );
     }

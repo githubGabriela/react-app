@@ -77,7 +77,6 @@ class CategoryItemInfo extends Component {
 
             <ColorPopup color={this.props.item.value.color}
                             showPopup={this.state.showColorPopup}
-                            colorChanged={(color)=> this.setState({color : color})}
                             confirmColorChange={(color)=> this.updateCategory(color)}
                             close={(event) => {this.closePopup(event)}}
                             />

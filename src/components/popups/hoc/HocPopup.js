@@ -84,7 +84,7 @@ export function hocPopupType (WrappedComponent, type) {
                     <div className="popup-body">
                         <WrappedComponent {...this.props} />
                     </div>
-                    <div className="popup-footer">
+                    <div>
                         <button className="popup-btn btn-ok" onClick={this.props.confirmAndClosePopup}> {Constants.POPUP.YES} </button>
                         <button className="popup-btn btn-cancel" onClick={this.props.closePopup}> {Constants.POPUP.NO} </button>
                     </div>

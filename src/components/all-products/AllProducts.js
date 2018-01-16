@@ -78,19 +78,27 @@ class AllProducts extends Component {
     }
    
     render() {
+        let showFilteringSorting = () => {
+            return (
+                <FilteringAndSorting showComponent={this.state.products.length > 0}
+                    dataType={Constants.PRODUCTS}
+                    hideOrdering={true}
+                    items={this.state.products} 
+                    initialItems={this.state.initialItems}
+                    setFilteredItems = {products => this.setState({products: products})}/>
+            );
+        }
+
         return (
             <div>
                 <div className="section-header">
-                    <div className="section-title">{Constants.TITLES.ALL_PRODUCTS}</div>
-                    <CollapseSections />
+                    <div className="section-title"> 
+                        <CollapseSections />
+                        {Constants.TITLES.ALL_PRODUCTS}
+                        {showFilteringSorting()}
+                    </div>                  
                 </div>
-                <FilteringAndSorting showComponent={this.state.products.length > 0}
-                                 dataType={Constants.PRODUCTS}
-                                 hideOrdering={true}
-                                 items={this.state.products} 
-                                 initialItems={this.state.initialItems}
-                                 setFilteredItems = {products => this.setState({products: products})}/>
-
+               
                 {this.state.categories.map(category => {
                     return (
                     <div className="accordion-header flex space-between" style={{backgroundColor: category.value.color}} key={category.key}> 

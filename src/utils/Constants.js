@@ -10,6 +10,7 @@ export const TITLES = {
     NO_PRODUCTS_FOR_CATEGORY: 'No products for this category',
     CATEGORIES: 'Categories',
     SELECT_CATEGORY: 'Select a category',
+    SHOPPING_LIST: 'Shopping List',
     HISTORY: 'History of shopping list',
     COLLAPSE_ALL: 'Collapse All',
     EXPAND_ALL: 'Expand All',

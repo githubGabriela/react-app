@@ -30,7 +30,6 @@ class ColorPopup extends Component {
 
     handleColorChange(color){
         this.setState({color: color});
-        this.props.colorChanged(color);
     }
 
     render() {
@@ -61,7 +60,7 @@ class ColorPopup extends Component {
                     <div className="popup-body">
                         <SketchPicker onChange={(event) => this.handleColorChange(event.hex)}/> 
                     </div>
-                    <div className="popup-footer">
+                    <div>
                         <button className="popup-btn btn-ok" onClick={(event) => {Utils.preventDefault(event);
                                                                                   this.confirm()}}>
                             {Constants.POPUP.OK} 
@@ -77,7 +76,6 @@ class ColorPopup extends Component {
 ColorPopup.propTypes = {
     showPopup: PropTypes.bool,
     color: PropTypes.string,
-    colorChanged: PropTypes.func,
     confirmColorChange: PropTypes.func,
     close: PropTypes.func
 }

@@ -61,14 +61,14 @@ class CategoryNameCreate extends Component {
         return  (
             <div> 
                 <form className="flex space-between"> 
-                    <textarea className="input-text input-text-full"
+                    <input type="text" className="input-text full-width"
+                              placeholder="Create"
                               autoFocus
                               onChange={(event) => {
                                                     Utils.preventDefault(event); 
                                                     this.setState({inputValue : event.target.value});
                                                     this.clearError()
-                                                    }}>
-                    </textarea>
+                                                    }}/>
                     <div className="edit-icons-textarea center-margin-from-top">
                         <FontAwesome name="check" className="icon-with-padding"
                                      onClick={(event) => {

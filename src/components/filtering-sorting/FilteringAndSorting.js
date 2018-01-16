@@ -8,6 +8,7 @@ import Dropdown from 'react-dropdown';
 import 'react-dropdown/style.css';
 
 import * as DataSource from '../../config/DataSource';
+import * as Utils from '../../utils/Utils';
 import * as Constants from '../../utils/Constants';
 
 const options = [
@@ -107,24 +108,30 @@ class FilteringAndSorting extends Component {
         });
     }
 
-   
-
     render() {
-        return (
-            <div>
-                { this.props.showComponent ? 
-                <div> 
-                    <input type="text" placeholder="Search..." onChange={(event) => this.filterChanged(event)} />
+        let showOrdering = () => {
+            return (
+                <div>
                     {!this.props.hideOrdering ? 
-                    <Dropdown options={this.state.dropdownOptions}
-                            value={this.state.dropdownSelected}
-                            onChange={this._onSelect}
-                            placeholder={Constants.TITLES.ORDER_BY}/>
-                        : null 
+                        <Dropdown className="dropdown-input" options={this.state.dropdownOptions}
+                                value={this.state.dropdownSelected}
+                                onChange={this._onSelect}
+                                placeholder={Constants.TITLES.ORDER_BY}/>
+                    : null 
                     }
                 </div>
-                : null
-                }
+            );
+        }
+
+        return (
+            <div className="align-right">
+                {/* { this.props.initialItems && this.props.initialItems.length > 0 ?  */}
+                    <div> 
+                        <input type="text" className="filter-input" placeholder="Search..." onChange={(event) => this.filterChanged(event)} />
+                        {showOrdering()}
+                    </div>
+                    {/* : null
+                }  */}
             </div>
         );
     }

@@ -53,7 +53,7 @@ class CategoryCreate extends Component {
                     <div className="color-bullet center-margin-from-top" style={colorBullet} onClick={this.openPopup}></div>
                     <ColorPopup color={this.state.color}
                                 showPopup={this.state.showPopup} 
-                                colorChanged={(color)=> this.colorSelected(color)} 
+                                confirmColorChange={(color)=> this.colorSelected(color)} 
                                 close={() => {this.closePopup()}}/>
                </div>
                <div className="full-width">

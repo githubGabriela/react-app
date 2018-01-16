@@ -35,6 +35,16 @@ class History extends Component {
 
 
     render() {
+        let showFilteringSorting = () => {
+            return (
+                <FilteringAndSorting showComponent={this.state.items.length > 0} 
+                                 dataType={Constants.HISTORY}
+                                 items={this.state.items} 
+                                 initialItems={this.state.initialItems}
+                                 setFilteredItems = {items => this.setState({items: items})}/>
+            );
+        }
+
         return (
             <div>
                  <div className="section-header">
@@ -44,16 +54,14 @@ class History extends Component {
                            {Constants.TITLES.CLEAR} </button>
                       </div>
                       <div className="flex space-between">
-                          <div className="section-title"> {Constants.TITLES.HISTORY}</div>
+                          <div className="section-title"> 
+                            {Constants.TITLES.HISTORY}
+                            {showFilteringSorting()}
+                          </div>
                       </div>
                     
                   </div>
               </div>
-              <FilteringAndSorting showComponent={this.state.items.length > 0} 
-                                 dataType={Constants.HISTORY}
-                                 items={this.state.items} 
-                                 initialItems={this.state.initialItems}
-                                 setFilteredItems = {items => this.setState({items: items})}/>
               {this.state.items.map((item) => {
                   return (
                     <ProductItem key={item.key}
