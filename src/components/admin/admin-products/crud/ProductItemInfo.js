@@ -32,13 +32,15 @@ class ProductItemInfo extends Component {
         }
 
         return (
-            <div>
+            <div className="flex space-between">
                 <div className="container-product-img flex">
                     {showCheckbox()}
                     <div className="item-image product-image" style={borderStyle}></div> 
                 </div>
-                <label>name: {this.props.item.value.name}</label>   
-                <label>category: {this.props.item.value.category}</label>
+                <div className="item-edit">
+                    <div className="center-from-top"> {this.props.item.value.name} </div>
+                    {/* <label>category: {this.props.item.value.category}</label> */}
+                </div>
             </div>
         );
     }

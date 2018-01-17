@@ -26,7 +26,7 @@ class AdminProducts extends Component {
             allIsChecked : false,
             itemsForRemovePopup: [],
             removePopupOpened: false,
-            showSettingsFields: false
+            showSettingsFields: true
         }
     }
 
@@ -93,7 +93,7 @@ class AdminProducts extends Component {
     render() {
         let showCart = (item) => {
             return (
-                <div className="center-margin-from-top">
+                <div className="space-right">
                     <FontAwesome name="cart-plus" className="cart-add" onClick={(event) => {Utils.preventDefault(event); DataSource.addToShoppingList(item)}}/>
                 </div>
             );
@@ -106,13 +106,21 @@ class AdminProducts extends Component {
                         this.state.products.map((item) => {
                             return <div className="section-item" key={item.key}>
                                         <div className="flex space-between"> 
+                                        <div>
                                             <ProductItemInfo isChecked={this.state.checkedItems.indexOf(item) !== -1} item={item} 
                                                              showSettingsFields={this.state.showSettingsFields}
                                                              checkedItem={(checked, item) => Utils.toggleSelectedItems(this.state.products, this.state.checkedItems, item, checked, result => this.setState(result))}/>
-                                            <ProductCreateEdit type={Constants.UTILS.EDIT} popupTitle={Constants.TITLES.EDIT} 
+                                        </div>
+                                        <div className="center-from-top flex space-between">
+                                            <div className="edit-cart-icons">
+                                                <ProductCreateEdit type={Constants.UTILS.EDIT} popupTitle={Constants.TITLES.EDIT} 
                                                                item={item}
                                                                showSettingsFields={this.state.showSettingsFields}/>
-                                            {showCart(item)}
+                                            </div>
+                                            <div>
+                                                {showCart(item)}
+                                            </div>
+                                        </div>
                                         </div>
                             </div>
                         })

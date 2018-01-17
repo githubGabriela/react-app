@@ -65,7 +65,7 @@ button {
     margin-right: 7px;
 }
 .container-product-img {
-    width: 75px;
+    /* width: 75px; */
     margin-right: 7px;
 }
 .scroll {
@@ -116,6 +116,9 @@ button {
     margin-top: 4px;
     width: 61px;
 }
+.edit-cart-icons {
+    width: 22px;
+}
 
 .icon-with-margin {
     margin: 5px;
@@ -134,10 +137,15 @@ button {
 }
 .product-image {
     border-radius: 50%;
+    margin-right: 6px;
 }
 .cart-add{
     color: #27ae60;
 }
+.space-right {
+    margin-right: 6px;
+}
+
 .cart-remove{
     color: #c0392b;
 }
