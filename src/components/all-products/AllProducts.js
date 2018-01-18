@@ -26,12 +26,11 @@ class AllProducts extends Component {
             categories: [],
             initialProducts:[],
             mapCategoriesProducts : {},
-            collapseAll: false,
+            totalCollapsed: 1,
             showSettingsFields : false
         }
     }
 
-    // categories with products
     componentDidMount() {
         this.getCategories();    
     }
@@ -53,7 +52,6 @@ class AllProducts extends Component {
         });
     }
     
-        // header 
         toggleSettingsFields(){
             let show = !this.state.showSettingsFields;
             this.setState({
@@ -63,10 +61,7 @@ class AllProducts extends Component {
                 this.getAllProducts();
             }
             if(show) {
-                this.setState({
-                    collapseAll: true
-                });
-                this.showAll(false);
+                this.showAll(true);
             }
         }
 
@@ -74,26 +69,40 @@ class AllProducts extends Component {
             let categories = this.state.categories;
             categories.forEach( cat => {
                 this.fillMapWithProducts(cat.value.name);
-                this.showCategory(cat.value.name, show);
+                this.showOne(cat.value.name, show);
             });
         }
 
-        showCategory(catName, show) {
+        showOne(catName, show) {
             let map = this.state.mapCategoriesProducts;
             if(map[catName]) {
                 let toggle = !map[catName].showSection;
-                map[catName].showSection = show ? show : toggle;
+                if(show === 'toggle'){
+                    map[catName].showSection = toggle;
+                    this.handleTotalCollapsed(toggle);
+                } else {
+                    map[catName].showSection = show;
+                    this.handleTotalCollapsed(show);
+                }
                 this.setStateMap(map);
             }
         }
         
+        handleTotalCollapsed(show) {
+            let total = this.state.totalCollapsed;
+            total = show ? ++total : --total;
+            this.setState({
+                totalCollapsed: total
+            });
+            console.log(this.state.totalCollapsed);
+        }
+
         setStateMap(map) {
             this.setState({
                 mapCategoriesProducts : map
             });
         }
 
-     // accordion sections
      fillMapWithProducts(catName) {
         let map = this.state.mapCategoriesProducts;
         if(!map[catName] || map[catName].length <=0 ) {
@@ -105,19 +114,12 @@ class AllProducts extends Component {
         }
     }
     
-    toggleProducts(event, categoryName) {
+    toggleOne(event, categoryName) {
        Utils.preventDefault(event);
        this.fillMapWithProducts(categoryName);
-       this.showCategory(categoryName);
+       this.showOne(categoryName, 'toggle');
     }
 
-    toggleCollapseAll(event) {
-        let toggle = !this.state.collapseAll;
-        this.setState({
-            collapseAll: toggle
-        });
-        this.showAll();
-    }
 
     render() {
         let showFilteringSorting = () => {
@@ -177,7 +179,7 @@ class AllProducts extends Component {
                             <div key={category.key} >
                                 <div className="accordion-header flex space-between" 
                                     style={{backgroundColor: category.value.name}} 
-                                    onClick={(event) => this.toggleProducts(event, category.value.name)}> 
+                                    onClick={(event) => this.toggleOne(event, category.value.name)}> 
                                             <div>
                                                 <FontAwesome name='smile-o' className="icon-on-left"/>
                                                 <label>{category.value.name}</label>
@@ -198,7 +200,8 @@ class AllProducts extends Component {
                     <div className="section-title"> 
                    
                     <div className="flex space-between">
-                        <CollapseSections collapseAll={this.state.collapseAll} toggleCollapseAll={(event) => this.toggleCollapseAll(event)}/>
+                        <CollapseSections collapseAll={(event) => this.showAll(false)}
+                                          expandAll = {(event) => this.showAll(true)}/>
                         <div>
                         <Settings toggleSettings={() => this.toggleSettingsFields()}/>
                         </div>
@@ -217,6 +220,7 @@ class AllProducts extends Component {
             <div>
                {showHeader()}
                {showItems()}
+               {this.state.totalCollapsed}
             </div>
         )
     }
