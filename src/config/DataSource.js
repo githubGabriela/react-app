@@ -57,8 +57,8 @@ export function getProducts(customFct) {
     });
 }
 
-export function getProductsByCategory(customFct){
-    dbDataProducts.orderByChild('category').on('value', snap => {
+export function getProductsByCategory(categoryName, customFct){
+    dbDataProducts.orderByChild('category').equalTo(categoryName).on('value', snap => {
         let recentylAdded = getKeyValues(snap).reverse();
         customFct(recentylAdded);
     });

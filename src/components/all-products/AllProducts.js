@@ -5,6 +5,7 @@ import React, { Component } from 'react';
 import FontAwesome from 'react-fontawesome';
 
 import * as Constants from '../../utils/Constants';
+import * as Utils from '../../utils/Utils';
 import * as DataSource from '../../config/DataSource';
 import CollapseSections from '../collapse/CollapseSections';
 import CollapseArrows from '../collapse/CollapseArrows';
@@ -13,78 +14,109 @@ import FilteringAndSorting from '../filtering-sorting/FilteringAndSorting';
 
 import '../../assets/css/General.css';
 import ProductsForCategory from './ProductsForCategory';
-import { getProducts } from '../../config/DataSource';
+import { getProductsByCategory } from '../../config/DataSource';
 import Settings from '../common/Settings';
 
-const no_category = {
-    key: 'no_category', 
-    value: {
-        name: 'No category',
-        color: '#bdc3c7'
-    }
-};
 
 class AllProducts extends Component {
     constructor(){
         super();
         this.state = {
-            categories: [],
             products: [],
+            categories: [],
             initialProducts:[],
             mapCategoriesProducts : {},
-            showSectionForKey : undefined,
-            arrowUp: true,
+            collapseAll: false,
             showSettingsFields : false
         }
-
-        this.expandSection = this.expandSection.bind(this);
     }
 
+    // categories with products
     componentDidMount() {
-        this.getCategories();
-        this.getProducts();
+        this.getCategories();    
     }
-
+      
     getCategories() {
         DataSource.getCategories( categories => {
-           this.setState({
-               categories: categories
+            this.setState({
+                categories: categories
             });
-           console.log('categories', categories);
         });
     }
 
-    getProducts() {
+    getAllProducts() {
         DataSource.getProducts( products => {
             this.setState({
                 products: products,
                 initialProducts: products
             });
-            console.log('products', products);
         });
     }
-
-    expandSection(category) {
-        let mapping = this.state.mapCategoriesProducts;
-        let name = category.value.name;
-        if(!mapping[name] || mapping[name].length <=0 ){
-            mapping[name] = this.filterProducts(name);
+    
+        // header 
+        toggleSettingsFields(){
+            let show = !this.state.showSettingsFields;
             this.setState({
-                mapCategoriesProducts : mapping
+                showSettingsFields: show
             });
-            console.log(this.state.mapCategoriesProducts);
+            if(this.state.products.length === 0){
+                this.getAllProducts();
+            }
+            if(show) {
+                this.setState({
+                    collapseAll: true
+                });
+                this.showAll(false);
+            }
+        }
+
+        showAll(show) {
+            let categories = this.state.categories;
+            categories.forEach( cat => {
+                this.fillMapWithProducts(cat.value.name);
+                this.showCategory(cat.value.name, show);
+            });
+        }
+
+        showCategory(catName, show) {
+            let map = this.state.mapCategoriesProducts;
+            if(map[catName]) {
+                let toggle = !map[catName].showSection;
+                map[catName].showSection = show ? show : toggle;
+                this.setStateMap(map);
+            }
+        }
+        
+        setStateMap(map) {
+            this.setState({
+                mapCategoriesProducts : map
+            });
+        }
+
+     // accordion sections
+     fillMapWithProducts(catName) {
+        let map = this.state.mapCategoriesProducts;
+        if(!map[catName] || map[catName].length <=0 ) {
+            DataSource.getProductsByCategory(catName, products => {
+                map[catName] = products;
+                map[catName].showSection = true;
+                this.setStateMap(map);
+            });
         }
     }
-
-    filterProducts(categoryName){
-        return this.state.products.filter( product => product.value.category === categoryName);
+    
+    toggleProducts(event, categoryName) {
+       Utils.preventDefault(event);
+       this.fillMapWithProducts(categoryName);
+       this.showCategory(categoryName);
     }
 
-    toggleSettingsFields(){
-        let toggle = !this.state.showSettingsFields;
+    toggleCollapseAll(event) {
+        let toggle = !this.state.collapseAll;
         this.setState({
-            showSettingsFields: toggle
+            collapseAll: toggle
         });
+        this.showAll();
     }
 
     render() {
@@ -92,7 +124,7 @@ class AllProducts extends Component {
             return (
                 <div>
                     { this.state.showSettingsFields ? 
-                        <FilteringAndSorting showComponent={this.state.products.length > 0}
+                        <FilteringAndSorting 
                             dataType={Constants.PRODUCTS}
                             hideOrdering={true}
                             items={this.state.products} 
@@ -104,36 +136,71 @@ class AllProducts extends Component {
             );
         }
 
+        let mapProducts = (products) => {
+            return (
+                <div>
+                    {products.map(product => {
+                            return (
+                                <div key={product.key}>
+                                    {product.value.name}
+                                </div>
+                            )
+                        })}
+                    </div>
+            );
+        }
+
+        let listProducts = (category) => {
+            let products = this.state.mapCategoriesProducts[category];
+            let showSection = products  && products.showSection;
+            return (
+                <div>
+                   {products && showSection? 
+                        <div> 
+                            {mapProducts(products)}
+                        </div> 
+                   : null
+                   }
+                </div> 
+            );
+        }
+
+        let showArrowDown = (categoryName) => {
+            return this.state.mapCategoriesProducts[categoryName] && this.state.mapCategoriesProducts[categoryName].showSection;;
+        }
+
         let showItems = () => {
             return (
                 <div>
                     {this.state.categories.map(category => {
                         return (
-                        <div className="accordion-header flex space-between" style={{backgroundColor: category.value.color}} key={category.key}> 
-                                    <div>
-                                        <FontAwesome name='smile-o' className="icon-on-left"/>
-                                        <label>{category.value.name}</label>
-                                    </div>
-                                    <CollapseArrows arrowUp={this.state.arrowUp} expandSection={(event) => this.expandSection(category)}/>
-                                    <ProductsForCategory products={this.state.mapCategoriesProducts[category.value.name] 
-                                                                ? this.state.mapCategoriesProducts[category.value.name]: 
-                                                                [] }/>
-                            </div>
+                            <div key={category.key} >
+                                <div className="accordion-header flex space-between" 
+                                    style={{backgroundColor: category.value.name}} 
+                                    onClick={(event) => this.toggleProducts(event, category.value.name)}> 
+                                            <div>
+                                                <FontAwesome name='smile-o' className="icon-on-left"/>
+                                                <label>{category.value.name}</label>
+                                            </div>
+                                            <CollapseArrows arrowDown={showArrowDown(category.value.name)}/>
+                                </div>
+                                {listProducts(category.value.name)}
+                        </div>
                         )
                     })}
                 </div>
             );
         }
 
-        return (
-            <div>
+        let showHeader = () => {
+            return (
                 <div className="section-header">
                     <div className="section-title"> 
                    
                     <div className="flex space-between">
-                        <CollapseSections />
+                        <CollapseSections collapseAll={this.state.collapseAll} toggleCollapseAll={(event) => this.toggleCollapseAll(event)}/>
                         <div>
-                        <Settings toggleSettings={(event) => this.toggleSettingsFields(event)}/>
+                        <Settings toggleSettings={() => this.toggleSettingsFields()}/>
                         </div>
                     </div>
                     
@@ -143,8 +210,13 @@ class AllProducts extends Component {
                     </div>
                     </div>                  
                 </div>
-               {showItems()}
+            );
+        }
 
+        return (
+            <div>
+               {showHeader()}
+               {showItems()}
             </div>
         )
     }

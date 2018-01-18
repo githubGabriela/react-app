@@ -10,16 +10,16 @@ import * as Utils from '../../utils/Utils';
 class CollapseArrows extends Component {
     
     shouldComponentUpdate(nextProps) {
-        return this.props.arrowUp !== nextProps.arrowUp;
+        return this.props.arrowDown !== nextProps.arrowDown;
     }
 
     render() {
         return (
-                <div className="arrow">
-                {this.props.arrowUp ? 
-                   <FontAwesome name='angle-up' onClick={(event) => {Utils.preventDefault(event); this.props.expandSection(true)}}/>
+                <div className="arrow"> 
+                {this.props.arrowDown ? 
+                   <FontAwesome name='angle-down'/>
                    :
-                   <FontAwesome name='angle-down' onClick={(event) => {Utils.preventDefault(event); this.props.expandSection(true)}}/>
+                   <FontAwesome name='angle-up'/>
                 }
                 </div>
         );
@@ -27,8 +27,7 @@ class CollapseArrows extends Component {
 }
 
 CollapseArrows.propTypes = {
-    arrowUp: PropTypes.bool,
-    expandSection: PropTypes.func
+    arrowDown: PropTypes.bool
 }
 
 export default CollapseArrows;

@@ -3,7 +3,6 @@ import { Switch, Route } from 'react-router-dom';
 
  import ShoppingList  from '../components/shoppingList/ShoppingList';
  import AllProducts from '../components/all-products/AllProducts';
- import ProductDetail from '../components/all-products/ProductDetail';
  import AdminRouter from '../components/admin/common/AdminRouter';
  
  import AdminCategories from '../components/admin/admin-categories/list/AdminCategories';

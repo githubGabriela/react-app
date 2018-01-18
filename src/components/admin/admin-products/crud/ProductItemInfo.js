@@ -39,7 +39,7 @@ class ProductItemInfo extends Component {
                 </div>
                 <div className="item-edit">
                     <div className="center-from-top"> {this.props.item.value.name} </div>
-                    {/* <label>category: {this.props.item.value.category}</label> */}
+                    <label>category: {this.props.item.value.category}</label>
                 </div>
             </div>
         );
