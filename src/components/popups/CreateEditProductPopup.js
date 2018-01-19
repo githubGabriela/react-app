@@ -14,7 +14,7 @@ class CreateEditProductPopup extends Component {
         this.state = {
             item: {
                 name: '',
-                category: 'No category',
+                category: '',
                 color: ''
             },
             initialCategory: undefined,
