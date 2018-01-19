@@ -1,29 +1,34 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import FontAwesome from 'react-fontawesome';
-import CopyToClipboard from 'react-copy-to-clipboard';
+import ExportPopup from './ExportPopup';
 
 class ExportList extends Component {
     constructor(){
         super();
         this.state = {
-            list: '',
-            copiedToClipboard: false
+            value: '',
+            showPopup : false
         }
-        this.copyToClipboard = this.copyToClipboard.bind(this);
+        this.copyItems = this.copyItems.bind(this);
     }
 
     shouldComponentUpdate(nextProps) {
         return true;
     }
 
-    copyToClipboard(event){
-        event.preventDefault();
-        let list = this.createMapCategoriesProducts();
+    copyItems({target: {value}}) {
+        let list = this.getList();
         let formatedList = this.formatList(list);
-        this.setState({
-            list: formatedList
-        });
+        this.setState({value: formatedList, showPopup: true});
+      }
+    
+    getList() {
+        let list = {};
+        this.props.categories.forEach(category => {
+            list[category] = this.filterProducts(this.props.products, category);
+        })
+        return list;
     }
 
     formatList(list) {
@@ -38,36 +43,23 @@ class ExportList extends Component {
     }
 
     capitalizeValue(value) {
-        if(value === 'No category') { 
-            return ''; 
-        }
         return value.charAt(0).toUpperCase() + value.slice(1) + ': ';
     }
 
-    createMapCategoriesProducts(){
-        let list = {
-            'No category' : []
-        };
-        this.props.categories.forEach(name => {
-            list[name] = [];
-        });
-
-        this.props.products.forEach(item => {
-            list[item.value.category].push(item.value.name);
-        });
-        return list;
+    filterProducts(products, categoryName){
+        return products.filter( product => {
+            return product.value.category === categoryName;
+        }).map(product => product.value.name);
     }
+    
 
     render() {
         return (
-                <div>
-                    <CopyToClipboard text={this.state.list}
-                                     onCopy={() => this.setState({copiedToClipboard: true})}>
-                         <FontAwesome name="share-square-o" onClick={(event) => this.copyToClipboard(event)}/>
-                    </CopyToClipboard>
-                    {this.state.copiedToClipboard ? <span style={{color: 'red'}}>Copied.</span> : null}
-                </div>
-            );
+            <div>
+                <FontAwesome name="share-square-o" onClick={this.copyItems}/>
+                <ExportPopup showPopup={this.state.showPopup} value={this.state.value} closePopup={() => {this.setState({showPopup: false})}}/>
+            </div>
+        );
     }
 }
 
