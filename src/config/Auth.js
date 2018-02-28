@@ -21,7 +21,6 @@ export function login(email, pass, customFct) {
 export function isAuthenticated(customFct) {
     auth.onAuthStateChanged(user => {
         if (user) {
-            console.log('authenticated true');
             customFct(user);
         }else{
             customFct(false);

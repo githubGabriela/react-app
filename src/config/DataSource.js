@@ -182,9 +182,21 @@ export function updateCategoryName(key, value, customFct){
 export function updateCategoryColor(key, value, customFct){
     dbDataCategories.orderByChild('name').once("value", snap => {
             dbDataCategories.child(key).update(value);
-            customFct(value);
+            let catName = snap.val()[key].name;
+            updateColorForProducts(catName, value.color);
+            customFct(value.color);
         });
 }
+
+function updateColorForProducts(catName, color) {
+    dbDataProducts.orderByChild("category").equalTo(catName).once("value", snap => {
+        let keys = Object.keys(snap.val());
+        keys.forEach( key => {
+            dbDataProducts.child(key).update({color: color});
+          });
+        });
+}
+
 
 export function updateProduct(key, value, customFct) {
     dbDataProducts.orderByChild('name').equalTo(value.name).once("value", snap => {

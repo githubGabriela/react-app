@@ -94,7 +94,6 @@ class AllProducts extends Component {
             this.setState({
                 totalCollapsed: total
             });
-            console.log(this.state.totalCollapsed);
         }
 
         setStateMap(map) {

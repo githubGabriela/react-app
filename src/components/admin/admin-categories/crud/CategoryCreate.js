@@ -2,7 +2,7 @@
 // <CategoryCreate/>
 import React, { Component } from 'react';
 
-import ColorPopup from '../../../popups/ColorPopup';
+import ColorPopup from '../../../popups/color/ColorPopup';
 import CategoryNameCreate from './CategoryNameCreate';
 
 import '../../../../assets/css/General.css';

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import * as Utils from '../../../../utils/Utils';
 import * as DataSource from '../../../../config/DataSource';
-import ColorPopup from '../../../popups/ColorPopup';
+import ColorPopup from '../../../popups/color/ColorPopup';
 import ImagePopup from '../../../popups/image-popup/ImagePopup';
 
 import '../../../../assets/css/General.css';
@@ -27,6 +27,7 @@ class CategoryItemInfo extends Component {
 
     componentDidMount() {
         this.setState({
+            color: this.props.item.value.color,
             color: this.props.item.value.color
         });
     }
@@ -41,8 +42,9 @@ class CategoryItemInfo extends Component {
     updateCategory(color) {
         if(color && this.props.item.value.color && color !== this.props.item.value.color){
             let value = {color: color};
-             DataSource.updateCategoryColor(this.props.item.key, value, result => {
+             DataSource.updateCategoryColor(this.props.item.key, value, color => {
                     this.closePopup();
+                    this.setState({color: color, color: color});
             });
         }
     }
@@ -82,8 +84,7 @@ class CategoryItemInfo extends Component {
                                                 this.toggleColorPopup()}}>
 
             </div>
-
-            <ColorPopup color={this.props.item.value.color}
+            <ColorPopup color={this.state.color} 
                             showPopup={this.state.showColorPopup}
                             confirmColorChange={(color)=> this.updateCategory(color)}
                             close={(event) => {this.closePopup(event)}}

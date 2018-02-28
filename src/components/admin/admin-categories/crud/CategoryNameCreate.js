@@ -12,13 +12,14 @@ import '../../../../assets/css/General.css';
 
 class CategoryNameCreate extends Component {
 
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             inputValue : '',
             errorMessage : ''
         }
         this.clearInput = this.clearInput.bind(this);
+        this.handleChange = this.handleChange.bind(this);
     }
 
     shouldComponentUpdate(nextProps) {
@@ -36,13 +37,13 @@ class CategoryNameCreate extends Component {
    }
  
    setError(error) {
-    if(error && error.message){
+     if(error && error.message){
         this.setState({
             errorMessage : error.message
         });
         } else{
             this.clearInput();
-        }  
+        }   
     }
 
     clearError() {
@@ -55,20 +56,27 @@ class CategoryNameCreate extends Component {
         this.setState({
             inputValue : ''
         });
+        this.refs.categoryInput.value='';
+    }
+
+    handleChange(event) {
+        this.setState({inputValue: event.target.value});
     }
     
     render() {
         return  (
             <div> 
                 <form className="flex space-between"> 
-                    <input type="text" className="category-input full-width"
-                              placeholder="Create"
-                              autoFocus
-                              onChange={(event) => {
-                                                    Utils.preventDefault(event); 
-                                                    this.setState({inputValue : event.target.value});
-                                                    this.clearError()
-                                                    }}/>
+                <input type="text" ref="categoryInput"
+                    className="category-input full-width"
+                    defaultValue={this.state.inputValue}
+                    placeholder="Create"
+                    onChange={(event)=> {
+                        Utils.preventDefault(event);
+                        this.handleChange(event);
+                        this.clearError();
+                    }}
+                />
                     <div className="edit-icons center-margin-from-top">
                         <FontAwesome name="check" className="icon-with-margin"
                                      onClick={(event) => {

@@ -127,7 +127,7 @@ button {
     background-size: cover;
     display: block;
     overflow: hidden;
-    border: 1px solid #cecaca;
+    border: 3px solid #cecaca;
     width: 50px;
     height: 50px;
 }
@@ -192,9 +192,20 @@ button {
 
 .popup-header {
     padding: 20px;
-    color: white;
     font-weight: bold;
 }
+
+.popup-header-text {
+    color: black;
+    border: 1px solid white;
+    border-radius: 7px;
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    background-color: whitesmoke;
+}
+
 .popup-remove-header {
     padding: 20px;
     color: white;

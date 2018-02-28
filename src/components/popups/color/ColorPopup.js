@@ -4,34 +4,32 @@ import Modal from 'react-modal';
 import { SketchPicker } from 'react-color';
 import FontAwesome from 'react-fontawesome';
 
-import * as Utils from '../../utils/Utils';
-import * as Constants from '../../utils/Constants';
+import * as Utils from '../../../utils/Utils';
+import * as Constants from '../../../utils/Constants';
+import ColorHeader from './ColorHeader';
 
 class ColorPopup extends Component {
   
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             color: ''
         };
         this.confirm = this.confirm.bind(this);
-        this.handleColorChange = this.handleColorChange.bind(this);
     }
 
     shouldComponentUpdate(nextProps) {
-        return this.props.showPopup !== nextProps.showPopup 
-               || this.props.color !== nextProps.color;
+        if(this.props.color !== nextProps.color){
+           this.setState({color: nextProps.color});
+        }
+        return true;
     }
 
     confirm(color) {
         this.props.confirmColorChange(this.state.color);
         this.props.close();
     }
-
-    handleColorChange(color){
-        this.setState({color: color});
-    }
-
+    
     render() {
         const modalStyle = {
             content : {
@@ -46,7 +44,6 @@ class ColorPopup extends Component {
             }
           };
 
-
         return (
                 <Modal
                     style={modalStyle}
@@ -54,11 +51,9 @@ class ColorPopup extends Component {
                     isOpen={this.props.showPopup}>
                 <div className="popup-container">
                     <FontAwesome name="close" className="popup-close-icon" onClick={() => this.props.close()}/>
-                    <div className="popup-header" style={{backgroundColor: this.props.color}}>
-                        {Constants.POPUP.CHOOSE_COLOR}
-                    </div>
+                    <ColorHeader color={this.state.color}/>
                     <div className="popup-body">
-                        <SketchPicker onChange={(event) => this.handleColorChange(event.hex)}/> 
+                        <SketchPicker onChange={(event) => this.setState({color: event.hex})}/> 
                     </div>
                     <div>
                         <button className="popup-btn btn-ok" onClick={(event) => {Utils.preventDefault(event);
