@@ -11,10 +11,10 @@ import CategoryCreate from '../crud/CategoryCreate';
 import FilteringAndSorting from '../../../filtering-sorting/FilteringAndSorting';
 import CategoryNameEdit from '../crud/CategoryNameEdit';
 import CategoryItemInfo from '../crud/CategoryItemInfo'; 
-import RemovePopup from '../../../popups/RemovePopup';
 import Settings from '../../../common/Settings';
 
 import '../../../../assets/css/General.css';
+import RemoveCategories from '../crud/RemoveCategories';
 
 class AdminCategories extends Component {
     constructor(){
@@ -25,12 +25,14 @@ class AdminCategories extends Component {
             checkedItems: [],
             allIsChecked : false,
             itemsForRemovePopup: [],
-            removePopupOpened: false,
+            removeCategories : false,
             showColorPopup: false,
             colorForPopup: '',
             showSettingsFields: false
         }
         this.toggleColorPopup = this.toggleColorPopup.bind(this);
+        this.removeConfirmed = this.removeConfirmed.bind(this);
+        this.removeCanceled = this.removeCanceled.bind(this);
     }
 
     componentDidMount() {
@@ -50,21 +52,10 @@ class AdminCategories extends Component {
         return true;
     }
 
-    openRemovePopup() {
+    setItemsToRemove() {
         this.setState({
-            removePopupOpened : true,
-        });
-    }  
-
-    closeRemovePopup() {
-        this.setState({
-            removePopupOpened : false
-        });
-    }
-
-    setItemsForPopup() {
-        this.setState({
-            itemsForRemovePopup: this.state.checkedItems
+            itemsForRemovePopup: this.state.checkedItems,
+            removeCategories: true
         });
     }
     
@@ -88,6 +79,15 @@ class AdminCategories extends Component {
         this.setState({
             showSettingsFields: toggle
         });
+    }
+
+    removeConfirmed() {
+        this.setInitialStateCheckboxes(); 
+        this.setState({removeCategories: false});
+    }
+
+    removeCanceled() {
+        this.setState({removeCategories: false})
     }
 
 
@@ -129,7 +129,7 @@ class AdminCategories extends Component {
             return (
                 <div>
                     { (this.state.allIsChecked || this.state.checkedItems.length > 0) ? 
-                        <FontAwesome name="close" onClick={(item) => { this.openRemovePopup(); this.setItemsForPopup()}}/>
+                        <FontAwesome name="close" onClick={(item) => { this.setItemsToRemove()}}/>
                     : null
                     }
                 </div>
@@ -186,14 +186,11 @@ class AdminCategories extends Component {
             <div>
                 {showHeader()}
                 {showAllItems()}
-                <RemovePopup removePopupOpened={this.state.removePopupOpened} 
-                                items={this.state.itemsForRemovePopup}
-                                confirmRemoveItems = {() => { 
-                                                        DataSource.removeCategories(this.state.itemsForRemovePopup); 
-                                                        this.closeRemovePopup();
-                                                        this.setInitialStateCheckboxes()}
-                                                    }
-                                closeRemovePopup={()=> this.closeRemovePopup()}/> 
+                <RemoveCategories removeCategories={this.state.removeCategories} 
+                                  itemsForRemovePopup={this.state.itemsForRemovePopup}
+                                  confirmed = {this.removeConfirmed}
+                                  canceled = {this.removeCanceled}   
+                />
             </div>
         );
     }
