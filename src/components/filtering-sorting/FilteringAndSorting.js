@@ -24,7 +24,7 @@ class FilteringAndSorting extends Component {
             order: '',
             filterValue: undefined,
             dropdownOptions: [],
-            dropdownSelected: undefined
+            selectedDropdown: undefined
         }
         this._onSelect = this._onSelect.bind(this);
         this.orderBy = this.orderBy.bind(this);
@@ -45,7 +45,7 @@ class FilteringAndSorting extends Component {
     }
     
     _onSelect(option){
-        this.setState({dropdownSelected: option});
+        this.setState({selectedDropdown: option});
         if(option.value !== Constants.TITLES.ORDER_BY){
             this.orderBy(option.value);
         }
@@ -114,7 +114,7 @@ class FilteringAndSorting extends Component {
                 <div>
                     {!this.props.hideOrdering ? 
                         <Dropdown className="dropdown-input" options={this.state.dropdownOptions}
-                                value={this.state.dropdownSelected}
+                                value={this.state.selectedDropdown}
                                 onChange={this._onSelect}
                                 placeholder={Constants.TITLES.ORDER_BY}/>
                     : null 

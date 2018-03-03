@@ -17,7 +17,7 @@ class CreateEditProductPopup extends Component {
                 category: '',
                 color: ''
             },
-            initialCategory: undefined,
+            selectedCategory: undefined,
             itemToEdit: {},
             errorMessage: undefined
         }
@@ -39,7 +39,7 @@ class CreateEditProductPopup extends Component {
                  this.setState({
                     itemToEdit: props.item,
                     item: props.item.value,
-                    initialCategory: props.item.value.category
+                    selectedCategory: props.item.value.category
                 });
             }
         }
@@ -136,7 +136,7 @@ class CreateEditProductPopup extends Component {
                     </div>
 
                     <div className="popup-body">
-                        <DropdownCategories initialCategory={this.state.initialCategory}
+                        <DropdownCategories selectedCategory={this.state.selectedCategory}
                                             categorySelected={(category) => this.categoryChanged(category)}/>
                         <div className="flex space-between"> 
                             Name: <input type="text" value={this.state.item.name}

@@ -15,29 +15,37 @@ class DropdownCategories extends Component {
         super();
         this.state = {
             categories: [],
-            selected: undefined
+            selected: {
+                label: '',
+                value: ''
+            }
         }
     }
 
     componentDidMount() {
-        this.setState({
-            selected: {label: this.props.initialCategory, value: this.props.initialCategory}
-        })
-        this.getCategoriesForDropdown();
+        this.getCategories();
     }
 
     shouldComponentUpdate(nextProps) {
         return true;
     }
 
-    getCategoriesForDropdown() {
+    getCategories() {
         DataSource.getCategoriesForDropdown(items => {
-            let initialCategory = this.state.initialCategory ? this.state.initialCategory : items[0];
             this.setState({
-                categories: items,
-                selected: initialCategory
+                categories: items
             });
+            this.setSelected(items);
         });
+    }
+
+    setSelected(items) {
+        let selected = this.props.selectedCategory ? 
+                        { label: this.props.selectedCategory, value: this.props.selectedCategory } : items[0];
+        this.setState({
+            selected:  selected
+        });
+        console.log(this.selected);
     }
 
     
@@ -55,7 +63,7 @@ class DropdownCategories extends Component {
 }
 
 DropdownCategories.propTypes = {
-    initialCategory: PropTypes.string,
+    selectedCategory: PropTypes.string,
     categorySelected: PropTypes.func
 }
 
