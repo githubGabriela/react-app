@@ -172,6 +172,7 @@ export function removeImage(categoryName){
 export function updateCategoryName(key, value, customFct){
     dbDataCategories.orderByChild('name').equalTo(value.name).once("value", snap => {
         if(!snap.val()){
+            updateOldNames(key, value);
             dbDataCategories.child(key).update(value);
             customFct({message: ''});
             } 
@@ -179,20 +180,28 @@ export function updateCategoryName(key, value, customFct){
         });
 }
 
+function updateOldNames(key, value) {
+    dbDataCategories.child(key).once("value", snap => {
+        let valToUpdate = {category: value.name};
+        updateValuesForProducts(snap.val().name, valToUpdate);
+    });
+}
+
 export function updateCategoryColor(key, value, customFct){
     dbDataCategories.orderByChild('name').once("value", snap => {
             dbDataCategories.child(key).update(value);
             let catName = snap.val()[key].name;
-            updateColorForProducts(catName, value.color);
+            let valToUpdate = {color : value.color};
+            updateValuesForProducts(catName, valToUpdate);
             customFct(value.color);
         });
 }
 
-function updateColorForProducts(catName, color) {
+function updateValuesForProducts(catName, valueToUpdate) {
     dbDataProducts.orderByChild("category").equalTo(catName).once("value", snap => {
         let keys = Object.keys(snap.val());
         keys.forEach( key => {
-            dbDataProducts.child(key).update({color: color});
+            dbDataProducts.child(key).update(valueToUpdate);
           });
         });
 }
