@@ -30,6 +30,7 @@ class App extends Component {
         <link href='https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css' rel='stylesheet'></link>
          <Header userAuthenticated={this.state.userAuthenticated}/>
          <Router userAuthenticated={this.state.userAuthenticated}/>
+         {/* comment */}
       </div>
     );
   }
