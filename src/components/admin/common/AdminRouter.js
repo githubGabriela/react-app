@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Switch, Route, NavLink } from 'react-router-dom';
+import ReactTooltip from 'react-tooltip';
 
 import FontAwesome from  'react-fontawesome';
 
@@ -13,13 +14,17 @@ class AdminRouter extends Component {
                 <ul className="links">
                     <li><NavLink to="/Admin/Categories" activeClassName="selected">
                         <div className="link">
-                            <FontAwesome name='copyright'/>  
+                            <span data-tip="Categories" data-place="top">
+                                <FontAwesome name='copyright'/>  
+                            </span>
                         </div>
                         </NavLink>
                     </li>
                     <li><NavLink to="/Admin/Products" activeClassName="selected">
                         <div className="link">
-                            <FontAwesome name='product-hunt'/>
+                            <span data-tip="Products" data-place="top">
+                                <FontAwesome name='product-hunt'/>
+                            </span>
                         </div>
                         </NavLink>
                     </li> 

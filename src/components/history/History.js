@@ -80,8 +80,7 @@ class History extends Component {
                            <Settings toggleSettings={(event) => this.toggleSettingsFields(event)}/>
                       </div>
                       <div className="flex space-between">
-                          <div className="section-title"> 
-                            {Constants.TITLES.HISTORY}
+                          <div className="section-title">                           
                             {showFilteringSorting()}
                           </div>
                       </div>

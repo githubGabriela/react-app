@@ -207,7 +207,6 @@ class AllProducts extends Component {
                     </div>
                     
                     <div>
-                        {Constants.TITLES.ALL_PRODUCTS}
                         {showFilteringSorting()}
                     </div>
                     </div>                  

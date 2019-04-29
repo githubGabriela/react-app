@@ -10,7 +10,7 @@ import * as DataSource from '../../../../config/DataSource';
 import ProductCreateEdit from '../crud/ProductCreateEdit';
 import FilteringAndSorting from '../../../filtering-sorting/FilteringAndSorting';
 import ProductItemInfo from '../crud/ProductItemInfo';
-import RemovePopup from '../../../popups/RemovePopup';
+import RemoveProducts from '../crud/RemoveProducts';
 import Settings from '../../../common/Settings';
 
 import '../../../../assets/css/General.css';
@@ -205,7 +205,7 @@ class AdminProducts extends Component {
             <div>
                     {showHeader()}
                     {showAllItems()}
-                    <RemovePopup removePopupOpened={this.state.removePopupOpened} 
+                    <RemoveProducts removePopupOpened={this.state.removePopupOpened} 
                                 items={this.state.itemsForRemovePopup}
                                 confirmRemoveItems = {() => { 
                                                         DataSource.removeProducts(this.state.itemsForRemovePopup); 

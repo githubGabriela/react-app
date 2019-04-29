@@ -24,7 +24,7 @@ class AdminCategories extends Component {
             initialCategories: [],
             checkedItems: [],
             allIsChecked : false,
-            itemsForRemovePopup: [],
+            itemsToRemove: [],
             removeCategories : false,
             showColorPopup: false,
             colorForPopup: '',
@@ -52,17 +52,22 @@ class AdminCategories extends Component {
         return true;
     }
 
-    setItemsToRemove() {
-        this.setState({
-            itemsForRemovePopup: this.state.checkedItems,
-            removeCategories: true
+    setItemsToRemove() { 
+        this.state.checkedItems.forEach( item => {
+            DataSource.getProductsByCategory(item.value.name, result => {
+                item.value['products'] = result;
+                this.setState({
+                    itemsToRemove: this.state.checkedItems,
+                    removeCategories: true
+                });
+            });
         });
     }
-    
+     
     setInitialStateCheckboxes() {
         this.setState({ 
             checkedItems: [],
-            itemsForRemovePopup: [],
+            itemsToRemove: [],
             allIsChecked: false
         });
     }
@@ -187,7 +192,7 @@ class AdminCategories extends Component {
                 {showHeader()}
                 {showAllItems()}
                 <RemoveCategories removeCategories={this.state.removeCategories} 
-                                  itemsForRemovePopup={this.state.itemsForRemovePopup}
+                                  categoriesToRemove={this.state.itemsToRemove}
                                   confirmed = {this.removeConfirmed}
                                   canceled = {this.removeCanceled}   
                 />

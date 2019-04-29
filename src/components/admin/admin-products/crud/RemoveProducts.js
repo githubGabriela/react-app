@@ -1,10 +1,10 @@
 // Usage:
-// <RemovePopup items={this.state.items} removePopupOpened={this.state.removePopupOpened}
+// <RemoveProducts items={this.state.items} removePopupOpened={this.state.removePopupOpened}
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { hocRemovePopup } from './hoc/HocRemovePopup';
+import { hocRemovePopup } from '../../../popups/hoc/HocRemovePopup';
 
 class Popup extends Component {
     
@@ -27,10 +27,10 @@ class Popup extends Component {
     }
 }
 
-const RemovePopup = hocRemovePopup(Popup);
+const RemoveProducts = hocRemovePopup(Popup);
 
-RemovePopup.propTypes = {
+RemoveProducts.propTypes = {
     items: PropTypes.array
 }
 
-export default RemovePopup;
+export default RemoveProducts;

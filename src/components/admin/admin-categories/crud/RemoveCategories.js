@@ -1,16 +1,17 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import * as DataSource from '../../../../config/DataSource';
 import * as Utils from '../../../../utils/Utils';
-import RemovePopup from '../../../popups/RemovePopup';
 
-class RemoveCategories extends Component {
+import { hocRemovePopup } from '../../../popups/hoc/HocRemovePopup';
+
+class RemoveCat extends Component {
 
     constructor() {
         super();
         this.state = {
             removePopupOpened: false
-
         }
         this.confirm = this.confirm.bind(this);
     }
@@ -36,20 +37,49 @@ class RemoveCategories extends Component {
     }
 
     confirm() {
-        DataSource.removeCategories(this.props.itemsForRemovePopup); 
+        DataSource.removeCategories(this.props.categoriesToRemove); 
         this.closeRemovePopup();
         this.props.confirmed();
     }
 
 
     render() {
+        let listProducts = (products) => {
+            if(products && products.length > 0){
+                return (
+                    <div>
+                        <label> Produits </label>
+                        {
+                        products.map( item => {
+                            return <div key={item.key}>
+                                <div>{item.value.name}</div>
+                            </div>
+                        })
+                        } 
+                    </div>
+                    );
+            }
+        }
+
         return (
-        <RemovePopup removePopupOpened={this.state.removePopupOpened} 
-            items={this.props.itemsForRemovePopup}
-            confirmRemoveItems = {this.confirm}
-            closeRemovePopup={this.closeRemovePopup}/> 
+            <div>
+                {
+                    this.props.categoriesToRemove.map((category) => {
+                        return <div key={category.key}>
+                            <div>Categorie: {category.value.name}</div>
+                            {listProducts(category.value.products)}
+                        </div>
+                    })
+                } 
+            </div>
+        // <RemovePopup removePopupOpened={this.state.removePopupOpened} 
+        //     items={this.props.categoriesToRemove}
+        //     confirmRemoveItems = {this.confirm}
+        //     closeRemovePopup={this.closeRemovePopup}/> 
         );
     }
 }
+
+const RemoveCategories = hocRemovePopup(RemoveCat);
 
 export default RemoveCategories;
