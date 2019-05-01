@@ -15,9 +15,11 @@ firebase.initializeApp(config);
 export const dbRef= firebase.database().ref();
 export const dbDataCategories = dbRef.child(Constants.CATEGORIES);
 export const dbDataProducts = dbRef.child(Constants.PRODUCTS);
-export const dbDataShoppingList = dbRef.child(Constants.SHOPPING_LIST);
+export const dbDataShoppingBasket = dbRef.child(Constants.SHOPPING_BASKET);
 export const dbDataHistory = dbRef.child(Constants.HISTORY);
 export const dbDataLastModified = dbRef.child(Constants.LAST_MODIFIED);
+
+export const dbDataOrderProductsByCategory = dbRef.child(Constants.PRODUCTS).orderByChild('category/id');
 
 export const storage = firebase.storage();
 

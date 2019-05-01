@@ -113,7 +113,7 @@ class ShoppingList extends Component {
                 <div>
                 { this.state.showSettingsFields ? 
                 <FilteringAndSorting showComponent={this.state.items.length > 0}
-                                 dataType={Constants.SHOPPING_LIST}
+                                 dataType={Constants.SHOPPING_BASKET}
                                  items={this.state.items} 
                                  initialItems={this.state.initialItems}
                                  setFilteredItems = {items => this.setState({items: items})}/>
@@ -134,7 +134,7 @@ class ShoppingList extends Component {
                     <div className="flex space-between">
                         <div className="section-title">
                             {showExport()}
-                            {Constants.TITLES.SHOPPING_LIST}
+                            {Constants.TITLES.SHOPPING_BASKET}
                             {showFilteringSorting()}
 
                             

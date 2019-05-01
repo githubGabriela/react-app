@@ -1,4 +1,6 @@
-import { dbDataCategories, dbDataProducts, dbDataShoppingList, dbDataHistory, dbDataLastModified, storage } from './constants';
+import { dbDataCategories, dbDataProducts, dbDataShoppingBasket, dbDataHistory,
+     dbDataLastModified, storage,
+     dbDataOrderProductsByCategory } from './constants';
 import * as Constants from '../utils/Constants';
 
 //GET
@@ -12,11 +14,44 @@ function getKeyValues(snap) { // customFct - function called in the component
 
 export function getCategories(customFct) { 
     dbDataCategories.on('value', snap => {
-        let recentlyAdded = getKeyValues(snap).reverse();
-        customFct(recentlyAdded);
+        let items = getKeyValues(snap).reverse();
+        customFct(items);
     }
     );
 }
+
+export function getOrderProductsByCategory(customFct) {
+    dbDataOrderProductsByCategory.on('value', snap => {
+            let items = getKeyValues(snap);
+            console.log('testProducts', items);
+            customFct(items);
+    });
+}
+
+export function getTestHistory(customFct) {
+    dbDataHistory.on('value', snap => {
+            let items = getKeyValues(snap).reverse();
+            console.log('testHistory', items);
+            customFct(items);
+    });
+}
+
+export function getTestLastModified(customFct) {
+    dbDataLastModified.on('value', snap => {
+            let items = getKeyValues(snap).reverse();
+            console.log('lastModified', items);
+            customFct(items);
+    });
+}
+
+export function getTestShoppingBasket(customFct) {
+    dbDataShoppingBasket.on('value', snap => {
+            let items = getKeyValues(snap).reverse();
+            console.log('testshoppingBasket', items);
+            customFct(items);
+    });
+}
+
 
 export function getCategoriesNames(customFct){
     dbDataCategories.orderByChild('name').on('value', snap => {
@@ -65,7 +100,7 @@ export function getProductsByCategory(categoryName, customFct){
 }
 
 export function getShoppingList(customFct){
-    dbDataShoppingList.orderByChild('category').on('value', snap => {
+    dbDataShoppingBasket.orderByChild('category').on('value', snap => {
         let recentylAdded = getKeyValues(snap).reverse();
         customFct(recentylAdded);
     });
@@ -118,10 +153,10 @@ export function addProduct(value, customFct){
 
 export function addToShoppingList(item) {
     if(item && item.value){
-        dbDataShoppingList.orderByChild('name').equalTo(item.value.name).once('value', snap=> {
+        dbDataShoppingBasket.orderByChild('name').equalTo(item.value.name).once('value', snap=> {
             let exists = snap.val();
             if(!exists){
-                dbDataShoppingList.push(item.value);
+                dbDataShoppingBasket.push(item.value);
                 setLastModified();
             }
         });
@@ -243,7 +278,7 @@ export function removeProducts(items){
 
 export function removeFromShoppingList(item){
     if(item && item.key) {
-       dbDataShoppingList.child(item.key).remove();
+        dbDataShoppingBasket.child(item.key).remove();
     }
 }
 
@@ -256,7 +291,7 @@ export function clearHistory(items){
 export function clearShoppingList(items){
     items.forEach( item => {
         addToHistory(item);
-        dbDataShoppingList.child(item.key).remove();
+        dbDataShoppingBasket.child(item.key).remove();
     });
 }
 
@@ -269,8 +304,8 @@ export function orderAndFilter(type, value, customFct) {
         case Constants.PRODUCTS:
             orderFilterByName(dbDataProducts, value, customFct);
         break;
-        case Constants.SHOPPING_LIST:
-            orderFilterByName(dbDataShoppingList, value, customFct);
+        case Constants.SHOPPING_BASKET:
+            orderFilterByName(dbDataShoppingBasket, value, customFct);
         break;
         case Constants.HISTORY:
             orderFilterByName(dbDataHistory, value, customFct);

@@ -1,6 +1,6 @@
 export const PRODUCTS = 'products';
 export const CATEGORIES = 'categories';
-export const SHOPPING_LIST = 'shoppingList';
+export const SHOPPING_BASKET = 'shoppingBasket';
 export const HISTORY = 'history';
 export const LAST_MODIFIED = 'lastModified';
 
@@ -10,7 +10,7 @@ export const TITLES = {
     NO_PRODUCTS_FOR_CATEGORY: 'No products for this category',
     CATEGORIES: 'Categories',
     SELECT_CATEGORY: 'Select a category',
-    SHOPPING_LIST: 'Shopping List',
+    SHOPPING_BASKET: 'Shopping Basket',
     HISTORY: 'History',
     ADMIN : "Admin",
     COLLAPSE_ALL: 'Collapse All',
