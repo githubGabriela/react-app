@@ -1,6 +1,7 @@
 import { dbDataCategories, dbDataProducts, dbDataShoppingBasket, dbDataHistory,
      dbDataLastModified, storage,
-     dbDataOrderProductsByCategory } from './constants';
+     dbDataOrderProductsByCategory
+    } from './constants';
 import * as Constants from '../utils/Constants';
 
 //GET
@@ -14,7 +15,7 @@ function getKeyValues(snap) { // customFct - function called in the component
 
 export function getCategories(customFct) { 
     dbDataCategories.on('value', snap => {
-        let items = getKeyValues(snap).reverse();
+        let items = getKeyValues(snap);
         customFct(items);
     }
     );
@@ -30,7 +31,7 @@ export function getOrderProductsByCategory(customFct) {
 
 export function getTestHistory(customFct) {
     dbDataHistory.on('value', snap => {
-            let items = getKeyValues(snap).reverse();
+            let items = getKeyValues(snap);
             console.log('testHistory', items);
             customFct(items);
     });
@@ -38,7 +39,7 @@ export function getTestHistory(customFct) {
 
 export function getTestLastModified(customFct) {
     dbDataLastModified.on('value', snap => {
-            let items = getKeyValues(snap).reverse();
+            let items = getKeyValues(snap);
             console.log('lastModified', items);
             customFct(items);
     });
@@ -46,7 +47,7 @@ export function getTestLastModified(customFct) {
 
 export function getTestShoppingBasket(customFct) {
     dbDataShoppingBasket.on('value', snap => {
-            let items = getKeyValues(snap).reverse();
+            let items = getKeyValues(snap);
             console.log('testshoppingBasket', items);
             customFct(items);
     });
@@ -59,7 +60,7 @@ export function getCategoriesNames(customFct){
         snap.forEach(childSnap => {
             items.push(childSnap.val().name);
         });
-        let recentlyAdded = items.reverse();
+        let recentlyAdded = items;
         customFct(recentlyAdded);
     });
 }
@@ -70,7 +71,7 @@ export function getCategoriesForDropdown(customFct) {
         snap.forEach( childSnap => {
             items.push({ value: childSnap.key, label: childSnap.val().name});
         });
-        let recentlyAdded = items.reverse();
+        let recentlyAdded = items;
         customFct(recentlyAdded);
     });
 }
@@ -87,28 +88,28 @@ export function getColorForCategory(categoryName, customFct){
 
 export function getProducts(customFct) {
     dbDataProducts.on('value', snap => {
-        let recentlyAdded = getKeyValues(snap).reverse();
+        let recentlyAdded = getKeyValues(snap);
         customFct(recentlyAdded);
     });
 }
 
 export function getProductsByCategory(categoryName, customFct){
     dbDataProducts.orderByChild('category').equalTo(categoryName).on('value', snap => {
-        let recentylAdded = getKeyValues(snap).reverse();
+        let recentylAdded = getKeyValues(snap);
         customFct(recentylAdded);
     });
 }
 
 export function getShoppingList(customFct){
     dbDataShoppingBasket.orderByChild('category').on('value', snap => {
-        let recentylAdded = getKeyValues(snap).reverse();
+        let recentylAdded = getKeyValues(snap);
         customFct(recentylAdded);
     });
 }
 
 export function getHistory(customFct){
     dbDataHistory.orderByChild('category').on('value', snap => {
-        let recentylAdded = getKeyValues(snap).reverse();
+        let recentylAdded = getKeyValues(snap);
         customFct(recentylAdded);
     });
 }
