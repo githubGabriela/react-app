@@ -14,6 +14,7 @@ firebase.initializeApp(config);
 
 export const dbRef= firebase.database().ref();
 
+export const dataCategories = dbRef.child(Constants.CATEGORIES);
 export const dataCategoriesByKey = dbRef.child(Constants.CATEGORIES).orderByKey();
 export const dataCategoriesByName = dbRef.child(Constants.CATEGORIES).orderByChild('name');
 

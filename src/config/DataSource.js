@@ -1,4 +1,5 @@
-import { dataCategoriesByKey, dataCategoriesByName,
+import { dataCategories,
+    dataCategoriesByKey, dataCategoriesByName,
      dataProducts, dataShoppingBasket, dataHistory,
      dataLastModified, storage,
      dataProductsByCategory
@@ -127,8 +128,7 @@ export function createCategory(category, customFct) {
     if(category && category.name) {
         dataCategoriesByName.equalTo(category.name).once('value', snap => {
             if(!snap.val()) {
-                dataCategoriesByKey.push(category);
-                customFct({message: ''});
+                dataCategories.push(category);
             } else{
                 customFct({message: 'This category already exists'});
             }

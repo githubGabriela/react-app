@@ -14,24 +14,24 @@ class NameField extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            inputValue: '',
-            errorMessage: '',
-            value: 'value'
+            value: '',
+            errorMessage: ''
         }
         this.clearInput = this.clearInput.bind(this);
         this.handleChange = this.handleChange.bind(this);
     }
 
-    // shouldComponentUpdate(nextProps) {
-    //     return this.props.color !== nextProps.color;
-    // }
+    shouldComponentUpdate(nextProps) {
+       // return this.props.color !== nextProps.color;
+       return true;
+    }
 
-    pushCategoryToDb() {
+    createCategory() {
         let category = {
-            name: this.state.inputValue,
+            name: this.state.value,
             color: this.props.color
         }
-        if (Utils.isValidValue(this.state.inputValue)) {
+        if (Utils.isValidValue(this.state.value)) {
             DataSource.createCategory(category, error => this.setError(error));
         }
     }
@@ -55,13 +55,13 @@ class NameField extends Component {
 
     clearInput() {
         this.setState({
-            inputValue: ''
+            value: ''
         });
         this.refs.categoryInput.value = '';
     }
 
     handleChange(event) {
-        this.setState({ inputValue: event.target.value });
+        this.setState({ value: event.target.value });
     }
 
     render() {
@@ -70,7 +70,7 @@ class NameField extends Component {
                 <form className="flex space-between">
                     <input type="text" ref="categoryInput"
                         className="category-input full-width"
-                        defaultValue={this.state.inputValue}
+                        defaultValue={this.state.value}
                         placeholder="Create"
                         onChange={(event) => {
                             Utils.preventDefault(event);
@@ -82,7 +82,7 @@ class NameField extends Component {
                         <FontAwesome name="check" className="icon-with-margin"
                             onClick={(event) => {
                                 Utils.preventDefault(event);
-                                this.pushCategoryToDb();
+                                this.createCategory();
                             }} />
                         <FontAwesome name="close" className="icon-with-margin"
                             onClick={(event) => {
