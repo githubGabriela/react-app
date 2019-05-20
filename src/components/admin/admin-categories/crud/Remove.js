@@ -80,6 +80,6 @@ class RemoveCat extends Component {
     }
 }
 
-const RemoveCategories = hocRemovePopup(RemoveCat);
+const Remove = hocRemovePopup(RemoveCat);
 
-export default RemoveCategories;
+export default Remove;

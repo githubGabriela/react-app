@@ -8,7 +8,7 @@ import ImagePopup from '../../../popups/image-popup/ImagePopup';
 
 import '../../../../assets/css/General.css';
 
-class CategoryItemInfo extends Component {
+class Item extends Component {
 
     constructor(){
         super();
@@ -27,7 +27,6 @@ class CategoryItemInfo extends Component {
 
     componentDidMount() {
         this.setState({
-            color: this.props.item.value.color,
             color: this.props.item.value.color
         });
     }
@@ -95,10 +94,10 @@ class CategoryItemInfo extends Component {
     }
 }
 
-CategoryItemInfo.propTypes = {
+Item.propTypes = {
     isChecked: PropTypes.bool,
     item: PropTypes.object,
     checkedItem: PropTypes.func
 }
 
-export default CategoryItemInfo;
+export default Item;

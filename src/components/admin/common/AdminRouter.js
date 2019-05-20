@@ -4,8 +4,8 @@ import ReactTooltip from 'react-tooltip';
 
 import FontAwesome from  'react-fontawesome';
 
-import AdminProducts from '../admin-products/list/AdminProducts';
-import AdminCategories from '../admin-categories/list/AdminCategories';
+import Products from '../admin-products/list/Products';
+import Categories from '../admin-categories/list/Categories';
 
 class AdminRouter extends Component {
     render() {
@@ -36,11 +36,11 @@ class AdminRouter extends Component {
     }
 }
 const AdminWithProducts = () => (
-    <AdminProducts/>
+    <Products/>
 )
 
 const AdminWithCategories = () => (
-    <AdminCategories/>
+    <Categories/>
 )
 
 

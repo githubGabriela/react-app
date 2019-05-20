@@ -55,14 +55,14 @@ export function getTestShoppingBasket(customFct) {
 
 
 export function getCategoriesNames(customFct){
-    dbDataCategories.orderByChild('name').on('value', snap => {
-        let items = [];
-        snap.forEach(childSnap => {
-            items.push(childSnap.val().name);
-        });
-        let recentlyAdded = items;
-        customFct(recentlyAdded);
-    });
+    // dbDataCategories.orderByChild('name').on('value', snap => {
+    //     let items = [];
+    //     snap.forEach(childSnap => {
+    //         items.push(childSnap.val().name);
+    //     });
+    //     let recentlyAdded = items;
+    //     customFct(recentlyAdded);
+    // });
 }
 
 export function getCategoriesForDropdown(customFct) {

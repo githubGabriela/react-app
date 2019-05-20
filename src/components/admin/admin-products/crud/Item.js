@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import '../../../../assets/css/General.css';
 
-class ProductItemInfo extends Component {
+class Item extends Component {
 
     shouldComponentUpdate(nextProps) {
         return this.props.item !== nextProps.item
@@ -46,10 +46,10 @@ class ProductItemInfo extends Component {
     }
 }
 
-ProductItemInfo.propTypes = {
+Item.propTypes = {
     item: PropTypes.object,
     isChecked: PropTypes.bool,
     checkedItem: PropTypes.func
 }
 
-export default ProductItemInfo;
+export default Item;

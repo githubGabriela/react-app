@@ -1,5 +1,5 @@
 // Usage:
-// <AdminProducts/>
+// <Products/>
 
 import React, { Component } from 'react';
 import FontAwesome from 'react-fontawesome';
@@ -7,15 +7,15 @@ import FontAwesome from 'react-fontawesome';
 import * as Constants from '../../../../utils/Constants';
 import * as Utils from '../../../../utils/Utils';
 import * as DataSource from '../../../../config/DataSource';
-import ProductCreateEdit from '../crud/ProductCreateEdit';
+import CreateEdit from '../crud/CreateEdit';
 import FilteringAndSorting from '../../../filtering-sorting/FilteringAndSorting';
-import ProductItemInfo from '../crud/ProductItemInfo';
-import RemoveProducts from '../crud/RemoveProducts';
+import Item from '../crud/Item';
+import Remove from '../crud/Remove';
 import Settings from '../../../common/Settings';
 
 import '../../../../assets/css/General.css';
 
-class AdminProducts extends Component {
+class Products extends Component {
     constructor(){
         super();
         this.state = {
@@ -107,13 +107,13 @@ class AdminProducts extends Component {
                             return <div className="section-item" key={item.key}>
                                         <div className="flex space-between"> 
                                         <div>
-                                            <ProductItemInfo isChecked={this.state.checkedItems.indexOf(item) !== -1} item={item} 
+                                            <Item isChecked={this.state.checkedItems.indexOf(item) !== -1} item={item} 
                                                              showSettingsFields={this.state.showSettingsFields}
                                                              checkedItem={(checked, item) => Utils.toggleSelectedItems(this.state.products, this.state.checkedItems, item, checked, result => this.setState(result))}/>
                                         </div>
                                         <div className="center-from-top flex space-between">
                                             <div className="edit-cart-icons">
-                                                <ProductCreateEdit type={Constants.UTILS.EDIT} popupTitle={Constants.TITLES.EDIT} 
+                                                <CreateEdit type={Constants.UTILS.EDIT} popupTitle={Constants.TITLES.EDIT} 
                                                                item={item}
                                                                showSettingsFields={this.state.showSettingsFields}/>
                                             </div>
@@ -173,7 +173,7 @@ class AdminProducts extends Component {
                 <div>
                      { this.state.showSettingsFields ? 
                         <div className="create-input align-left">
-                            <ProductCreateEdit type={Constants.UTILS.CREATE} popupTitle={Constants.TITLES.CREATE}/>
+                            <CreateEdit type={Constants.UTILS.CREATE} popupTitle={Constants.TITLES.CREATE}/>
                         </div>  
                     : null
                     }
@@ -205,7 +205,7 @@ class AdminProducts extends Component {
             <div>
                     {showHeader()}
                     {showAllItems()}
-                    <RemoveProducts removePopupOpened={this.state.removePopupOpened} 
+                    <Remove removePopupOpened={this.state.removePopupOpened} 
                                 items={this.state.itemsForRemovePopup}
                                 confirmRemoveItems = {() => { 
                                                         DataSource.removeProducts(this.state.itemsForRemovePopup); 
@@ -218,4 +218,4 @@ class AdminProducts extends Component {
     }
 }
 
-export default AdminProducts;
+export default Products;

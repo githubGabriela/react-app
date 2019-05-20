@@ -1,5 +1,5 @@
 // Usage:
-// <CategoryNameEdit item={item}/>
+// <Edit item={item}/>
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
@@ -9,7 +9,7 @@ import * as Utils from '../../../../utils/Utils';
 import * as DataSource from '../../../../config/DataSource';
 import '../../../../assets/css/General.css';
 
-class CategoryNameEdit extends Component {
+class Edit extends Component {
  
     constructor(){
         super();
@@ -144,8 +144,8 @@ class CategoryNameEdit extends Component {
     }
 }
 
-CategoryNameEdit.propTypes = {
+Edit.propTypes = {
     item: PropTypes.object
 }
 
-export default CategoryNameEdit;
+export default Edit;

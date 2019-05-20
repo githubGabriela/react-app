@@ -5,12 +5,12 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import FontAwesome from 'react-fontawesome';
 
-import * as DataSource from '../../../../config/DataSource';
-import * as Utils from '../../../../utils/Utils';
+import * as DataSource from '../../../../../config/DataSource';
+import * as Utils from '../../../../../utils/Utils';
 
-import '../../../../assets/css/General.css';
+import '../../../../../assets/css/General.css';
 
-class CategoryNameCreate extends Component {
+class NameField extends Component {
 
     constructor(props) {
         super(props);
@@ -97,8 +97,8 @@ class CategoryNameCreate extends Component {
     }
 }
 
-CategoryNameCreate.proptypes = {
+NameField.proptypes = {
     color: PropTypes.string
 }
 
-export default CategoryNameCreate;
+export default NameField;

@@ -1,14 +1,14 @@
 // Usage:
-// <CategoryCreate/>
+// <Create/>
 import React, { Component } from 'react';
 
-import ColorPopup from '../../../popups/color/ColorPopup';
-import CategoryNameCreate from './CategoryNameCreate';
+import ColorPopup from '../../../../popups/color/ColorPopup';
+import NameField from './NameField';
 
-import '../../../../assets/css/General.css';
+import '../../../../../assets/css/General.css';
 
 
-class CategoryCreate extends Component {
+class Create extends Component {
     constructor() {
         super();
         this.state = {
@@ -57,11 +57,11 @@ class CategoryCreate extends Component {
                                 close={() => {this.closePopup()}}/>
                </div>
                <div className="full-width">
-                    <CategoryNameCreate color={this.state.color}/>
+                    <NameField color={this.state.color}/>
                </div>
             </div>
         );
     }
 }
 
-export default CategoryCreate;
+export default Create;

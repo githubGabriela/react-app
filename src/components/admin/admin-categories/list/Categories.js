@@ -1,5 +1,5 @@
 // Usage:
-// <AdminCategories/>
+// <Categories/>
 
 import React, { Component } from 'react';
 import FontAwesome from 'react-fontawesome';
@@ -7,16 +7,16 @@ import FontAwesome from 'react-fontawesome';
 import * as Constants from '../../../../utils/Constants';
 import * as DataSource from '../../../../config/DataSource';
 import * as Utils from '../../../../utils/Utils';
-import CategoryCreate from '../crud/CategoryCreate';
+import Create from '../crud/create/Create';
 import FilteringAndSorting from '../../../filtering-sorting/FilteringAndSorting';
-import CategoryNameEdit from '../crud/CategoryNameEdit';
-import CategoryItemInfo from '../crud/CategoryItemInfo'; 
+import Edit from '../crud/Edit';
+import Item from '../crud/Item'; 
 import Settings from '../../../common/Settings';
 
 import '../../../../assets/css/General.css';
-import RemoveCategories from '../crud/RemoveCategories';
+import Remove from '../crud/Remove';
 
-class AdminCategories extends Component {
+class Categories extends Component {
     constructor(){
         super();
         this.state = {
@@ -103,11 +103,11 @@ class AdminCategories extends Component {
                         this.state.categories.map((item) => {
                             return <div className="section-item" key={item.key}>
                                         <div className="flex space-between"> 
-                                            <CategoryItemInfo isChecked={this.state.checkedItems.indexOf(item) !== -1} item={item} 
+                                            <Item isChecked={this.state.checkedItems.indexOf(item) !== -1} item={item} 
                                                               showSettingsFields={this.state.showSettingsFields}
                                                               checkedItem={(checked, item) => 
                                                                             Utils.toggleSelectedItems(this.state.categories, this.state.checkedItems, item, checked, result => this.setState(result))}/>
-                                            <CategoryNameEdit item={item} showSettingsFields={this.state.showSettingsFields}/>
+                                            <Edit item={item} showSettingsFields={this.state.showSettingsFields}/>
                                         </div>
                             </div>
                         })
@@ -161,7 +161,7 @@ class AdminCategories extends Component {
                 <div>
                     {this.state.showSettingsFields ? 
                         <div className="create-input">
-                            <CategoryCreate/>
+                            <Create/>
                         </div>
                     : null
                     }
@@ -191,7 +191,7 @@ class AdminCategories extends Component {
             <div>
                 {showHeader()}
                 {showAllItems()}
-                <RemoveCategories removeCategories={this.state.removeCategories} 
+                <Remove removeCategories={this.state.removeCategories} 
                                   categoriesToRemove={this.state.itemsToRemove}
                                   confirmed = {this.removeConfirmed}
                                   canceled = {this.removeCanceled}   
@@ -202,4 +202,4 @@ class AdminCategories extends Component {
 }
 
 
-export default AdminCategories;
+export default Categories;
