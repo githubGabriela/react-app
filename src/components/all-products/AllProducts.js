@@ -13,8 +13,7 @@ import { getProductsByCategory } from '../../config/DataSource';
 import Settings from '../common/Settings';
 
 class AllProducts extends Component {
-   filters = {};
-
+    filter;
     constructor() {
         super();
         this.state = {
@@ -47,51 +46,26 @@ class AllProducts extends Component {
                 filteredProducts: items
             });
         });
-        // https://www.youtube.com/watch?v=ZszeF3laTc8
         // https://www.youtube.com/watch?v=Cy5MjeXZobE
     }
 
-    
-    searchByCategory(event){
-        console.log(event.target.value);
-        this.removeFilter();
-        this.applyFilters(event.target.value, 'category');
-    }
-    
-    searchByProductName(event) {
-        this.applyFilters(event.target.value, 'productName');
-    }
-
-    applyFilters(filterValue, filterBy) {
-        if (filterValue && filterValue !== "undefined") {
-            let filtered = _.filter(this.state.filteredProducts, item => {
-                switch (filterBy) {
-                    case 'category':
-                        if (item.value.category.name.indexOf(filterValue) !== -1) {
-                            return item;
-                        }
-                        break;
-                    case 'productName':
-                        if (item.value.name.indexOf(filterValue) !== -1) {
-                            return item;
-                        }
-                        break;
-                    default:
-                        break;
+    search(event) {
+        const filter = event.target.value;
+        if (!!filter) {
+            let filtered = _.filter(this.state.products, item => {
+                if (JSON.stringify(item.value).indexOf(filter) !== -1) {
+                    return item;
                 }
             });
-            this.setState({
-                filteredProducts: filtered
-            });
-        } else {
-            this.removeFilter();
+            this.setFilteredProducts(filtered);
         }
     }
 
-    removeFilter() {
+    setFilteredProducts(products) {
+        this.state.filteredProducts = products;
         this.setState({
-           filteredProducts: this.state.products
-        });
+            filteredProducts: products
+        })
     }
 
     render() {
@@ -111,7 +85,7 @@ class AllProducts extends Component {
             );
         }
 
-       let showHeader = () => {
+        let showHeader = () => {
             return (
                 <div className="section-header">
                     <div className="section-title">
@@ -120,7 +94,7 @@ class AllProducts extends Component {
                             <Settings toggleSettings={() => this.setState({ showSettingsFields: !this.state.showSettingsFields })} />
                         </div>
                         <div>
-                            {showFilteringSorting()}
+                            {/* {showFilteringSorting()} */}
                         </div>
                     </div>
                 </div>
@@ -130,16 +104,7 @@ class AllProducts extends Component {
         let showProducts = () => {
             return (
                 <div>
-                    <select onChange={this.searchByCategory.bind(this)}>
-                        <option value="undefined">Select category</option>
-                        {this.state.categories.map(category => {
-                            return (
-                            <option value={category.value.name} key={category.key}>{category.value.name}</option>
-                            )
-                        })}
-                    </select>
-                    
-                    <input type="text" placeholder="Search by product" onChange={this.searchByProductName.bind(this)}></input>
+                    <input type="text" placeholder="Search" onChange={this.search.bind(this)}></input>
                     {this.state.filteredProducts.map(product => {
                         return (
                             <div key={product.key} >
