@@ -1,6 +1,7 @@
-import { dbDataCategories, dbDataProducts, dbDataShoppingBasket, dbDataHistory,
-     dbDataLastModified, storage,
-     dbDataOrderProductsByCategory
+import { dataCategoriesByKey, dataCategoriesByName,
+     dataProducts, dataShoppingBasket, dataHistory,
+     dataLastModified, storage,
+     dataProductsByCategory
     } from './constants';
 import * as Constants from '../utils/Constants';
 
@@ -13,8 +14,9 @@ function getKeyValues(snap) { // customFct - function called in the component
     return items;
 }
 
+// GOOD function
 export function getCategories(customFct) { 
-    dbDataCategories.on('value', snap => {
+    dataCategoriesByKey.on('value', snap => {
         let items = getKeyValues(snap);
         customFct(items);
     }
@@ -22,7 +24,7 @@ export function getCategories(customFct) {
 }
 
 export function getOrderProductsByCategory(customFct) {
-    dbDataOrderProductsByCategory.on('value', snap => {
+    dataProductsByCategory.on('value', snap => {
             let items = getKeyValues(snap);
             console.log('testProducts', items);
             customFct(items);
@@ -30,7 +32,7 @@ export function getOrderProductsByCategory(customFct) {
 }
 
 export function getTestHistory(customFct) {
-    dbDataHistory.on('value', snap => {
+    dataHistory.on('value', snap => {
             let items = getKeyValues(snap);
             console.log('testHistory', items);
             customFct(items);
@@ -38,7 +40,7 @@ export function getTestHistory(customFct) {
 }
 
 export function getTestLastModified(customFct) {
-    dbDataLastModified.on('value', snap => {
+    dataLastModified.on('value', snap => {
             let items = getKeyValues(snap);
             console.log('lastModified', items);
             customFct(items);
@@ -46,7 +48,7 @@ export function getTestLastModified(customFct) {
 }
 
 export function getTestShoppingBasket(customFct) {
-    dbDataShoppingBasket.on('value', snap => {
+    dataShoppingBasket.on('value', snap => {
             let items = getKeyValues(snap);
             console.log('testshoppingBasket', items);
             customFct(items);
@@ -55,7 +57,7 @@ export function getTestShoppingBasket(customFct) {
 
 
 export function getCategoriesNames(customFct){
-    // dbDataCategories.orderByChild('name').on('value', snap => {
+    // dataCategoriesByKey.orderByChild('name').on('value', snap => {
     //     let items = [];
     //     snap.forEach(childSnap => {
     //         items.push(childSnap.val().name);
@@ -66,7 +68,7 @@ export function getCategoriesNames(customFct){
 }
 
 export function getCategoriesForDropdown(customFct) {
-    dbDataCategories.on('value', (snap) => {
+    dataCategoriesByKey.on('value', (snap) => {
         const items = [];
         snap.forEach( childSnap => {
             items.push({ value: childSnap.key, label: childSnap.val().name});
@@ -77,7 +79,7 @@ export function getCategoriesForDropdown(customFct) {
 }
 
 export function getColorForCategory(categoryName, customFct){
-    dbDataCategories.orderByChild('name').equalTo(categoryName).on('value', snap => {
+    dataCategoriesByKey.orderByChild('name').equalTo(categoryName).on('value', snap => {
         let color= '';
         snap.forEach( childSnap => {
             color = childSnap.val().color
@@ -87,45 +89,45 @@ export function getColorForCategory(categoryName, customFct){
 }
 
 export function getProducts(customFct) {
-    dbDataProducts.on('value', snap => {
+    dataProducts.on('value', snap => {
         let recentlyAdded = getKeyValues(snap);
         customFct(recentlyAdded);
     });
 }
 
 export function getProductsByCategory(categoryName, customFct){
-    dbDataProducts.orderByChild('category').equalTo(categoryName).on('value', snap => {
+    dataProducts.orderByChild('category').equalTo(categoryName).on('value', snap => {
         let recentylAdded = getKeyValues(snap);
         customFct(recentylAdded);
     });
 }
 
 export function getShoppingList(customFct){
-    dbDataShoppingBasket.orderByChild('category').on('value', snap => {
+    dataShoppingBasket.orderByChild('category').on('value', snap => {
         let recentylAdded = getKeyValues(snap);
         customFct(recentylAdded);
     });
 }
 
 export function getHistory(customFct){
-    dbDataHistory.orderByChild('category').on('value', snap => {
+    dataHistory.orderByChild('category').on('value', snap => {
         let recentylAdded = getKeyValues(snap);
         customFct(recentylAdded);
     });
 }
 
 export function getLastModified(customFct){
-    dbDataLastModified.orderByChild('lastModified').once('value', snap => {
+    dataLastModified.orderByChild('lastModified').once('value', snap => {
         customFct(snap.val().lastModified);
     });
 }
 
 // PUSH
-export function addCategory(category, customFct) {
+export function createCategory(category, customFct) {
     if(category && category.name) {
-        dbDataCategories.orderByChild('name').equalTo(category.name).once('value', snap => {
+        dataCategoriesByName.equalTo(category.name).once('value', snap => {
             if(!snap.val()) {
-                dbDataCategories.push(category);
+                dataCategoriesByKey.push(category);
                 customFct({message: ''});
             } else{
                 customFct({message: 'This category already exists'});
@@ -136,14 +138,14 @@ export function addCategory(category, customFct) {
 
 export function addProduct(value, customFct){
     if(value && value.name){
-        dbDataProducts.orderByChild('name').equalTo(value.name).once('value', snap => {
+        dataProducts.orderByChild('name').equalTo(value.name).once('value', snap => {
             let prod = snap.val();
             let keys;
             if(prod){
                 keys = Object.keys(prod);
             }
             if(!prod || (prod[keys] && prod[keys].category !== value.category)) {
-                dbDataProducts.push(value);
+                dataProducts.push(value);
                 customFct({message: ''});
             } else {
                 customFct({message: 'This product already exists'});
@@ -154,10 +156,10 @@ export function addProduct(value, customFct){
 
 export function addToShoppingList(item) {
     if(item && item.value){
-        dbDataShoppingBasket.orderByChild('name').equalTo(item.value.name).once('value', snap=> {
+        dataShoppingBasket.orderByChild('name').equalTo(item.value.name).once('value', snap=> {
             let exists = snap.val();
             if(!exists){
-                dbDataShoppingBasket.push(item.value);
+                dataShoppingBasket.push(item.value);
                 setLastModified();
             }
         });
@@ -169,19 +171,19 @@ function setLastModified(){
     const month = date.getMonth() + 1;
     const today = date.getDate() + '/' + month + '/' +date.getFullYear() + ' ' 
                 + date.getHours() + ':' +date.getMinutes()+ ':'+ date.getSeconds();
-    dbDataLastModified.orderByChild('lastModified').once('value', snap=> {
+    dataLastModified.orderByChild('lastModified').once('value', snap=> {
         let exists = snap.val();
         if(!exists) {
-            dbDataLastModified.push({lastModified: today});
+            dataLastModified.push({lastModified: today});
         }else{
-            dbDataLastModified.set({lastModified: today});
+            dataLastModified.set({lastModified: today});
         }
     });
 }
 
 export function addToHistory(item){
     if(item && item.value) {
-          dbDataHistory.push(item.value);
+          dataHistory.push(item.value);
      }
 }
 
@@ -206,10 +208,10 @@ export function removeImage(categoryName){
 
 // UPDATE
 export function updateCategoryName(key, value, customFct){
-    dbDataCategories.orderByChild('name').equalTo(value.name).once("value", snap => {
+    dataCategoriesByKey.orderByChild('name').equalTo(value.name).once("value", snap => {
         if(!snap.val()){
             updateOldNames(key, value);
-            dbDataCategories.child(key).update(value);
+            dataCategoriesByKey.child(key).update(value);
             customFct({message: ''});
             } 
             customFct({message: 'This category already exists'});
@@ -217,15 +219,15 @@ export function updateCategoryName(key, value, customFct){
 }
 
 function updateOldNames(key, value) {
-    dbDataCategories.child(key).once("value", snap => {
+    dataCategoriesByKey.child(key).once("value", snap => {
         let valToUpdate = {category: value.name};
         updateValuesForProducts(snap.val().name, valToUpdate);
     });
 }
 
 export function updateCategoryColor(key, value, customFct){
-    dbDataCategories.orderByChild('name').once("value", snap => {
-            dbDataCategories.child(key).update(value);
+    dataCategoriesByKey.orderByChild('name').once("value", snap => {
+            dataCategoriesByKey.child(key).update(value);
             let catName = snap.val()[key].name;
             let valToUpdate = {color : value.color};
             updateValuesForProducts(catName, valToUpdate);
@@ -234,24 +236,24 @@ export function updateCategoryColor(key, value, customFct){
 }
 
 function updateValuesForProducts(catName, valueToUpdate) {
-    dbDataProducts.orderByChild("category").equalTo(catName).once("value", snap => {
+    dataProducts.orderByChild("category").equalTo(catName).once("value", snap => {
         let keys = Object.keys(snap.val());
         keys.forEach( key => {
-            dbDataProducts.child(key).update(valueToUpdate);
+            dataProducts.child(key).update(valueToUpdate);
           });
         });
 }
 
 
 export function updateProduct(key, value, customFct) {
-    dbDataProducts.orderByChild('name').equalTo(value.name).once("value", snap => {
+    dataProducts.orderByChild('name').equalTo(value.name).once("value", snap => {
         let prod = snap.val();
         let keys;
         if(prod){
             keys = Object.keys(prod);
         }
         if(!prod || (prod[keys] && prod[keys].category !== value.category)) {
-            dbDataProducts.child(key).update(value);
+            dataProducts.child(key).update(value);
             customFct({message: ''});
         } else {
             customFct({message: 'This product already exists'});
@@ -264,7 +266,7 @@ export function updateProduct(key, value, customFct) {
 export function removeCategories(items){
     items.forEach( item => {
         if(item.key){
-            dbDataCategories.child(item.key).remove();
+            dataCategoriesByKey.child(item.key).remove();
         }
     })
 }
@@ -272,27 +274,27 @@ export function removeCategories(items){
 export function removeProducts(items){
     items.forEach( item => {
         if(item.key){
-            dbDataProducts.child(item.key).remove();
+            dataProducts.child(item.key).remove();
         }
     })
 }
 
 export function removeFromShoppingList(item){
     if(item && item.key) {
-        dbDataShoppingBasket.child(item.key).remove();
+        dataShoppingBasket.child(item.key).remove();
     }
 }
 
 export function clearHistory(items){
     items.forEach( item => {
-        dbDataHistory.child(item.key).remove();
+        dataHistory.child(item.key).remove();
     });
 }
 
 export function clearShoppingList(items){
     items.forEach( item => {
         addToHistory(item);
-        dbDataShoppingBasket.child(item.key).remove();
+        dataShoppingBasket.child(item.key).remove();
     });
 }
 
@@ -300,16 +302,16 @@ export function clearShoppingList(items){
 export function orderAndFilter(type, value, customFct) {
     switch(type) {
         case Constants.CATEGORIES:
-            orderFilterByName(dbDataCategories, value, customFct);
+            orderFilterByName(dataCategoriesByKey, value, customFct);
             break;
         case Constants.PRODUCTS:
-            orderFilterByName(dbDataProducts, value, customFct);
+            orderFilterByName(dataProducts, value, customFct);
         break;
         case Constants.SHOPPING_BASKET:
-            orderFilterByName(dbDataShoppingBasket, value, customFct);
+            orderFilterByName(dataShoppingBasket, value, customFct);
         break;
         case Constants.HISTORY:
-            orderFilterByName(dbDataHistory, value, customFct);
+            orderFilterByName(dataHistory, value, customFct);
         break;
         default:
         break;

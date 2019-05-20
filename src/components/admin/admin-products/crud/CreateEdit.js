@@ -5,7 +5,7 @@ import FontAwesome from 'react-fontawesome';
 import * as Constants from '../../../../utils/Constants';
 import CreateEditProductPopup from '../../../popups/CreateEditProductPopup';
 
-class ProductCreateEdit extends Component {
+class CreateEdit extends Component {
     constructor() {
         super();
         this.state = {
@@ -69,10 +69,10 @@ class ProductCreateEdit extends Component {
     }
 }
 
-ProductCreateEdit.propTypes = {
+CreateEdit.propTypes = {
     type: PropTypes.string,
     popupTitle: PropTypes.string,
     item: PropTypes.object
 }
 
-export default ProductCreateEdit;
+export default CreateEdit;
