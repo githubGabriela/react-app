@@ -207,35 +207,36 @@ export function removeImage(categoryName){
 }
 
 // UPDATE
-export function updateCategoryName(key, value, customFct){
-    dataCategoriesByKey.orderByChild('name').equalTo(value.name).once("value", snap => {
-        if(!snap.val()){
-            updateOldNames(key, value);
-            dataCategoriesByKey.child(key).update(value);
-            customFct({message: ''});
-            } 
-            customFct({message: 'This category already exists'});
-        });
-}
-
-function updateOldNames(key, value) {
-    dataCategoriesByKey.child(key).once("value", snap => {
-        let valToUpdate = {category: value.name};
-        updateValuesForProducts(snap.val().name, valToUpdate);
+// GOOD function
+export function updateDataCategory(oldItem, item, updateName, customFct) {
+    dataCategoriesByName.equalTo(item.value.name).once("value", snap => {
+        if (updateName && exists(snap, 'name', item.value.name)) {
+            customFct({ message: 'This category already exists' });
+        }
+        else {
+            if (updateName) {
+                dataCategories.child(item.key).update({ name: item.value.name });
+               // updateCategoryForProducts(oldItem, item.value.name);
+            } else {
+                dataCategories.child(item.key).update({ color: item.value.color });
+            }
+            customFct();
+        }
     });
 }
 
-export function updateCategoryColor(key, value, customFct){
-    dataCategoriesByKey.orderByChild('name').once("value", snap => {
-            dataCategoriesByKey.child(key).update(value);
-            let catName = snap.val()[key].name;
-            let valToUpdate = {color : value.color};
-            updateValuesForProducts(catName, valToUpdate);
-            customFct(value.color);
-        });
+function exists(snapshot, propertyName, propertyValue) {
+    if (!snapshot.val())
+        return false;
+    let snapValue = getValue(snapshot);
+    return snapValue[propertyName] === propertyValue;
 }
 
-function updateValuesForProducts(catName, valueToUpdate) {
+function getValue(snapshot){
+    return snapshot.val()[Object.keys(snapshot.val())];
+}
+
+function updateCategoryForProducts(catName, valueToUpdate) {
     dataProducts.orderByChild("category").equalTo(catName).once("value", snap => {
         let keys = Object.keys(snap.val());
         keys.forEach( key => {

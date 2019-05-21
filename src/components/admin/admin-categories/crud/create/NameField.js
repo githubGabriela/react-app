@@ -32,21 +32,18 @@ class NameField extends Component {
             color: this.props.color
         }
         if (Utils.isValidValue(this.state.value)) {
-            DataSource.createCategory(category, error => this.setError(error));
+            DataSource.createCategory(category, error => {
+                error ? this.setError(error) : this.clearInput();
+            });
         }
     }
 
     setError(error) {
-        if (error && error.message) {
-            this.state.errorMessage = error.message;
-            this.setState({
-                errorMessage: error.message
-            });
-        } else {
-            this.clearInput();
-        }
+        this.setState({
+            errorMessage: error.message ? error.message : ''
+        });
     }
-
+    
     clearError() {
         this.setState({
             errorMessage: ''

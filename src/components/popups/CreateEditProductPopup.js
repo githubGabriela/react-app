@@ -108,18 +108,14 @@ class CreateEditProductPopup extends Component {
     }
 
     edit() {
-        DataSource.updateProduct(this.state.itemToEdit.key, this.state.item, error => this.setError(error));
-    }
-    
-    setError(error){
-        if(error && error.message){
-            this.setState({
-                errorMessage : error.message
-            });
-        }else{
-            this.props.closePopup(true);
-            this.clearInput();
-        }
+        DataSource.updateProduct(this.state.itemToEdit.key, this.state.item, error => {
+            if (error) {
+                this.setError(error);
+            } else {
+                this.props.closePopup(true);
+                this.clearInput();
+            }
+        });
     }
 
     render() {

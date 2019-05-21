@@ -48,27 +48,22 @@ class Edit extends Component {
              });
          }
          this.clearError();
-     }
+    }
 
-     confirm() {        
-        let key = this.state.item.key;
-        if(key && Utils.isValidValue(this.state.item.value.name)) {
-            let value = {name: this.state.item.value.name};
-            DataSource.updateCategoryName(key, value, error => this.setError(error));
-        }
-    }
-  
-    setError(error) {
-        if(error && error.message){
-            this.setState({
-                errorMessage : error.message
+    confirm() {
+        if (Utils.isValidValue(this.state.item.value.name)) {
+            DataSource.updateDataCategory(this.props.item, this.state.item, true, error => {
+                error ? this.setError(error) : this.setReadOnly();
             });
-            
-        } else {
-            this.setReadOnly();
         }
     }
-    
+
+    setError(error) {
+        this.setState({
+            errorMessage: error.message ? error.message : ''
+        });
+    }
+
     clearError() {
         this.setState({
                 errorMessage : ''

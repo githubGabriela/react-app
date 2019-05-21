@@ -31,7 +31,7 @@ class Item extends Component {
         });
     }
 
-    toggleColorPopup(){
+    toggleColorPopup() {
         let toggle = !this.state.showColorPopup;
         this.setState({
             showColorPopup: toggle
@@ -39,14 +39,26 @@ class Item extends Component {
     }
 
     updateCategory(color) {
-        if(color && this.props.item.value.color && color !== this.props.item.value.color){
-            let value = {color: color};
-             DataSource.updateCategoryColor(this.props.item.key, value, color => {
-                    this.closePopup();
-                    this.setState({color: color, color: color});
-            });
+        this.setState({ color: color });
+        const item = {
+            key: this.props.item.key,
+            value: {
+                name: this.props.item.value.name,
+                color: color
+            }
         }
+        DataSource.updateDataCategory(this.props.item, item, false, error => {
+            error ? this.setError(error) : this.closePopup();
+        });
     }
+
+
+    setError(error) {
+        this.setState({
+            errorMessage: error.message ? error.message : ''
+        });
+    }
+
 
     closePopup(){
         this.setState({
@@ -89,6 +101,7 @@ class Item extends Component {
                             close={(event) => {this.closePopup(event)}}
                             />
 
+             <div className="white">{this.state.errorMessage}</div>               
         </div>
         );
     }
