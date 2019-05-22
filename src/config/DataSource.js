@@ -5,6 +5,7 @@ import { dataCategories,
      dataProductsByCategory
     } from './constants';
 import * as Constants from '../utils/Constants';
+import _ from 'lodash';
 
 //GET
 function getKeyValues(snap) { // customFct - function called in the component
@@ -216,10 +217,10 @@ export function updateDataCategory(oldItem, item, updateName, customFct) {
         else {
             if (updateName) {
                 dataCategories.child(item.key).update({ name: item.value.name });
-               // updateCategoryForProducts(oldItem, item.value.name);
             } else {
                 dataCategories.child(item.key).update({ color: item.value.color });
             }
+            updateCategoryForProducts(oldItem, item);
             customFct();
         }
     });
@@ -236,13 +237,19 @@ function getValue(snapshot){
     return snapshot.val()[Object.keys(snapshot.val())];
 }
 
-function updateCategoryForProducts(catName, valueToUpdate) {
-    dataProducts.orderByChild("category").equalTo(catName).once("value", snap => {
-        let keys = Object.keys(snap.val());
-        keys.forEach( key => {
-            dataProducts.child(key).update(valueToUpdate);
-          });
+function updateCategoryForProducts(oldCategory, category) {
+    dataProducts.orderByChild("category").once("value", snap => {
+        _.map(snap.val(), (item, key) => {
+            if (item.category.name === oldCategory.value.name) {
+                dataProducts.child(key).update({
+                    category: {
+                        name: category.value.name,
+                        color: category.value.color
+                    }
+                });
+            }
         });
+    });
 }
 
 
