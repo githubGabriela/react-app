@@ -31,7 +31,6 @@ class AllProducts extends Component {
 
     getCategories() {
         DataSource.getCategories(categories => {
-            console.log("categories", categories);
             this.setState({
                 categories: categories,
                 defaultCategory: categories[0]

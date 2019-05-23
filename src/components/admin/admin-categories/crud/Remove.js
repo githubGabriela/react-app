@@ -16,8 +16,12 @@ class RemoveCat extends Component {
         this.confirm = this.confirm.bind(this);
     }
 
+    componentDidMount(){
+        console.log(this.props.categoriesToRemove);
+    }
+
     shouldComponentUpdate(nextProps) {
-        if(nextProps != this.props && nextProps.removeCategories){
+        if (nextProps != this.props && nextProps.removeCategories) {
             this.openRemovePopup();
         }
         return true;
@@ -25,19 +29,19 @@ class RemoveCat extends Component {
 
     openRemovePopup() {
         this.setState({
-            removePopupOpened : true,
+            removePopupOpened: true,
         });
-    }  
+    }
 
     closeRemovePopup() {
         this.setState({
-            removePopupOpened : false
+            removePopupOpened: false
         });
         this.props.canceled();
     }
 
     confirm() {
-        DataSource.removeCategories(this.props.categoriesToRemove); 
+        DataSource.removeCategories(this.props.categoriesToRemove);
         this.closeRemovePopup();
         this.props.confirmed();
     }
@@ -45,19 +49,19 @@ class RemoveCat extends Component {
 
     render() {
         let listProducts = (products) => {
-            if(products && products.length > 0){
+            if (products && products.length > 0) {
                 return (
                     <div>
                         <label> Produits </label>
                         {
-                        products.map( item => {
-                            return <div key={item.key}>
-                                <div>{item.value.name}</div>
-                            </div>
-                        })
-                        } 
+                            products.map(item => {
+                                return <div key={item.key}>
+                                    <div>{item.value.name}</div>
+                                </div>
+                            })
+                        }
                     </div>
-                    );
+                );
             }
         }
 
@@ -67,15 +71,16 @@ class RemoveCat extends Component {
                     this.props.categoriesToRemove.map((category) => {
                         return <div key={category.key}>
                             <div>Categorie: {category.value.name}</div>
-                            {listProducts(category.value.products)}
+                            {/* {listProducts(category.value.products)} */}
                         </div>
                     })
-                } 
+                }
+
+                {/* { <RemoveCategoriesPopup removePopupOpened={this.state.removePopupOpened}
+                    items={this.props.categoriesToRemove}
+                    confirmRemoveItems={this.confirm}
+                    closeRemovePopup={this.closeRemovePopup} />} */}
             </div>
-        // <RemovePopup removePopupOpened={this.state.removePopupOpened} 
-        //     items={this.props.categoriesToRemove}
-        //     confirmRemoveItems = {this.confirm}
-        //     closeRemovePopup={this.closeRemovePopup}/> 
         );
     }
 }
