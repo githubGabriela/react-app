@@ -42,7 +42,7 @@ class Edit extends Component {
                      value : 
                      {
                          name: updatedName,
-                         color: this.state.item.value.color
+                         color: this.props.item.value.color
                      }
                  }
              });

@@ -47,7 +47,7 @@ class Item extends Component {
                 color: color
             }
         }
-        DataSource.updateDataCategory(this.props.item, item, false, error => {
+        DataSource.updateDataCategory(item, item, false, error => {
             error ? this.setError(error) : this.closePopup();
         });
     }
