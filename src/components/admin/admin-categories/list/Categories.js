@@ -55,6 +55,8 @@ class Categories extends Component {
         this.setState({
             checkedItems: this.state.categories
         });
+        console.log('checked', this.state.checkedItems);
+        DataSource.removeCategoriesWithProducts(this.state.checkedItems); // TODO - here
     }
 
     checkItem(item) {

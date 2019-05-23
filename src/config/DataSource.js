@@ -271,10 +271,14 @@ export function updateProduct(key, value, customFct) {
 
 
 // REMOVE
-export function removeCategories(items){
+export function removeCategoriesWithProducts(items) {
+    // TODO - here
+}
+
+export function removeCategories(items) {
     items.forEach( item => {
         if(item.key){
-            dataCategoriesByKey.child(item.key).remove();
+            dataCategories.child(item.key).remove();
         }
     })
 }
