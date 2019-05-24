@@ -18,7 +18,7 @@ function getKeyValues(snap) { // customFct - function called in the component
 
 // GOOD function
 export function getCategories(customFct) { 
-    dataCategoriesByKey.on('value', snap => {
+    dataCategoriesByName.on('value', snap => {
         let items = getKeyValues(snap);
         customFct(items);
     }
@@ -92,8 +92,8 @@ export function getColorForCategory(categoryName, customFct){
 
 export function getProducts(customFct) {
     dataProducts.on('value', snap => {
-        let recentlyAdded = getKeyValues(snap);
-        customFct(recentlyAdded);
+        let items = getKeyValues(snap);
+        customFct(items);
     });
 }
 
@@ -271,24 +271,36 @@ export function updateProduct(key, value, customFct) {
 
 
 // REMOVE
+// good function
 export function removeCategoriesWithProducts(items) {
-    // TODO - here
+    items.forEach(category => {
+        if (category.key) {
+            removeCategory(category.key);
+            dataProducts.on('value', snap => {
+                snap.forEach( item => { 
+                    if (item.key && item.val().category.name === category.value.name) {
+                        removeProduct(item.key);
+                    }
+                });
+            });
+        };
+    });
 }
 
-export function removeCategories(items) {
-    items.forEach( item => {
-        if(item.key){
-            dataCategories.child(item.key).remove();
-        }
-    })
+export function removeCategory(key) {
+    dataCategories.child(key).remove();
 }
 
-export function removeProducts(items){
-    items.forEach( item => {
-        if(item.key){
-            dataProducts.child(item.key).remove();
+export function removeProduct(key) {
+    dataProducts.child(key).remove();
+}
+
+export function removeProducts(items) {
+    items.forEach(item => {
+        if (item.key) {
+            this.removeProduct(item.key);
         }
-    })
+    });
 }
 
 export function removeFromShoppingList(item){
