@@ -21,7 +21,7 @@ class Item extends Component {
         this.closePopup = this.closePopup.bind(this);
     }
 
-    shouldComponentUpdate(nextProps) {
+    shouldComponentUpdate() {
         return true;
     }
 
@@ -67,26 +67,9 @@ class Item extends Component {
     }
 
     render() {
-        let showCheckbox = () => {
-            return (
-                <div>
-                    {this.props.showSettingsFields ? 
-                      <div className="center-from-top icon-on-left">
-                        <input type="checkbox" checked={this.props.isChecked}
-                                           value={this.props.item.value.name}
-                                           onChange={(event)=> this.props.checkedItem(event.target.checked, this.props.item)}/>
-                     </div>
-                    : null
-                    }
-                </div>
-            );
-        }
-
         return (
         <div className="container-category-img flex">
-        
      {/* <ImagePopup categoryName={this.props.item.value.name}/>  */}
-            {showCheckbox()}
             <div className="item-image category-image"></div>
             <div className="color-bullet center-bullet-from-top"
                             style={{backgroundColor: this.state.color}}
@@ -108,9 +91,7 @@ class Item extends Component {
 }
 
 Item.propTypes = {
-    isChecked: PropTypes.bool,
-    item: PropTypes.object,
-    checkedItem: PropTypes.func
+    item: PropTypes.object
 }
 
 export default Item;

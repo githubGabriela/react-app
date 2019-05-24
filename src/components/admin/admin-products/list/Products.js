@@ -23,7 +23,7 @@ class Products extends Component {
             products: [],
             initialProducts: [],
             checkedItems: [],
-            allIsChecked : false,
+            checkAll : false,
             itemsForRemovePopup: [],
             removePopupOpened: false,
             showSettingsFields: true
@@ -73,11 +73,11 @@ class Products extends Component {
             });
         }
         
-        setInitialStateCheckboxes() {
+        resetCheckboxes() {
             this.setState({ 
                 checkedItems: [],
                 itemsForRemovePopup: [],
-                allIsChecked: false
+                checkAll: false
             });
         }
 
@@ -109,7 +109,7 @@ class Products extends Component {
                                         <div>
                                             <Item isChecked={this.state.checkedItems.indexOf(item) !== -1} item={item} 
                                                              showSettingsFields={this.state.showSettingsFields}
-                                                             checkedItem={(checked, item) => Utils.toggleSelectedItems(this.state.products, this.state.checkedItems, item, checked, result => this.setState(result))}/>
+                                                             checkedItem={(checked, item) => Utils.toggleItems(this.state.products, this.state.checkedItems, item, checked, result => this.setState(result))}/>
                                         </div>
                                         <div className="center-from-top flex space-between">
                                             <div className="edit-cart-icons">
@@ -134,8 +134,8 @@ class Products extends Component {
                 <div>
                     { this.state.showSettingsFields ? 
                         <input type="checkbox" value="allChecked" 
-                            checked={this.state.allIsChecked}
-                            onChange={(event)=> { Utils.toggleAllItems(this.state.products, event.target.checked, result => this.setState(result))}}/> 
+                            checked={this.state.checkAll}
+                            onChange={(event)=> { Utils.toggleAll(this.state.products, event.target.checked, result => this.setState(result))}}/> 
                     : null
                     }
                 </div>
@@ -145,7 +145,7 @@ class Products extends Component {
         let showRemoveIcon= () => {
             return (
                 <div>
-                    { (this.state.allIsChecked || this.state.checkedItems.length > 0) ? 
+                    { (this.state.checkAll || this.state.checkedItems.length > 0) ? 
                         <FontAwesome name="close" onClick={(item) => { this.openRemovePopup(); this.setItemsForPopup()}}/>
                     : null
                     }
@@ -210,7 +210,7 @@ class Products extends Component {
                                 confirmRemoveItems = {() => { 
                                                         DataSource.removeProducts(this.state.itemsForRemovePopup); 
                                                         this.closeRemovePopup();
-                                                        this.setInitialStateCheckboxes()}
+                                                        this.resetCheckboxes()}
                                                     }
                                 closeRemovePopup={()=> this.closeRemovePopup()}/> 
             </div>

@@ -41,7 +41,7 @@ class RemoveCat extends Component {
     }
 
     confirm() {
-        DataSource.removeCategories(this.props.categoriesToRemove);
+        DataSource.removeCategoriesWithProducts(this.props.categoriesToRemove);
         this.closeRemovePopup();
         this.props.confirmed();
     }

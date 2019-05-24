@@ -23,7 +23,7 @@ class Categories extends Component {
             categories: [],
             initialCategories: [],
             checkedItems: [],
-            allIsChecked: false,
+            checkAll: false,
             removeCategories: false,
             showColorPopup: false,
             colorForPopup: '',
@@ -51,22 +51,19 @@ class Categories extends Component {
         return true;
     }
 
-    checkAllItems() {
-        this.setState({
-            checkedItems: this.state.categories
+    remove() {
+        DataSource.removeCategoriesWithProducts(this.state.checkedItems, result => {
+            if (result.length === 0) {
+                this.resetCheckboxes();
+            }
+            console.log('checkAllItems', this.state.checkedItems);
         });
-        console.log('checked', this.state.checkedItems);
-        DataSource.removeCategoriesWithProducts(this.state.checkedItems); // TODO - here
     }
 
-    checkItem(item) {
-        this.state.checkedItems.push(item);
-    }
-
-    setInitialStateCheckboxes() {
+    resetCheckboxes() {
         this.setState({
             checkedItems: [],
-            allIsChecked: false
+            checkAll: false
         });
     }
 
@@ -85,7 +82,7 @@ class Categories extends Component {
     }
 
     removeConfirmed() {
-        this.setInitialStateCheckboxes();
+        this.resetCheckboxes();
         this.setState({ removeCategories: false });
     }
 
@@ -95,16 +92,33 @@ class Categories extends Component {
 
 
     render() {
+        let showCheckbox = (item) => {
+            return (
+                <div>
+                    {this.state.showSettingsFields ?
+                        <div className="center-from-top icon-on-left">
+                            <input type="checkbox"
+                                checked={this.state.checkedItems.indexOf(item) !== -1}
+                                value={item.value.name}
+                                onChange={(event) => {
+                                    Utils.toggleItems(this.state.categories, this.state.checkedItems, item, event.target.checked, result => this.setState(result)
+                                    )
+                                }} />
+                        </div>
+                        : null
+                    }
+                </div>
+            );
+        }
+
         let showAllItems = () => {
             return (<div>
                 {
                     this.state.categories.map((item) => {
                         return <div className="section-item" key={item.key}>
                             <div className="flex space-between">
-                                <Item isChecked={this.state.checkedItems.indexOf(item) !== -1} item={item}
-                                    showSettingsFields={this.state.showSettingsFields}
-                                    checkedItem={(checked, item) =>
-                                        Utils.toggleSelectedItems(this.state.categories, this.state.checkedItems, item, checked, result => this.setState(result))} />
+                                {showCheckbox(item)}
+                                <Item item={item} />
                                 <Edit item={item} showSettingsFields={this.state.showSettingsFields} />
                             </div>
                         </div>
@@ -115,24 +129,24 @@ class Categories extends Component {
             );
         }
 
-        let showCheckAll = () => {
+        let showCheckboxAll = () => {
             return (
                 <div>
                     {this.state.showSettingsFields ?
                         <input type="checkbox" value="allChecked"
-                            checked={this.state.allIsChecked}
-                            onChange={(event) => { Utils.toggleAllItems(this.state.categories, event.target.checked, result => this.setState(result)) }} />
+                            checked={this.state.checkAll}
+                            onChange={(event) => { Utils.toggleAll(this.state.categories, event.target.checked, result => this.setState(result)) }} />
                         : null
                     }
                 </div>
             );
         }
 
-        let showRemoveAll = () => {
+        let showRemoveIcon = () => {
             return (
                 <div>
-                    {(this.state.allIsChecked || this.state.checkedItems.length > 0) ?
-                        <FontAwesome name="close" onClick={(item) => { this.checkAllItems() }} />
+                    {(this.state.checkAll || this.state.checkedItems.length > 0) ?
+                        <FontAwesome name="close" onClick={(item) => { this.remove() }} />
                         : null
                     }
                 </div>
@@ -178,8 +192,8 @@ class Categories extends Component {
                         {showCreate()}
                         {showFilteringSorting()}
                         <div className="flex space-between center-margin-from-top">
-                            {showCheckAll()}
-                            {showRemoveAll()}
+                            {showCheckboxAll()}
+                            {showRemoveIcon()}
                         </div>
                     </div>
                 </div>
