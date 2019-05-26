@@ -51,13 +51,13 @@ class Categories extends Component {
         return true;
     }
 
-    remove() {
-        DataSource.removeCategoriesWithProducts(this.state.checkedItems, result => {
-            if (result.length === 0) {
-                this.resetCheckboxes();
-            }
-            console.log('checkAllItems', this.state.checkedItems);
-        });
+    remove(item) {
+        if (item) {
+            DataSource.removeCategoriesWithProducts([item]);
+        } else {
+            DataSource.removeCategoriesWithProducts(this.state.checkedItems);
+        }
+        this.resetCheckboxes();
     }
 
     resetCheckboxes() {
@@ -101,31 +101,12 @@ class Categories extends Component {
                                 checked={this.state.checkedItems.indexOf(item) !== -1}
                                 value={item.value.name}
                                 onChange={(event) => {
-                                    Utils.toggleItems(this.state.categories, this.state.checkedItems, item, event.target.checked, result => this.setState(result)
-                                    )
+                                    Utils.toggleItems(this.state.categories, this.state.checkedItems, item, event.target.checked, result => this.setState(result))
                                 }} />
                         </div>
                         : null
                     }
                 </div>
-            );
-        }
-
-        let showAllItems = () => {
-            return (<div>
-                {
-                    this.state.categories.map((item) => {
-                        return <div className="section-item" key={item.key}>
-                            <div className="flex space-between">
-                                {showCheckbox(item)}
-                                <Item item={item} />
-                                <Edit item={item} showSettingsFields={this.state.showSettingsFields} />
-                            </div>
-                        </div>
-                    })
-                }
-
-            </div>
             );
         }
 
@@ -141,12 +122,31 @@ class Categories extends Component {
                 </div>
             );
         }
+        
+        let showAllItems = () => {
+            return (<div>
+                {
+                    this.state.categories.map((item) => {
+                        return <div className="section-item" key={item.key}>
+                            <div className="flex space-between">
+                                {showCheckbox(item)}
+                                <Item item={item} />
+                                <Edit item={item} showSettingsFields={this.state.showSettingsFields} />
+                                {showRemoveIcon(item)}
+                            </div>
+                        </div>
+                    })
+                }
 
-        let showRemoveIcon = () => {
+            </div>
+            );
+        }
+
+        let showRemoveIcon = (item) => {
             return (
                 <div>
-                    {(this.state.checkAll || this.state.checkedItems.length > 0) ?
-                        <FontAwesome name="close" onClick={(item) => { this.remove() }} />
+                    {this.state.showSettingsFields ?
+                        <FontAwesome name="close" onClick={() => { this.remove(item) }} />
                         : null
                     }
                 </div>

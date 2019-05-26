@@ -272,7 +272,7 @@ export function updateProduct(key, value, customFct) {
 
 // REMOVE
 // good function
-export function removeCategoriesWithProducts(items, customFct) {
+export function removeCategoriesWithProducts(items) {
     items.forEach(category => {
         if (category.key) {
             removeCategory(category.key);
@@ -285,7 +285,6 @@ export function removeCategoriesWithProducts(items, customFct) {
             });
         };
     });
-    customFct([]); //  TODO 
 }
 
 export function removeCategory(key) {
