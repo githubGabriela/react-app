@@ -14,7 +14,7 @@ import Item from '../crud/Item';
 import Settings from '../../../common/Settings';
 
 import '../../../../assets/css/General.css';
-import Remove from '../crud/Remove';
+import RemoveCategoriesPopup from '../crud/Remove';
 
 class Categories extends Component {
     constructor() {
@@ -24,14 +24,14 @@ class Categories extends Component {
             initialCategories: [],
             checkedItems: [],
             checkAll: false,
-            removeCategories: false,
+            showRemovePopup: false,
             showColorPopup: false,
             colorForPopup: '',
             showSettingsFields: false
         }
         this.toggleColorPopup = this.toggleColorPopup.bind(this);
         this.removeConfirmed = this.removeConfirmed.bind(this);
-        this.removeCanceled = this.removeCanceled.bind(this);
+        this.hideRemovePopup = this.hideRemovePopup.bind(this);
     }
 
     componentDidMount() {
@@ -47,17 +47,8 @@ class Categories extends Component {
         });
     }
 
-    shouldComponentUpdate(nextProps) {
+    shouldComponentUpdate() {
         return true;
-    }
-
-    remove(item) {
-        if (item) {
-            DataSource.removeCategoriesWithProducts([item]);
-        } else {
-            DataSource.removeCategoriesWithProducts(this.state.checkedItems);
-        }
-        this.resetCheckboxes();
     }
 
     resetCheckboxes() {
@@ -81,13 +72,20 @@ class Categories extends Component {
         });
     }
 
-    removeConfirmed() {
-        this.resetCheckboxes();
-        this.setState({ removeCategories: false });
+    showRemovePopup() {
+        if (this.state.checkedItems.length > 0) {
+            this.setState({ showRemovePopup: true });
+        }
     }
 
-    removeCanceled() {
-        this.setState({ removeCategories: false })
+    removeConfirmed() {
+        DataSource.removeCategoriesWithProducts(this.state.checkedItems);
+        this.resetCheckboxes();
+        this.hideRemovePopup()
+    }
+
+    hideRemovePopup() {
+        this.setState({ showRemovePopup: false })
     }
 
 
@@ -122,7 +120,7 @@ class Categories extends Component {
                 </div>
             );
         }
-        
+
         let showAllItems = () => {
             return (<div>
                 {
@@ -146,7 +144,7 @@ class Categories extends Component {
             return (
                 <div>
                     {this.state.showSettingsFields ?
-                        <FontAwesome name="close" onClick={() => { this.remove(item) }} />
+                        <FontAwesome name="close" onClick={() => { this.showRemovePopup(item); }} />
                         : null
                     }
                 </div>
@@ -203,10 +201,11 @@ class Categories extends Component {
             <div>
                 {showHeader()}
                 {showAllItems()}
-                <Remove removeCategories={this.state.removeCategories}
-                    categoriesToRemove={this.state.checkedItems}
+                <RemoveCategoriesPopup
+                    items={this.state.checkedItems}
+                    showRemovePopup={this.state.showRemovePopup}
                     confirmed={this.removeConfirmed}
-                    canceled={this.removeCanceled}
+                    canceled={this.hideRemovePopup}
                 />
             </div>
         );

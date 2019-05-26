@@ -8,10 +8,6 @@ import '../../../assets/css/General.css';
 export function hocRemovePopup (WrappedComponent) {
     class HocPopup extends React.Component {
         
-        shouldComponentUpdate(nexProps) {
-            return this.props.removePopupOpened !== nexProps.removePopupOpened;
-        }
-        
          render() {
             return (
                 <Modal

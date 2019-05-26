@@ -7,6 +7,7 @@ import PropTypes from 'prop-types';
 import { hocRemovePopup } from '../../../popups/hoc/HocRemovePopup';
 
 class Popup extends Component {
+    // TODO cleanup & remove hocRemovePopup 
     
     shouldComponentUpdate(nextProps) {
         return this.props.items !== nextProps.items;

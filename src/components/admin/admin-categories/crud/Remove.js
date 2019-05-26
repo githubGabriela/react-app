@@ -1,90 +1,50 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import Modal from 'react-modal';
+import * as Constants from '../../../../utils/Constants';
 
-import * as DataSource from '../../../../config/DataSource';
-import * as Utils from '../../../../utils/Utils';
-
-import { hocRemovePopup } from '../../../popups/hoc/HocRemovePopup';
-
-class RemoveCat extends Component {
-
-    constructor() {
-        super();
-        this.state = {
-            removePopupOpened: false
-        }
-        this.confirm = this.confirm.bind(this);
-    }
-
-    componentDidMount(){
-        console.log(this.props.categoriesToRemove);
-    }
-
-    shouldComponentUpdate(nextProps) {
-        if (nextProps != this.props && nextProps.removeCategories) {
-            this.openRemovePopup();
-        }
-        return true;
-    }
-
-    openRemovePopup() {
-        this.setState({
-            removePopupOpened: true,
-        });
-    }
-
-    closeRemovePopup() {
-        this.setState({
-            removePopupOpened: false
-        });
-        this.props.canceled();
-    }
-
-    confirm() {
-        DataSource.removeCategoriesWithProducts(this.props.categoriesToRemove);
-        this.closeRemovePopup();
-        this.props.confirmed();
-    }
-
-
+class RemoveCategoriesPopup extends Component {
     render() {
-        let listProducts = (products) => {
-            if (products && products.length > 0) {
-                return (
-                    <div>
-                        <label> Produits </label>
-                        {
-                            products.map(item => {
-                                return <div key={item.key}>
-                                    <div>{item.value.name}</div>
-                                </div>
-                            })
-                        }
-                    </div>
-                );
-            }
-        }
 
         return (
-            <div>
-                {
-                    this.props.categoriesToRemove.map((category) => {
-                        return <div key={category.key}>
-                            <div>Categorie: {category.value.name}</div>
-                            {/* {listProducts(category.value.products)} */}
-                        </div>
-                    })
-                }
+            <Modal
+                ariaHideApp={false}
+                isOpen={this.props.showRemovePopup}
+                onRequestClose={() => this.props.canceled(true)}>
 
-                {/* { <RemoveCategoriesPopup removePopupOpened={this.state.removePopupOpened}
-                    items={this.props.categoriesToRemove}
-                    confirmRemoveItems={this.confirm}
-                    closeRemovePopup={this.closeRemovePopup} />} */}
-            </div>
+                <div className="popup-remove-container">
+                    <div className="popup-remove-header"> {Constants.POPUP.REMOVE_CATEGORIES} </div>
+                    {
+                        this.props.items.length === 1 ?
+                            <div>
+                                Remove category <b>{this.props.items[0].value.name}</b> and all its products?
+                            </div>
+                            :
+                            <div>
+                                Remove the folowing categories and all their products?
+                            {
+                                    this.props.items.map((item) => {
+                                        return <div key={item.key}>
+                                            <div><b>{item.value.name}</b> </div>
+                                        </div>
+                                    })
+                                }
+                            </div>
+                    }
+
+                    <div className="popup-body">
+                        <button className="popup-btn btn-ok" onClick={() => this.props.confirmed(true)}>{Constants.POPUP.YES}</button>
+                        <button className="popup-btn btn-cancel" onClick={() => this.props.canceled(true)}>{Constants.POPUP.NO}</button>
+                    </div>
+                </div>
+            </Modal>
         );
     }
 }
 
-const Remove = hocRemovePopup(RemoveCat);
+RemoveCategoriesPopup.propTypes = {
+    confirmed: PropTypes.func,
+    canceled: PropTypes.func
+}
 
-export default Remove;
+export default RemoveCategoriesPopup;
