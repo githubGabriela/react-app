@@ -77,6 +77,10 @@ class Categories extends Component {
             this.setState({ showRemovePopup: true });
         }
     }
+    
+    hideRemovePopup() {
+        this.setState({ showRemovePopup: false })
+    }
 
     removeConfirmed() {
         DataSource.removeCategoriesWithProducts(this.state.checkedItems);
@@ -84,10 +88,13 @@ class Categories extends Component {
         this.hideRemovePopup()
     }
 
-    hideRemovePopup() {
-        this.setState({ showRemovePopup: false })
+    toggleItems(checked, item) {
+        if (item) {
+            Utils.toggleItems(this.state.categories, this.state.checkedItems, item, checked, result => this.setState(result));
+        } else {
+            Utils.toggleAll(this.state.categories, checked, result => this.setState(result));
+        }
     }
-
 
     render() {
         let showCheckbox = (item) => {
@@ -98,9 +105,7 @@ class Categories extends Component {
                             <input type="checkbox"
                                 checked={this.state.checkedItems.indexOf(item) !== -1}
                                 value={item.value.name}
-                                onChange={(event) => {
-                                    Utils.toggleItems(this.state.categories, this.state.checkedItems, item, event.target.checked, result => this.setState(result))
-                                }} />
+                                onChange={(event) => { this.toggleItems(event.target.checked, item); }} />
                         </div>
                         : null
                     }
@@ -114,7 +119,7 @@ class Categories extends Component {
                     {this.state.showSettingsFields ?
                         <input type="checkbox" value="allChecked"
                             checked={this.state.checkAll}
-                            onChange={(event) => { Utils.toggleAll(this.state.categories, event.target.checked, result => this.setState(result)) }} />
+                            onChange={(event) => { this.toggleItems(event.target.checked); }} />
                         : null
                     }
                 </div>
