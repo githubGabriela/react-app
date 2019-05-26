@@ -72,6 +72,13 @@ class Categories extends Component {
         });
     }
 
+    removeItem(item) {
+        if (item) {
+            this.state.checkedItems = [item];
+        }
+        this.showRemovePopup();
+    }
+
     showRemovePopup() {
         if (this.state.checkedItems.length > 0) {
             this.setState({ showRemovePopup: true });
@@ -149,7 +156,7 @@ class Categories extends Component {
             return (
                 <div>
                     {this.state.showSettingsFields ?
-                        <FontAwesome name="close" onClick={() => { this.showRemovePopup(item); }} />
+                        <FontAwesome name="close" onClick={() => { this.removeItem(item);}} />
                         : null
                     }
                 </div>
