@@ -55,7 +55,12 @@ class Create extends Component {
         };
         if (Utils.isValidValue(category.name)) {
             DataSource.createCategory(category, error => {
-                error && error.message ? this.setError(error.message) : this.clearInput();
+                if (error && error.message) {
+                    this.setError(error.message);
+                } else {
+                    this.clearInput();
+                    this.props.categoryCreated(true);
+                }
             });
         }
     }

@@ -51,6 +51,12 @@ class Categories extends Component {
         return true;
     }
 
+    categoryCreated(created){
+        if(created){
+            this.resetCheckboxes();
+        }
+    }
+
     resetCheckboxes() {
         this.setState({
             checkedItems: [],
@@ -183,7 +189,7 @@ class Categories extends Component {
                 <div>
                     {this.state.showSettingsFields ?
                         <div className="create-input">
-                            <Create />
+                            <Create categoryCreated={(created)=> this.categoryCreated(created)}/>
                         </div>
                         : null
                     }
