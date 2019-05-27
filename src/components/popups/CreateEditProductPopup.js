@@ -5,117 +5,80 @@ import FontAwesome from 'react-fontawesome';
 
 import * as DataSource from '../../config/DataSource';
 import * as Constants from '../../utils/Constants';
+import * as Utils from '../../utils/Utils';
 import DropdownCategories from '../admin/admin-categories/list/DropdownCategories';
+
 import '../../assets/css/General.css';
 
-class CreateEditProductPopup extends Component { 
-        constructor(props){
+class CreateEditProductPopup extends Component {
+    constructor(props) {
         super(props);
         this.state = {
-            item: {
-                name: '',
-                category: '',
-                color: ''
-            },
+            name: '',
+            category: undefined,
             selectedCategory: undefined,
-            itemToEdit: {},
-            errorMessage: undefined
+            itemToEdit: {}
         }
-        this.inputChange = this.inputChange.bind(this);
         this.clearInput = this.clearInput.bind(this);
+        this.inputChange = this.inputChange.bind(this);
         this.categoryChanged = this.categoryChanged.bind(this);
-
         this.confirm = this.confirm.bind(this);
-        this.close = this.close.bind(this);
     }
 
-    shouldComponentUpdate(nextProps) {
+    shouldComponentUpdate() {
         return true;
     }
 
     componentWillReceiveProps(props) {
-        if(props){
-            if(props.item){
-                 this.setState({
-                    itemToEdit: props.item,
-                    item: props.item.value,
-                    selectedCategory: props.item.value.category
+        if (props) {
+            if (props.itemToEdit) {
+                this.setState({
+                    itemToEdit: props.itemToEdit,
+                    selectedCategory: props.itemToEdit.value.category
                 });
             }
         }
     }
-
     inputChange(event) {
-        let value = event.target.value;
-        if(value){
-            let modified = this.state.item;
-            modified.name = value;
-            this.setState({
-                item : modified
-            });
+        if (event && event.target.value) {
+            this.setState({ name: event.target.value });
         }
-        this.clearError();
     }
-    
-    clearInput(event){
-        if(event) {
-            event.preventDefault();
-        }
-        let modified = this.state.item;
-        modified.name = '';
+
+
+    clearInput(event) {
+        Utils.preventDefault(event);
         this.setState({
-            item: modified
+            name: ''
         });
+        //    this.props.clearError();
     }
 
     categoryChanged(category) {
-        let modified = this.state.item;
-        modified.category = category;
-        DataSource.getColorForCategory(category, color => {
-            modified.color = color;
-            this.setState({
-                item: modified
-            });
-        });
+        this.setState({ category: category });
+        // DataSource.getColorForCategory(category, color => {
+        //     modified.color = color;
+        //     this.setState({
+        //         item: modified
+        //     });
+        // });
     }
 
     confirm(event) {
-        event.preventDefault();
-        this.clearError();
-        if(this.props.type === Constants.UTILS.CREATE) {
-            this.create();
-        } else {
-            this.edit();
+        Utils.preventDefault(event);
+        let item = {
+            name: this.state.name
         }
-    }
-
-    clearError(){
-        this.setState({
-            errorMessage: undefined
-        });
-    }
-
-    close(event) {
-        event.preventDefault();
-        this.setState({
-            errorMessage: undefined
-        });
-        this.props.closePopup(true);
-    }
-
-    create() {
-        DataSource.addProduct(this.state.item, error => this.setError(error));
-    }
-
-    edit() {
-        DataSource.updateProduct(this.state.itemToEdit.key, this.state.item, error => {
-            if (error) {
-                this.setError(error);
-            } else {
-                this.props.closePopup(true);
-                this.clearInput();
-            }
-        });
+        if (this.state.category) {
+            item['category'] = this.state.category;
+        }
+        if (this.props.type === Constants.UTILS.CREATE) {
+            this.props.create(item);
+        } else {
+            this.props.edit(this.state.itemToEdit, item);
+        }
+        this.clearInput();
+        this.props.close();
     }
 
     render() {
@@ -124,30 +87,30 @@ class CreateEditProductPopup extends Component {
 
                 <div className="popup-remove-container">
                     <div className="popup-remove-header">
-                        {this.props.type === Constants.UTILS.CREATE ? 
-                            <label> Create product </label>    
-                        : 
+                        {this.props.type === Constants.UTILS.CREATE ?
+                            <label> Create product </label>
+                            :
                             <label> Edit product </label>
                         }
                     </div>
 
                     <div className="popup-body">
-                        <DropdownCategories selectedCategory={this.state.selectedCategory}
-                                            categorySelected={(category) => this.categoryChanged(category)}/>
-                        <div className="flex space-between"> 
-                            Name: <input type="text" value={this.state.item.name}
-                                         onChange={(event) => this.inputChange(event)}/>
-                            <FontAwesome name="close" onClick={(event) => this.clearInput(event)}/>
-                         </div>
-                            
+                        {/* <DropdownCategories selectedCategory={this.state.selectedCategory}
+                                            categorySelected={(category) => this.categoryChanged(category)}/> */}
+                        <div className="flex space-between">
+                            Name: <input type="text" value={this.state.name}
+                                onChange={this.inputChange} />
+                            <FontAwesome name="close" onClick={(event) => this.clearInput(event)} />
+                        </div>
+
                         <div> Photo </div>
-                            
-                        { this.state.errorMessage ? 
-                            <div className="red">{this.state.errorMessage} </div>
+
+                        {this.props.errorMessage ?
+                            <div className="red">{this.props.errorMessage} </div>
                             : null
                         }
                         <button className="popup-btn btn-ok" onClick={(event) => this.confirm(event)}>{Constants.POPUP.YES}</button>
-                        <button className="popup-btn btn-cancel" onClick={(event) => this.close(event)}>{Constants.POPUP.NO}</button>
+                        <button className="popup-btn btn-cancel" onClick={(event) => this.props.close(event)}>{Constants.POPUP.NO}</button>
                     </div>
                 </div>
             </Modal>
@@ -156,7 +119,7 @@ class CreateEditProductPopup extends Component {
 }
 
 CreateEditProductPopup.propTypes = {
-    item: PropType.object,
+    itemToEdit: PropType.object,
     type: PropType.string,
     isOpened: PropType.bool,
     closePopup: PropType.func

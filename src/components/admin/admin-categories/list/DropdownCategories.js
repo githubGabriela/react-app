@@ -45,19 +45,21 @@ class DropdownCategories extends Component {
         this.setState({
             selected:  selected
         });
-        console.log(this.selected);
     }
 
     
     render() {
         return (
+            <div className="popup-header"> 
+                Categories
             <Dropdown options={this.state.categories}
-                      value={this.state.selected}
-                      onChange={(option) => {
-                                            this.setState({selected: option});
-                                            this.props.categorySelected(option.label);
-                                            }}
-                      placeholder={Constants.TITLES.SELECT_CATEGORY}/>
+                    value={this.state.selected}
+                    onChange={(option) => {
+                        this.setState({ selected: option });
+                        this.props.categorySelected(option.label);
+                    }}
+                    placeholder={Constants.TITLES.SELECT_CATEGORY} />
+            </div>
         );
     }
 }

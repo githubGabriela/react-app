@@ -138,7 +138,7 @@ export function createCategory(category, customFct) {
     }
 }
 
-export function addProduct(value, customFct){
+export function createProduct(value, customFct){
     if(value && value.name){
         dataProducts.orderByChild('name').equalTo(value.name).once('value', snap => {
             let prod = snap.val();

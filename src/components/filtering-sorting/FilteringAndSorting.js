@@ -52,7 +52,7 @@ class FilteringAndSorting extends Component {
     }
 
     filterChanged(event) {
-        event.preventDefault();
+        Utils.preventDefault(event);
         this.setState({
             filterValue: event.target.value
         });

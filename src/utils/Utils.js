@@ -1,6 +1,8 @@
 
 export function preventDefault(event) {
-    event.preventDefault();
+    if (event) {
+        event.preventDefault();
+    }
 }
 
 export function isValidValue(value) {
