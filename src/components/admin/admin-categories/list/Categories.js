@@ -7,7 +7,7 @@ import FontAwesome from 'react-fontawesome';
 import * as Constants from '../../../../utils/Constants';
 import * as DataSource from '../../../../config/DataSource';
 import * as Utils from '../../../../utils/Utils';
-import Create from '../crud/create/Create';
+import Create from '../crud/Create';
 import FilteringAndSorting from '../../../filtering-sorting/FilteringAndSorting';
 import Edit from '../crud/Edit';
 import Item from '../crud/Item';

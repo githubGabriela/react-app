@@ -130,6 +130,7 @@ export function createCategory(category, customFct) {
         dataCategoriesByName.equalTo(category.name).once('value', snap => {
             if(!snap.val()) {
                 dataCategories.push(category);
+                customFct({});
             } else{
                 customFct({message: 'This category already exists'});
             }
