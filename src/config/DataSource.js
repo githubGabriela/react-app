@@ -28,7 +28,6 @@ export function getCategories(customFct) {
 export function getOrderProductsByCategory(customFct) {
     dataProductsByCategory.on('value', snap => {
             let items = getKeyValues(snap);
-            console.log('testProducts', items);
             customFct(items);
     });
 }
@@ -36,7 +35,6 @@ export function getOrderProductsByCategory(customFct) {
 export function getTestHistory(customFct) {
     dataHistory.on('value', snap => {
             let items = getKeyValues(snap);
-            console.log('testHistory', items);
             customFct(items);
     });
 }
@@ -44,7 +42,6 @@ export function getTestHistory(customFct) {
 export function getTestLastModified(customFct) {
     dataLastModified.on('value', snap => {
             let items = getKeyValues(snap);
-            console.log('lastModified', items);
             customFct(items);
     });
 }
@@ -52,7 +49,6 @@ export function getTestLastModified(customFct) {
 export function getTestShoppingBasket(customFct) {
     dataShoppingBasket.on('value', snap => {
             let items = getKeyValues(snap);
-            console.log('testshoppingBasket', items);
             customFct(items);
     });
 }
@@ -191,7 +187,6 @@ export function addToHistory(item){
 
 export function saveImage(categoryName, file){
     let storageRef = storage.ref(categoryName +'/image/'+file.name);
-    console.log('file.name', file.name);
     storageRef.put(file);
 }
 

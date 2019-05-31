@@ -14,47 +14,41 @@ class CreateEdit extends Component {
             productPopupOpened: false,
             errorMessage: ''
         }
-        this.openProductPopup = this.openProductPopup.bind(this);
+        this.openPopup = this.openPopup.bind(this);
     }
 
     shouldComponentUpdate() {
         return true;
     }
 
-    openProductPopup(event) {
+    createProduct(item) {
+        DataSource.createProduct(item, error => { this.setError(error); this.closePopup() });
+    }
+
+    editProduct(oldItem, item) {
+        DataSource.updateProduct(oldItem.key, item, error => { this.setError(error); this.closePopup() });
+    }
+
+    openPopup(event) {
         Utils.preventDefault(event);
         this.setState({
             productPopupOpened: true
         });
     }
 
-    closeProductPopup(event) {
+    closePopup(event) {
         Utils.preventDefault(event);
-        this.setState({
-            productPopupOpened: false
-        });
-        this.clearError();
+        if (!this.state.errorMessage) {
+            this.setState({
+                productPopupOpened: false
+            });
+        }
     }
-
-    createProduct(item) {
-        this.clearError();
-        DataSource.createProduct(item, error => this.setError(error));
-    }
-
-    editProduct(oldItem, item) {
-        this.clearError();
-        DataSource.updateProduct(oldItem.key, item, error => {
-            if (error) {
-                this.setError(error);
-            } else {
-                this.closeProductPopup(true);
-            }
-        });
-    }
-
     setError(error) {
+        let message = error && error.message ? error.message : '';
+        this.state.errorMessage = message;
         this.setState({
-            errorMessage: error && error.message ? error.message : ''
+            errorMessage: message
         });
     }
 
@@ -69,7 +63,7 @@ class CreateEdit extends Component {
             return (
                 <div>
                     {this.props.type === Constants.UTILS.EDIT && this.props.showSettingsFields ?
-                        <FontAwesome name="pencil" onClick={(event) => this.openProductPopup(event)} />
+                        <FontAwesome name="pencil" onClick={(event) => this.openPopup(event)} />
                         : null
                     }
                 </div>
@@ -80,7 +74,7 @@ class CreateEdit extends Component {
             return (
                 <div>
                     {this.props.type === Constants.UTILS.CREATE ?
-                        <button onClick={(event) => this.openProductPopup(event)}>{this.props.popupTitle}</button>
+                        <button onClick={(event) => this.openPopup(event)}>{this.props.popupTitle}</button>
                         :
                         null
                     }
@@ -98,9 +92,10 @@ class CreateEdit extends Component {
                     errorMessage={this.state.errorMessage}
                     isOpened={this.state.productPopupOpened}
                     itemToEdit={this.props.item}
-                    close={(event) => this.closeProductPopup(event)}
+                    close={(event) => this.closePopup(event)}
                     create={(item) => this.createProduct(item)}
-                    edit={(oldItem, item) => this.editProduct(oldItem, item)} />
+                    edit={(oldItem, item) => this.editProduct(oldItem, item)}
+                    clearError={() => this.clearError()} />
             </div>
         );
     }

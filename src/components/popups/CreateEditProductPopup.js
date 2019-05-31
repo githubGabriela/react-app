@@ -42,9 +42,9 @@ class CreateEditProductPopup extends Component {
     inputChange(event) {
         if (event && event.target.value) {
             this.setState({ name: event.target.value });
+            this.props.clearError();
         }
     }
-
 
     clearInput(event) {
         Utils.preventDefault(event);
@@ -77,8 +77,6 @@ class CreateEditProductPopup extends Component {
         } else {
             this.props.edit(this.state.itemToEdit, item);
         }
-        this.clearInput();
-        this.props.close();
     }
 
     render() {
@@ -100,7 +98,6 @@ class CreateEditProductPopup extends Component {
                         <div className="flex space-between">
                             Name: <input type="text" value={this.state.name}
                                 onChange={this.inputChange} />
-                            <FontAwesome name="close" onClick={(event) => this.clearInput(event)} />
                         </div>
 
                         <div> Photo </div>
@@ -110,7 +107,7 @@ class CreateEditProductPopup extends Component {
                             : null
                         }
                         <button className="popup-btn btn-ok" onClick={(event) => this.confirm(event)}>{Constants.POPUP.YES}</button>
-                        <button className="popup-btn btn-cancel" onClick={(event) => this.props.close(event)}>{Constants.POPUP.NO}</button>
+                        <button className="popup-btn btn-cancel" onClick={() => this.props.close()}>{Constants.POPUP.NO}</button>
                     </div>
                 </div>
             </Modal>
@@ -122,7 +119,7 @@ CreateEditProductPopup.propTypes = {
     itemToEdit: PropType.object,
     type: PropType.string,
     isOpened: PropType.bool,
-    closePopup: PropType.func
+    errorMessage: PropType.string
 }
 
 export default CreateEditProductPopup;
