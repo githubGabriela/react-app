@@ -10,7 +10,7 @@ import * as DataSource from '../../../../config/DataSource';
 import CreateEdit from '../crud/CreateEdit';
 import FilteringAndSorting from '../../../filtering-sorting/FilteringAndSorting';
 import Item from '../crud/Item';
-import Remove from '../crud/Remove';
+import RemovePopup from '../../common/RemovePopup';
 import Settings from '../../../common/Settings';
 
 import '../../../../assets/css/General.css';
@@ -24,8 +24,7 @@ class Products extends Component {
             initialProducts: [],
             checkedItems: [],
             checkAll : false,
-            itemsForRemovePopup: [],
-            removePopupOpened: false,
+            showRemovePopup: false,
             showSettingsFields: true
         }
     }
@@ -57,26 +56,26 @@ class Products extends Component {
         
         openRemovePopup() {
             this.setState({
-                removePopupOpened : true,
+                showRemovePopup : true,
             });
         }  
     
-        closeRemovePopup() {
+        hideRemovePopup() {
             this.setState({
-                removePopupOpened : false
+                showRemovePopup : false
             });
         }
     
         setItemsForPopup(){
             this.setState({
-                itemsForRemovePopup: this.state.checkedItems
+                checkedItems: this.state.checkedItems
             });
         }
         
         resetCheckboxes() {
             this.setState({ 
                 checkedItems: [],
-                itemsForRemovePopup: [],
+                checkedItems: [],
                 checkAll: false
             });
         }
@@ -88,6 +87,11 @@ class Products extends Component {
             });
         }
 
+        removeConfirmed() {
+            DataSource.removeProducts(this.state.checkedItems); 
+            this.hideRemovePopup();
+            this.resetCheckboxes();
+        }
        
 
     render() {
@@ -205,14 +209,13 @@ class Products extends Component {
             <div>
                     {showHeader()}
                     {showAllItems()}
-                    <Remove removePopupOpened={this.state.removePopupOpened} 
-                                items={this.state.itemsForRemovePopup}
-                                confirmRemoveItems = {() => { 
-                                                        DataSource.removeProducts(this.state.itemsForRemovePopup); 
-                                                        this.closeRemovePopup();
-                                                        this.resetCheckboxes()}
-                                                    }
-                                closeRemovePopup={()=> this.closeRemovePopup()}/> 
+                    <RemovePopup
+                        popupType={Constants.TITLES.PRODUCTS}
+                        items={this.state.checkedItems}
+                        showRemovePopup={this.state.showRemovePopup}
+                        confirmed={this.removeConfirmed}
+                        canceled={this.hideRemovePopup}
+                    />
             </div>
         );
     }

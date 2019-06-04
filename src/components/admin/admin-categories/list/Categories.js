@@ -14,7 +14,7 @@ import Item from '../crud/Item';
 import Settings from '../../../common/Settings';
 
 import '../../../../assets/css/General.css';
-import RemoveCategoriesPopup from '../crud/Remove';
+import RemovePopup from '../../common/RemovePopup';
 
 class Categories extends Component {
     constructor() {
@@ -219,7 +219,8 @@ class Categories extends Component {
             <div>
                 {showHeader()}
                 {showAllItems()}
-                <RemoveCategoriesPopup
+                <RemovePopup
+                    popupType={Constants.TITLES.CATEGORIES}
                     items={this.state.checkedItems}
                     showRemovePopup={this.state.showRemovePopup}
                     confirmed={this.removeConfirmed}

@@ -40,5 +40,6 @@ export const POPUP = {
     YES : 'Yes',
     NO: 'No',
     REMOVE_CATEGORIES: 'Remove categories',
+    REMOVE_PRODUCTS: 'Remove products',
     CHOOSE_COLOR: 'Choose a color'
 }
