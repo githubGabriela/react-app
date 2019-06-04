@@ -283,7 +283,7 @@ export function removeProduct(key) {
 export function removeProducts(items) {
     items.forEach(item => {
         if (item.key) {
-            this.removeProduct(item.key);
+            removeProduct(item.key);
         }
     });
 }

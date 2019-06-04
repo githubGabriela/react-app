@@ -22,7 +22,15 @@ class CreateEdit extends Component {
     }
 
     createProduct(item) {
-        DataSource.createProduct(item, error => { this.setError(error); this.closePopup() });
+        DataSource.createProduct(item, error => {
+            if (error && error.message) {
+                this.setError(error);
+            } else {
+                // this.clearInput();
+                this.props.productCreated(true);
+                this.closePopup();
+            }
+        });
     }
 
     editProduct(oldItem, item) {
