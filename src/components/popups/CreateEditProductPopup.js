@@ -51,17 +51,10 @@ class CreateEditProductPopup extends Component {
         this.setState({
             name: ''
         });
-        //    this.props.clearError();
     }
 
     categoryChanged(category) {
-        this.setState({ category: category });
-        // DataSource.getColorForCategory(category, color => {
-        //     modified.color = color;
-        //     this.setState({
-        //         item: modified
-        //     });
-        // });
+        this.setState({ category: category.value });
     }
 
     confirm(event) {
@@ -93,8 +86,8 @@ class CreateEditProductPopup extends Component {
                     </div>
 
                     <div className="popup-body">
-                        {/* <DropdownCategories selectedCategory={this.state.selectedCategory}
-                                            categorySelected={(category) => this.categoryChanged(category)}/> */}
+                        {/* {<DropdownCategories selectedCategory={this.state.selectedCategory}
+                                            categorySelected={(category) => this.categoryChanged(category)}/>} */}
                         <div className="flex space-between">
                             Name: <input type="text" value={this.state.name}
                                 onChange={this.inputChange} />

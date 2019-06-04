@@ -112,13 +112,15 @@ class FilteringAndSorting extends Component {
         let showOrdering = () => {
             return (
                 <div>
-                    {!this.props.hideOrdering ? 
-                        <Dropdown className="dropdown-input" options={this.state.dropdownOptions}
-                                value={this.state.selectedDropdown}
-                                onChange={this._onSelect}
-                                placeholder={Constants.TITLES.ORDER_BY}/>
+                    { /*!this.props.hideOrdering ? 
+                        // replace dropdown
+
+                      // <Dropdown className="dropdown-input" options={this.state.dropdownOptions}
+                        //         value={this.state.selectedDropdown}
+                        //         onChange={this._onSelect}
+                        //         placeholder={Constants.TITLES.ORDER_BY}/>
                     : null 
-                    }
+                    */}
                 </div>
             );
         }

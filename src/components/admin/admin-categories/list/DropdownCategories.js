@@ -3,8 +3,6 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Dropdown from 'react-dropdown';
-import 'react-dropdown/style.css';
 
 import * as Constants from '../../../../utils/Constants';
 import * as DataSource from '../../../../config/DataSource';
@@ -15,10 +13,7 @@ class DropdownCategories extends Component {
         super();
         this.state = {
             categories: [],
-            selected: {
-                label: '',
-                value: ''
-            }
+            selected: undefined
         }
     }
 
@@ -26,39 +21,44 @@ class DropdownCategories extends Component {
         this.getCategories();
     }
 
-    shouldComponentUpdate(nextProps) {
+    shouldComponentUpdate() {
         return true;
     }
 
     getCategories() {
-        DataSource.getCategoriesForDropdown(items => {
+        DataSource.getCategories(items => {
             this.setState({
                 categories: items
             });
-            this.setSelected(items);
+            this.setSelected(items[0]);
         });
     }
 
-    setSelected(items) {
-        let selected = this.props.selectedCategory ? 
-                        { label: this.props.selectedCategory, value: this.props.selectedCategory } : items[0];
+    setSelected(item) {
+        let selected = this.props.selectedCategory ? this.props.selectedCategory : item;
         this.setState({
-            selected:  selected
+            selected: selected
         });
+        this.props.categorySelected(selected);
     }
 
-    
+    optionChanged(event){
+        let index = event.target.value;
+        this.props.categorySelected(this.state.categories[index]);
+    }
+
+
     render() {
         return (
-            <div className="popup-header"> 
-                Categories
-            <Dropdown options={this.state.categories}
-                    value={this.state.selected}
-                    onChange={(option) => {
-                        this.setState({ selected: option });
-                        this.props.categorySelected(option.label);
-                    }}
-                    placeholder={Constants.TITLES.SELECT_CATEGORY} />
+            <div className="popup-header">
+                Category:
+                <select onChange={this.optionChanged.bind(this)} value={this.state.value}>
+                    {this.state.categories.map((item, index) => {
+                          return <option defaultValue={item.key === this.state.selected.key} value={index} 
+                          key={item.key}>{item.value.name}</option>
+                    })
+                    }
+                </select>
             </div>
         );
     }

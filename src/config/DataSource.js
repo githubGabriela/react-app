@@ -65,17 +65,6 @@ export function getCategoriesNames(customFct){
     // });
 }
 
-export function getCategoriesForDropdown(customFct) {
-    dataCategoriesByKey.on('value', (snap) => {
-        const items = [];
-        snap.forEach( childSnap => {
-            items.push({ value: childSnap.key, label: childSnap.val().name});
-        });
-        let recentlyAdded = items;
-        customFct(recentlyAdded);
-    });
-}
-
 export function getColorForCategory(categoryName, customFct){
     dataCategoriesByKey.orderByChild('name').equalTo(categoryName).on('value', snap => {
         let color= '';
