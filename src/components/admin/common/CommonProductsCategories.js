@@ -1,56 +1,49 @@
 // Usage:
-// <Categories/>
+// <Products/>
 
 import React, { Component } from 'react';
 import FontAwesome from 'react-fontawesome';
 
-import * as Constants from '../../../../utils/Constants';
-import * as DataSource from '../../../../config/DataSource';
-import * as Utils from '../../../../utils/Utils';
-import Create from '../crud/Create';
-import FilteringAndSorting from '../../../filtering-sorting/FilteringAndSorting';
-import Edit from '../crud/Edit';
-import Item from '../crud/Item';
-import Settings from '../../../common/Settings';
+import * as Constants from '../../../utils/Constants';
+import * as Utils from '../../../utils/Utils';
+import * as DataSource from '../../../config/DataSource';
+import CreateEdit from '../admin-products/crud/CreateEdit';
+import FilteringAndSorting from '../../filtering-sorting/FilteringAndSorting';
+import Item from '../admin-products/crud/Item';
+import RemovePopup from '../common/RemovePopup';
+import Settings from '../../common/Settings';
 
-import '../../../../assets/css/General.css';
-import RemovePopup from '../../common/RemovePopup';
+// import '../../assets/css/General.css';
 
-class Categories extends Component {
+class CommonProductsCategories extends Component {
     constructor() {
         // clean
         super();
         this.state = {
-            categories: [],
-            initialCategories: [],
+            products: [],
+            initialProducts: [],
             checkedItems: [],
             checkAll: false,
             showRemovePopup: false,
-            showColorPopup: false,
-            colorForPopup: '',
-            showSettingsFields: false
+            showSettingsFields: true
         }
-        this.toggleColorPopup = this.toggleColorPopup.bind(this);
         this.removeConfirmed = this.removeConfirmed.bind(this);
         this.hideRemovePopup = this.hideRemovePopup.bind(this);
     }
 
     // move
     componentDidMount() {
-        this.getCategories();
-    }
-// move
-    getCategories() {
-        DataSource.getCategories(items => {
-            this.setState({
-                categories: items,
-                initialCategories: items
-            });
-        });
+        this.getProducts();
     }
 
-    shouldComponentUpdate() {
-        return true;
+    // move
+    getProducts() {
+        DataSource.getProducts(items => {
+            this.setState({
+                products: items,
+                initialProducts: items
+            });
+        });
     }
 
     itemCreated(created){
@@ -58,7 +51,7 @@ class Categories extends Component {
             this.resetCheckboxes();
         }
     }
-
+    
     resetCheckboxes() {
         this.setState({
             checkedItems: [],
@@ -73,14 +66,6 @@ class Categories extends Component {
         });
     }
 
-    // move
-    toggleColorPopup(item) {
-        this.setState({
-            showColorPopup: true,
-            colorForPopup: item.value.color
-        })
-    }
-
     removeItem(item) {
         if (item) {
             this.state.checkedItems = [item];
@@ -93,32 +78,43 @@ class Categories extends Component {
             this.setState({ showRemovePopup: true });
         }
     }
-    
+
     hideRemovePopup() {
-        this.setState({ showRemovePopup: false })
+        this.setState({
+            showRemovePopup: false
+        });
     }
 
     // move
-    removeConfirmed() {
-        DataSource.removeCategoriesWithProducts(this.state.checkedItems);
+     removeConfirmed() {
+        DataSource.removeProducts(this.state.checkedItems);
         this.resetCheckboxes();
-        this.hideRemovePopup()
+        this.hideRemovePopup();
     }
 
     toggleItems(checked, item) {
         if (item) {
-            Utils.toggleItems(this.state.categories, this.state.checkedItems, item, checked, result => this.setState(result));
+            Utils.toggleItems(this.state.products, this.state.checkedItems, item, checked, result => this.setState(result));
         } else {
-            Utils.toggleAll(this.state.categories, checked, result => this.setState(result));
+            Utils.toggleAll(this.state.products, checked, result => this.setState(result));
         }
     }
 
     // move
     render() {
+        // move
+        let showCart = (item) => {
+            return (
+                <div className="space-right">
+                    <FontAwesome name="cart-plus" className="cart-add" onClick={(event) => { Utils.preventDefault(event); DataSource.addToShoppingList(item) }} />
+                </div>
+            );
+        }
+
         let showCheckbox = (item) => {
             return (
                 <div>
-                    {this.state.showSettingsFields ?
+                       {this.state.showSettingsFields ?
                         <div className="center-from-top icon-on-left">
                             <input type="checkbox"
                                 checked={this.state.checkedItems.indexOf(item) !== -1}
@@ -146,64 +142,76 @@ class Categories extends Component {
 
         // move
         let showAllItems = () => {
-            return (<div>
-                {
-                    this.state.categories.map((item) => {
-                        return <div className="section-item" key={item.key}>
-                            <div className="flex space-between">
-                                {showCheckbox(item)}
-                                <Item item={item} />
-                                <Edit item={item} showSettingsFields={this.state.showSettingsFields} />
-                                {showRemoveIcon(item)}
+            return (
+                <div>
+                    {
+                        this.state.products.map((item) => {
+                            return <div className="section-item" key={item.key}>
+                                <div className="flex space-between">
+                                    <div>
+                                        {showCheckbox(item)}
+                                        <Item item={item} />
+                                    </div>
+                                    <div className="center-from-top flex space-between">
+                                        <div className="edit-cart-icons">
+                                            <CreateEdit type={Constants.UTILS.EDIT} popupTitle={Constants.TITLES.EDIT}
+                                                item={item}
+                                                showSettingsFields={this.state.showSettingsFields} />
+                                            {showRemoveIcon(item)}
+                                        </div>
+                                        <div>
+                                            {showCart(item)}
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    })
-                }
-
-            </div>
-            );
+                        })
+                    }
+                </div>
+            )
         }
-
+        
         let showRemoveIcon = (item) => {
             return (
                 <div>
                     {this.state.showSettingsFields ?
-                        <FontAwesome name="close" onClick={() => { this.removeItem(item);}} />
+                        <FontAwesome name="close" onClick={() => { this.removeItem(item); }} />
                         : null
                     }
                 </div>
             );
         }
-   // move
+        // move
         let showFilteringSorting = () => {
             return (
                 <div>
                     {this.state.showSettingsFields ?
-                        <FilteringAndSorting showComponent={this.state.categories.length > 0}
-                            dataType={Constants.CATEGORIES}
-                            items={this.state.categories}
-                            initialItems={this.state.initialCategories}
-                            setFilteredItems={items => this.setState({ categories: items })} />
+                        <FilteringAndSorting showComponent={this.state.products.length > 0}
+                            dataType={Constants.PRODUCTS}
+                            items={this.state.products}
+                            initialItems={this.state.initialProducts}
+                            setFilteredItems={items => this.setState({ products: items })} />
                         : null
                     }
                 </div>
-            );
+            )
         }
-    // move
+
+        // move
         let showCreateButton = () => {
             return (
                 <div>
                     {this.state.showSettingsFields ?
-                        <div className="create-input">
-                            <Create itemCreated={(created)=> this.itemCreated(created)}/>
+                        <div className="create-input align-left">
+                            <CreateEdit type={Constants.UTILS.CREATE} popupTitle={Constants.TITLES.CREATE}
+                            itemCreated={(created)=> this.itemCreated(created)} />
                         </div>
                         : null
                     }
                 </div>
             );
         }
-
-            // move
+        //move
         let showHeader = () => {
             return (
                 <div className="section-header">
@@ -211,8 +219,9 @@ class Categories extends Component {
                         <div className="align-right">
                             <Settings toggleSettings={(event) => this.toggleSettingsFields(event)} />
                         </div>
-                        {Constants.TITLES.CATEGORIES}
+                        {Constants.TITLES.PRODUCTS}
                         {showCreateButton()}
+
                         {showFilteringSorting()}
                         <div className="flex space-between center-margin-from-top">
                             {showCheckboxAll()}
@@ -220,15 +229,16 @@ class Categories extends Component {
                         </div>
                     </div>
                 </div>
-            );
+            )
         }
-            // move
+
+        // move
         return (
             <div>
                 {showHeader()}
                 {showAllItems()}
                 <RemovePopup
-                    popupType={Constants.TITLES.CATEGORIES}
+                    popupType={Constants.TITLES.PRODUCTS}
                     items={this.state.checkedItems}
                     showRemovePopup={this.state.showRemovePopup}
                     confirmed={this.removeConfirmed}
@@ -239,5 +249,4 @@ class Categories extends Component {
     }
 }
 
-
-export default Categories;
+export default CommonProductsCategories;
