@@ -18,7 +18,6 @@ import RemovePopup from '../../common/RemovePopup';
 
 class Categories extends Component {
     constructor() {
-        // clean
         super();
         this.state = {
             categories: [],
@@ -35,11 +34,10 @@ class Categories extends Component {
         this.hideRemovePopup = this.hideRemovePopup.bind(this);
     }
 
-    // move
     componentDidMount() {
         this.getCategories();
     }
-// move
+
     getCategories() {
         DataSource.getCategories(items => {
             this.setState({
@@ -53,7 +51,7 @@ class Categories extends Component {
         return true;
     }
 
-    itemCreated(created){
+    categoryCreated(created){
         if(created){
             this.resetCheckboxes();
         }
@@ -66,19 +64,18 @@ class Categories extends Component {
         });
     }
 
-    toggleSettingsFields() {
-        let toggle = !this.state.showSettingsFields;
-        this.setState({
-            showSettingsFields: toggle
-        });
-    }
-
-    // move
     toggleColorPopup(item) {
         this.setState({
             showColorPopup: true,
             colorForPopup: item.value.color
         })
+    }
+
+    toggleSettingsFields() {
+        let toggle = !this.state.showSettingsFields;
+        this.setState({
+            showSettingsFields: toggle
+        });
     }
 
     removeItem(item) {
@@ -98,7 +95,6 @@ class Categories extends Component {
         this.setState({ showRemovePopup: false })
     }
 
-    // move
     removeConfirmed() {
         DataSource.removeCategoriesWithProducts(this.state.checkedItems);
         this.resetCheckboxes();
@@ -113,7 +109,6 @@ class Categories extends Component {
         }
     }
 
-    // move
     render() {
         let showCheckbox = (item) => {
             return (
@@ -144,7 +139,6 @@ class Categories extends Component {
             );
         }
 
-        // move
         let showAllItems = () => {
             return (<div>
                 {
@@ -174,7 +168,7 @@ class Categories extends Component {
                 </div>
             );
         }
-   // move
+
         let showFilteringSorting = () => {
             return (
                 <div>
@@ -189,13 +183,13 @@ class Categories extends Component {
                 </div>
             );
         }
-    // move
-        let showCreateButton = () => {
+
+        let showCreate = () => {
             return (
                 <div>
                     {this.state.showSettingsFields ?
                         <div className="create-input">
-                            <Create itemCreated={(created)=> this.itemCreated(created)}/>
+                            <Create categoryCreated={(created)=> this.categoryCreated(created)}/>
                         </div>
                         : null
                     }
@@ -203,7 +197,6 @@ class Categories extends Component {
             );
         }
 
-            // move
         let showHeader = () => {
             return (
                 <div className="section-header">
@@ -212,7 +205,7 @@ class Categories extends Component {
                             <Settings toggleSettings={(event) => this.toggleSettingsFields(event)} />
                         </div>
                         {Constants.TITLES.CATEGORIES}
-                        {showCreateButton()}
+                        {showCreate()}
                         {showFilteringSorting()}
                         <div className="flex space-between center-margin-from-top">
                             {showCheckboxAll()}
@@ -222,7 +215,6 @@ class Categories extends Component {
                 </div>
             );
         }
-            // move
         return (
             <div>
                 {showHeader()}

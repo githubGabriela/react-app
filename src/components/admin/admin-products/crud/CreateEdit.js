@@ -27,7 +27,7 @@ class CreateEdit extends Component {
                 this.setError(error);
             } else {
                 // this.clearInput();
-                this.props.itemCreated(true);
+                this.props.productCreated(true);
                 this.closePopup();
             }
         });

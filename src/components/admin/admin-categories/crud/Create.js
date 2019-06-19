@@ -59,7 +59,7 @@ class Create extends Component {
                     this.setError(error.message);
                 } else {
                     this.clearInput();
-                    this.props.itemCreated(true);
+                    this.props.categoryCreated(true);
                 }
             });
         }
