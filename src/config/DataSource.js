@@ -263,7 +263,7 @@ export function removeCategoriesWithProducts(items) {
             removeCategory(category.key);
             dataProducts.on('value', snap => {
                 snap.forEach( item => { 
-                    if (item.key && item.val().category.name === category.value.name) {
+                    if (item.key && item.val().category && item.val().category.name === category.value.name) {
                         removeProduct(item.key);
                     }
                 });
