@@ -245,7 +245,7 @@ export function updateProduct(key, value, customFct) {
         if(prod){
             keys = Object.keys(prod);
         }
-        if(!prod || (prod[keys] && prod[keys].category !== value.category)) {
+        if(!prod || (prod[keys] && prod[keys].categoryName !== value.categoryName)) {
             dataProducts.child(key).update(value);
             customFct({message: ''});
         } else {

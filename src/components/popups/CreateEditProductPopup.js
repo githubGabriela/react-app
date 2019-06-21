@@ -15,9 +15,9 @@ class CreateEditProductPopup extends Component {
         super(props);
         this.state = {
             name: '',
-            category: undefined,
-            selectedCategory: undefined,
-            itemToEdit: {}
+            categoryName: '',
+            categoryColor: '',
+            selectedCategory: undefined
         }
         this.clearInput = this.clearInput.bind(this);
         this.inputChange = this.inputChange.bind(this);
@@ -30,18 +30,22 @@ class CreateEditProductPopup extends Component {
     }
 
     componentWillReceiveProps(props) {
-        if (props) {
+        console.log('componentWillReceiveProps');
+          if (props) {
             if (props.itemToEdit) {
+      
                 this.setState({
-                    itemToEdit: props.itemToEdit,
-                    selectedCategory: props.itemToEdit.value.category
+                    name: props.itemToEdit.value.name,
+                    selectedCategory: props.itemToEdit.value.categoryName
                 });
             }
         }
     }
     inputChange(event) {
         if (event && event.target.value) {
-            this.setState({ name: event.target.value });
+            let value = event.target.value;
+            this.state.name = value
+            this.setState({ name: value });
             this.props.clearError();
         }
     }
@@ -54,22 +58,27 @@ class CreateEditProductPopup extends Component {
     }
 
     categoryChanged(category) {
-        this.setState({ category: category.value });
+        console.log('categoryName', category);
+        this.setState(
+            {
+                categoryName: category.value.name,
+                categoryColor: category.value.color
+            });
     }
 
     confirm(event) {
         Utils.preventDefault(event);
         let item = {
-            name: this.state.name
-        }
-        if (this.state.category) {
-            item['category'] = this.state.category;
+            name: this.state.name,
+            categoryName: this.state.categoryName,
+            categoryColor: this.state.categoryColor
         }
         if (this.props.type === Constants.UTILS.CREATE) {
             this.props.create(item);
         } else {
             this.props.edit(this.state.itemToEdit, item);
         }
+        this.clearInput();
     }
 
     render() {
@@ -86,8 +95,8 @@ class CreateEditProductPopup extends Component {
                     </div>
 
                     <div className="popup-body">
-                        {/* {<DropdownCategories selectedCategory={this.state.selectedCategory}
-                                            categorySelected={(category) => this.categoryChanged(category)}/>} */}
+                        {<DropdownCategories selectedCategory={this.state.selectedCategory}
+                                            categorySelected={(category) => this.categoryChanged(category)}/>}
                         <div className="flex space-between">
                             Name: <input type="text" value={this.state.name}
                                 onChange={this.inputChange} />
