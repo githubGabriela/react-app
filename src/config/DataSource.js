@@ -225,12 +225,10 @@ function getValue(snapshot){
 function updateCategoryForProducts(oldCategory, category) {
     dataProducts.orderByChild("category").once("value", snap => {
         _.map(snap.val(), (item, key) => {
-            if (item.category.name === oldCategory.value.name) {
+            if (item.categoryName === oldCategory.value.name) {
                 dataProducts.child(key).update({
-                    category: {
-                        name: category.value.name,
-                        color: category.value.color
-                    }
+                    categoryName: category.value.name,
+                    categoryColor: category.value.color
                 });
             }
         });
