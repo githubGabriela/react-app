@@ -29,7 +29,6 @@ class ShoppingList extends Component {
     componentDidMount() {
         this.getShoppingList();
         this.getLastModified();
-        this.getCategoriesNames();
     }
 
     getShoppingList(){
@@ -49,13 +48,13 @@ class ShoppingList extends Component {
         });
     }
 
-    getCategoriesNames(){
-        DataSource.getCategoriesNames(items => {
-            this.setState({
-                categories: items
-            });
-        });
-    }
+    // getCategoriesNames(){
+    //     DataSource.getCategoriesNames(items => {
+    //         this.setState({
+    //             categories: items
+    //         });
+    //     });
+    // }
 
     toggleSettingsFields(){
         let toggle = !this.state.showSettingsFields;

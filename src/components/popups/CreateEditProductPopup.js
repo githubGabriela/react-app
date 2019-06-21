@@ -17,7 +17,7 @@ class CreateEditProductPopup extends Component {
             name: '',
             categoryName: '',
             categoryColor: '',
-            selectedCategory: undefined
+            defaultCategory: ''
         }
         this.clearInput = this.clearInput.bind(this);
         this.inputChange = this.inputChange.bind(this);
@@ -30,14 +30,14 @@ class CreateEditProductPopup extends Component {
     }
 
     componentWillReceiveProps(props) {
-        console.log('componentWillReceiveProps');
           if (props) {
-            if (props.itemToEdit) {
-      
-                this.setState({
-                    name: props.itemToEdit.value.name,
-                    selectedCategory: props.itemToEdit.value.categoryName
-                });
+            if (props.itemToEdit && this.props.itemToEdit.value.categoryName) {
+                     DataSource.getCategoryByName(this.props.itemToEdit.value.categoryName, (result)=> {
+                         console.log('result', result);
+                        this.setState({
+                            defaultCategory: result
+                        });
+                    });
             }
         }
     }
@@ -58,7 +58,6 @@ class CreateEditProductPopup extends Component {
     }
 
     categoryChanged(category) {
-        console.log('categoryName', category);
         this.setState(
             {
                 categoryName: category.value.name,
@@ -95,10 +94,10 @@ class CreateEditProductPopup extends Component {
                     </div>
 
                     <div className="popup-body">
-                        {<DropdownCategories selectedCategory={this.state.selectedCategory}
-                                            categorySelected={(category) => this.categoryChanged(category)}/>}
+                        {<DropdownCategories defaultCategory={this.state.defaultCategory}
+                            categorySelected={(category) => this.categoryChanged(category)} />}
                         <div className="flex space-between">
-                            Name: <input type="text" value={this.state.name}
+                            Name: <input type="text" defaultValue={this.props.itemToEdit ? this.props.itemToEdit.value.name : ''}
                                 onChange={this.inputChange} />
                         </div>
 

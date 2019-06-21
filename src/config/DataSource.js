@@ -54,15 +54,11 @@ export function getTestShoppingBasket(customFct) {
 }
 
 
-export function getCategoriesNames(customFct){
-    // dataCategoriesByKey.orderByChild('name').on('value', snap => {
-    //     let items = [];
-    //     snap.forEach(childSnap => {
-    //         items.push(childSnap.val().name);
-    //     });
-    //     let recentlyAdded = items;
-    //     customFct(recentlyAdded);
-    // });
+export function getCategoryByName(categoryName, customFct) {
+    dataCategoriesByName.equalTo(categoryName).on('value', snap => {
+        let items = getKeyValues(snap);
+        customFct(items[0]);
+    });
 }
 
 export function getColorForCategory(categoryName, customFct){

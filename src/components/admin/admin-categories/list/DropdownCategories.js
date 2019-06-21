@@ -34,8 +34,8 @@ class DropdownCategories extends Component {
         });
     }
 
-    setSelected(item) {
-        let selected = this.props.selectedCategory ? this.props.selectedCategory : item;
+    setSelected(firstItem) {
+        let selected = this.props.defaultCategory ? this.props.defaultCategory : firstItem;
         this.setState({
             selected: selected
         });
@@ -51,11 +51,11 @@ class DropdownCategories extends Component {
     render() {
         return (
             <div className="popup-header">
-                Category:
+                Category: {this.state.selected ? this.state.selected.value.name : ''}
                 <select onChange={this.optionChanged.bind(this)} value={this.state.value}>
                     {this.state.categories.map((item, index) => {
-                          return <option defaultValue={item.key === this.state.selected.key} value={index} 
-                          key={item.key}>{item.value.name}</option>
+                        return <option defaultValue={this.state.selected && item.key === this.state.selected.key ? this.state.selected.value.name : ''} value={index}
+                            key={item.key}>{item.value.name}</option>
                     })
                     }
                 </select>
@@ -65,7 +65,7 @@ class DropdownCategories extends Component {
 }
 
 DropdownCategories.propTypes = {
-    selectedCategory: PropTypes.string,
+    defaultCategory: PropTypes.string,
     categorySelected: PropTypes.func
 }
 
