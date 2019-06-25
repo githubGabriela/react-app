@@ -15,9 +15,10 @@ class CreateEditProductPopup extends Component {
         super(props);
         this.state = {
             name: '',
+            categoryKey: '',
             categoryName: '',
             categoryColor: '',
-            defaultCategory: ''
+            defaultCategory: undefined
         }
         this.clearInput = this.clearInput.bind(this);
         this.inputChange = this.inputChange.bind(this);
@@ -30,17 +31,21 @@ class CreateEditProductPopup extends Component {
     }
 
     componentWillReceiveProps(props) {
-          if (props) {
-            if (props.itemToEdit && this.props.itemToEdit.value.categoryName) {
-                     DataSource.getCategoryByName(this.props.itemToEdit.value.categoryName, (result)=> {
-                         console.log('result', result);
-                        this.setState({
-                            defaultCategory: result
-                        });
-                    });
+        if (props) {
+            if (props.itemToEdit) {
+                this.setState({
+                    defaultCategory: {
+                        key: props.itemToEdit.value.categoryKey,
+                        value: {
+                            name: props.itemToEdit.value.categoryName,
+                            color: props.itemToEdit.value.categoryColor
+                        }
+                    }
+                });
             }
         }
     }
+
     inputChange(event) {
         if (event && event.target.value) {
             let value = event.target.value;
@@ -60,6 +65,7 @@ class CreateEditProductPopup extends Component {
     categoryChanged(category) {
         this.setState(
             {
+                categoryKey: category.key,
                 categoryName: category.value.name,
                 categoryColor: category.value.color
             });
@@ -69,13 +75,14 @@ class CreateEditProductPopup extends Component {
         Utils.preventDefault(event);
         let item = {
             name: this.state.name,
+            categoryKey: this.state.categoryKey,
             categoryName: this.state.categoryName,
             categoryColor: this.state.categoryColor
         }
         if (this.props.type === Constants.UTILS.CREATE) {
             this.props.create(item);
         } else {
-            this.props.edit(this.state.itemToEdit, item);
+            this.props.edit(this.props.itemToEdit, item);
         }
         this.clearInput();
     }
@@ -95,20 +102,23 @@ class CreateEditProductPopup extends Component {
 
                     <div className="popup-body">
                         {<DropdownCategories defaultCategory={this.state.defaultCategory}
-                            categorySelected={(category) => this.categoryChanged(category)} />}
+                                             categorySelected={(category) => this.categoryChanged(category)}/>}
                         <div className="flex space-between">
-                            Name: <input type="text" defaultValue={this.props.itemToEdit ? this.props.itemToEdit.value.name : ''}
-                                onChange={this.inputChange} />
+                            Name: <input type="text"
+                                         defaultValue={this.props.itemToEdit ? this.props.itemToEdit.value.name : ''}
+                                         onChange={this.inputChange}/>
                         </div>
 
-                        <div> Photo </div>
+                        <div> Photo</div>
 
                         {this.props.errorMessage ?
                             <div className="red">{this.props.errorMessage} </div>
                             : null
                         }
-                        <button className="popup-btn btn-ok" onClick={(event) => this.confirm(event)}>{Constants.POPUP.YES}</button>
-                        <button className="popup-btn btn-cancel" onClick={() => this.props.close()}>{Constants.POPUP.NO}</button>
+                        <button className="popup-btn btn-ok"
+                                onClick={(event) => this.confirm(event)}>{Constants.POPUP.YES}</button>
+                        <button className="popup-btn btn-cancel"
+                                onClick={() => this.props.close()}>{Constants.POPUP.NO}</button>
                     </div>
                 </div>
             </Modal>

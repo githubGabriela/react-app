@@ -49,13 +49,14 @@ class DropdownCategories extends Component {
 
 
     render() {
+        // fix defaultValue
         return (
             <div className="popup-header">
                 Category: {this.state.selected ? this.state.selected.value.name : ''}
-                <select onChange={this.optionChanged.bind(this)} value={this.state.value}>
+                <select onChange={this.optionChanged.bind(this)} defaultValue={this.props.defaultCategory.key} >
                     {this.state.categories.map((item, index) => {
-                        return <option defaultValue={this.state.selected && item.key === this.state.selected.key ? this.state.selected.value.name : ''} value={index}
-                            key={item.key}>{item.value.name}</option>
+                        return <option value={index}
+                            key={item.key}>{item.value.name} </option>
                     })
                     }
                 </select>
@@ -65,7 +66,7 @@ class DropdownCategories extends Component {
 }
 
 DropdownCategories.propTypes = {
-    defaultCategory: PropTypes.string,
+    defaultCategory: PropTypes.object,
     categorySelected: PropTypes.func
 }
 
