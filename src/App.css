@@ -9,9 +9,7 @@
   src: url('/fonts/Lora-Bold.woff');
 }
 
-
 body {
-    /* background-color: #34495e; */
     background-image: url('assets/img/trees_big_size_coloured.jpg');
     background-position: center;
     background-repeat: no-repeat;
