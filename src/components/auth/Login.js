@@ -48,10 +48,6 @@ class Login extends Component {
                     <Link to='/'>
                         <button className="connection-button" onClick={this.login}> Connexion </button>
                     </Link>
-                    <button className="connection-facebook" onClick={(event) => this.connectExternal(event, Constants.TITLES.FACEBOOK)}> 
-                        <FontAwesome className="connection-external-logo" name="facebook-official" size="lg"/>Connexion avec Facebook </button>
-                    <button className="connection-google" onClick={(event) => this.connectExternal(event,  Constants.TITLES.GOOGLE)}> 
-                        <FontAwesome className="connection-external-logo" name="google" size="lg"/>Connexion avec Google </button>
                 </div>
 
                 <div className="register-form-buttons">

@@ -61,13 +61,6 @@ class CreateUser extends Component {
                     }
                 <div className="connection-form-buttons">
                     <button className="connection-button" onClick={(event) => this.create(event)}> Valider </button>
-
-                    <div className="separator">ou</div>
-
-                    <button className="connection-facebook" onClick={(event) => this.connectExternal(event, Constants.TITLES.FACEBOOK)}> 
-                        <FontAwesome className="connection-external-logo" name="facebook-official" size="lg"/>Continuer avec Facebook </button>
-                    <button className="connection-google" onClick={(event) => this.connectExternal(event,  Constants.TITLES.GOOGLE)}> 
-                        <FontAwesome className="connection-external-logo" name="google" size="lg"/>Continuer avec Google </button>
                 </div>
             </div>
 

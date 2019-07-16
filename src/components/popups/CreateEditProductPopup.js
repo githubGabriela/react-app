@@ -15,11 +15,10 @@ class CreateEditProductPopup extends Component {
         super(props);
         this.state = {
             name: '',
-            categoryKey: '',
             categoryName: '',
             categoryColor: '',
-            defaultCategory: undefined
-        }
+            defaultCategory: ''
+        };
         this.clearInput = this.clearInput.bind(this);
         this.inputChange = this.inputChange.bind(this);
         this.categoryChanged = this.categoryChanged.bind(this);
@@ -34,13 +33,7 @@ class CreateEditProductPopup extends Component {
         if (props) {
             if (props.itemToEdit) {
                 this.setState({
-                    defaultCategory: {
-                        key: props.itemToEdit.value.categoryKey,
-                        value: {
-                            name: props.itemToEdit.value.categoryName,
-                            color: props.itemToEdit.value.categoryColor
-                        }
-                    }
+                    defaultCategory: props.itemToEdit.value.categoryName
                 });
             }
         }
@@ -49,7 +42,7 @@ class CreateEditProductPopup extends Component {
     inputChange(event) {
         if (event && event.target.value) {
             let value = event.target.value;
-            this.state.name = value
+            this.state.name = value;
             this.setState({ name: value });
             this.props.clearError();
         }
@@ -63,22 +56,22 @@ class CreateEditProductPopup extends Component {
     }
 
     categoryChanged(category) {
-        this.setState(
-            {
-                categoryKey: category.key,
-                categoryName: category.value.name,
-                categoryColor: category.value.color
-            });
+        if(category.value) {
+            this.setState(
+                {
+                    categoryName: category.value.name,
+                    categoryColor: category.value.color
+                });
+        }
     }
 
     confirm(event) {
         Utils.preventDefault(event);
         let item = {
             name: this.state.name,
-            categoryKey: this.state.categoryKey,
             categoryName: this.state.categoryName,
             categoryColor: this.state.categoryColor
-        }
+        };
         if (this.props.type === Constants.UTILS.CREATE) {
             this.props.create(item);
         } else {
@@ -101,6 +94,7 @@ class CreateEditProductPopup extends Component {
                     </div>
 
                     <div className="popup-body">
+                        defaultCategory: {this.state.defaultCategory}
                         {<DropdownCategories defaultCategory={this.state.defaultCategory}
                                              categorySelected={(category) => this.categoryChanged(category)}/>}
                         <div className="flex space-between">

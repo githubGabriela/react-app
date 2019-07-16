@@ -30,7 +30,7 @@ class DropdownCategories extends Component {
             this.setState({
                 categories: items
             });
-            this.setSelected(items[0]);
+            this.setSelected(items[0].value.name);
         });
     }
 
@@ -42,21 +42,25 @@ class DropdownCategories extends Component {
         this.props.categorySelected(selected);
     }
 
-    optionChanged(event){
-        let index = event.target.value;
-        this.props.categorySelected(this.state.categories[index]);
+    optionChanged(event) {
+        if (event) {
+            let category = this.state.categories.filter(item => {
+                return item.value.name === event.target.value
+            });
+            console.log(category[0]);
+            this.props.categorySelected(category[0]);
+        }
     }
 
 
     render() {
-        // fix defaultValue
         return (
             <div className="popup-header">
-                Category: {this.state.selected ? this.state.selected.value.name : ''}
-                <select onChange={this.optionChanged.bind(this)} defaultValue={this.props.defaultCategory.key} >
+                <select onChange={this.optionChanged.bind(this)} >
                     {this.state.categories.map((item, index) => {
-                        return <option value={index}
-                            key={item.key}>{item.value.name} </option>
+                        return <option
+                            defaultValue={this.state.selected === item.value.name}
+                            value={item.value.name} key={item.key}>{item.value.name}    HERE {this.state.selected} {item.value.name} </option>
                     })
                     }
                 </select>
@@ -66,8 +70,8 @@ class DropdownCategories extends Component {
 }
 
 DropdownCategories.propTypes = {
-    defaultCategory: PropTypes.object,
+    defaultCategory: PropTypes.string,
     categorySelected: PropTypes.func
-}
+};
 
 export default DropdownCategories;
