@@ -4,38 +4,21 @@
 import React, { Component } from 'react';
 import _ from 'lodash';
 
-import * as Constants from '../../utils/Constants';
 import * as DataSource from '../../config/DataSource';
-import FilteringAndSorting from '../filtering-sorting/FilteringAndSorting';
-
 import '../../assets/css/General.css';
-import { getProductsByCategory } from '../../config/DataSource';
-import Settings from '../common/Settings';
 
 class AllProducts extends Component {
     filter;
     constructor() {
         super();
         this.state = {
-            categories: [],
             products: [],
-            filteredProducts: [],
-            showSettingsFields: false
+            filteredProducts: []
         }
     }
 
     componentDidMount() {
-        this.getCategories();
         this.getProductsByCategory();
-    }
-
-    getCategories() {
-        DataSource.getCategories(categories => {
-            this.setState({
-                categories: categories,
-                defaultCategory: categories[0]
-            });
-        });
     }
 
     getProductsByCategory() {
@@ -66,32 +49,13 @@ class AllProducts extends Component {
     }
 
     render() {
-        let showFilteringSorting = () => {
-            return (
-                <div>
-                    {this.state.showSettingsFields ?
-                        <FilteringAndSorting
-                            dataType={Constants.PRODUCTS}
-                            hideOrdering={true}
-                            items={this.state.filteredProducts}
-                            initialItems={this.state.products}
-                            setFilteredItems={items => this.setState({ filteredProducts: items })} />
-                        : null
-                    }
-                </div>
-            );
-        }
-
         let showHeader = () => {
             return (
                 <div className="section-header">
                     <div className="section-title">
 
                         <div className="flex space-between">
-                            <Settings toggleSettings={() => this.setState({ showSettingsFields: !this.state.showSettingsFields })} />
-                        </div>
-                        <div>
-                            {/* {showFilteringSorting()} */}
+                            <input type="text" placeholder="Search" onChange={this.search.bind(this)}></input>
                         </div>
                     </div>
                 </div>
@@ -101,7 +65,6 @@ class AllProducts extends Component {
         let showProducts = () => {
             return (
                 <div>
-                    <input type="text" placeholder="Search" onChange={this.search.bind(this)}></input>
                     {this.state.filteredProducts.map(product => {
                         return (
                             <div key={product.key} >
