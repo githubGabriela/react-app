@@ -23,7 +23,7 @@ export const dataShoppingBasket = dbRef.child(Constants.SHOPPING_BASKET);
 export const dataHistory = dbRef.child(Constants.HISTORY);
 export const dataLastModified = dbRef.child(Constants.LAST_MODIFIED);
 
-export const dataProductsByCategory = dbRef.child(Constants.PRODUCTS).orderByChild('category/id');
+export const dataProductsByCategory = dbRef.child(Constants.PRODUCTS).orderByChild('categoryName');
 export const storage = firebase.storage();
 
 export const auth = firebase.auth();

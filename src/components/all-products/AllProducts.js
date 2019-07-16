@@ -45,19 +45,17 @@ class AllProducts extends Component {
                 filteredProducts: items
             });
         });
-        // https://www.youtube.com/watch?v=Cy5MjeXZobE
+        // https://www.youtube.com/watch?v=Cy5MjeXZobE - infinite scroll
     }
 
     search(event) {
         const filter = event.target.value;
-        if (!!filter) {
-            let filtered = _.filter(this.state.products, item => {
-                if (JSON.stringify(item.value).indexOf(filter) !== -1) {
-                    return item;
-                }
-            });
-            this.setFilteredProducts(filtered);
-        }
+        let filtered = _.filter(this.state.products, item => {
+            if (JSON.stringify(item.value).indexOf(filter) !== -1) {
+                return item;
+            }
+        });
+        this.setFilteredProducts(filtered);
     }
 
     setFilteredProducts(products) {
@@ -112,7 +110,7 @@ class AllProducts extends Component {
                                         <div>{product.value.photo}</div>
                                         <label>{product.value.name}</label>
                                         <div>
-                                            <label>Category: {product.value.category.name}</label>
+                                            <label>Category: {product.value.categoryName}</label>
                                         </div>
                                     </div>
                                 </div>
