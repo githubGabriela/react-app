@@ -4,8 +4,13 @@
 import React, { Component } from 'react';
 import _ from 'lodash';
 
+import * as Constants from '../../utils/Constants';
 import * as DataSource from '../../config/DataSource';
+import FilteringAndSorting from '../filtering-sorting/FilteringAndSorting';
+
 import '../../assets/css/General.css';
+import Settings from '../common/Settings';
+import ProductItem from "./ProductItem";
 
 class AllProducts extends Component {
     filter;
@@ -13,7 +18,8 @@ class AllProducts extends Component {
         super();
         this.state = {
             products: [],
-            filteredProducts: []
+            filteredProducts: [],
+            showSettingsFields: true
         }
     }
 
@@ -49,12 +55,29 @@ class AllProducts extends Component {
     }
 
     render() {
+        let showFilteringSorting = () => {
+            return (
+                <div>
+                    {this.state.showSettingsFields ?
+                        <FilteringAndSorting
+                            dataType={Constants.PRODUCTS}
+                            hideOrdering={true}
+                            items={this.state.filteredProducts}
+                            initialItems={this.state.products}
+                            setFilteredItems={items => this.setState({ filteredProducts: items })} />
+                        : null
+                    }
+                </div>
+            );
+        }
+
         let showHeader = () => {
             return (
                 <div className="section-header">
                     <div className="section-title">
-
+                        {showFilteringSorting()}
                         <div className="flex space-between">
+                            <Settings toggleSettings={() => this.setState({ showSettingsFields: !this.state.showSettingsFields })} />
                             <input type="text" placeholder="Search" onChange={this.search.bind(this)}></input>
                         </div>
                     </div>
@@ -70,11 +93,10 @@ class AllProducts extends Component {
                             <div key={product.key} >
                                 <div className="accordion-header flex space-between">
                                     <div>
-                                        <div>{product.value.photo}</div>
-                                        <label>{product.value.name}</label>
-                                        <div>
-                                            <label>Category: {product.value.categoryName}</label>
-                                        </div>
+                                        <ProductItem key={product.key}
+                                                     product={product}
+                                                     color={product.value.categoryColor}
+                                                     addToShoppingList={(item)=> DataSource.addToShoppingList(item)}/>
                                     </div>
                                 </div>
                             </div>

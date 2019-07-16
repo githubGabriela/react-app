@@ -10,6 +10,7 @@ import 'react-dropdown/style.css';
 import * as DataSource from '../../config/DataSource';
 import * as Utils from '../../utils/Utils';
 import * as Constants from '../../utils/Constants';
+import _ from "lodash";
 
 const options = [
     { label: Constants.TITLES.RECENTLY_ADDED, value: 'recently_added'},
@@ -52,9 +53,10 @@ class FilteringAndSorting extends Component {
     }
 
     filterChanged(event) {
-        Utils.preventDefault(event);
+        let value = event.target.value;
+        this.state.filterValue = value;
         this.setState({
-            filterValue: event.target.value
+            filterValue: value
         });
 
         if(!this.state.filterValue){
@@ -103,9 +105,13 @@ class FilteringAndSorting extends Component {
     }
 
     getFilteredItems(){
-        DataSource.orderAndFilter(this.props.dataType, this.state.filterValue, items => {
-            this.props.setFilteredItems(items);
+        const filter = this.state.filterValue.toLocaleLowerCase();
+        let filtered = _.filter(this.props.initialItems, item => {
+            if (item.value.name && item.value.name.toLowerCase().indexOf(filter) !== -1){
+                return item;
+            }
         });
+            this.props.setFilteredItems(filtered);
     }
 
     render() {
