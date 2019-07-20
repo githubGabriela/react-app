@@ -37,23 +37,6 @@ class AllProducts extends Component {
         // https://www.youtube.com/watch?v=Cy5MjeXZobE - infinite scroll
     }
 
-    search(event) {
-        const filter = event.target.value;
-        let filtered = _.filter(this.state.products, item => {
-            if (JSON.stringify(item.value).indexOf(filter) !== -1) {
-                return item;
-            }
-        });
-        this.setFilteredProducts(filtered);
-    }
-
-    setFilteredProducts(products) {
-        this.state.filteredProducts = products;
-        this.setState({
-            filteredProducts: products
-        })
-    }
-
     render() {
         let showFilteringSorting = () => {
             return (
@@ -78,7 +61,6 @@ class AllProducts extends Component {
                         {showFilteringSorting()}
                         <div className="flex space-between">
                             <Settings toggleSettings={() => this.setState({ showSettingsFields: !this.state.showSettingsFields })} />
-                            <input type="text" placeholder="Search" onChange={this.search.bind(this)}></input>
                         </div>
                     </div>
                 </div>

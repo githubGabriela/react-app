@@ -2,7 +2,7 @@
 // <FilteringAndSorting items={this.state.categories} 
 // setFilteredItems = {items => this.setState({categories: items})}/>
 
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import Dropdown from 'react-dropdown';
 import 'react-dropdown/style.css';
@@ -13,15 +13,15 @@ import * as Constants from '../../utils/Constants';
 import _ from "lodash";
 
 const options = [
-    { label: Constants.TITLES.RECENTLY_ADDED, value: 'recently_added'},
-    { label: Constants.TITLES.ASCENDING, value: 'ASC'},
-    { label: Constants.TITLES.DESCENDING, value: 'DESC'}
+    {label: Constants.TITLES.RECENTLY_ADDED, value: 'recently_added'},
+    {label: Constants.TITLES.ASCENDING, value: 'ASC'},
+    {label: Constants.TITLES.DESCENDING, value: 'DESC'}
 ]
 
 class FilteringAndSorting extends Component {
     constructor() {
         super();
-        this.state= {
+        this.state = {
             order: '',
             filterValue: undefined,
             dropdownOptions: [],
@@ -40,14 +40,14 @@ class FilteringAndSorting extends Component {
     }
 
     shouldComponentUpdate(nexProps) {
-        return this.props.showComponent !== nexProps.showComponent 
-               || this.props.dataType !== nexProps.dataType
-               || this.props.initialItems !== nexProps.initialItems;
+        return this.props.showComponent !== nexProps.showComponent
+            || this.props.dataType !== nexProps.dataType
+            || this.props.initialItems !== nexProps.initialItems;
     }
-    
-    _onSelect(option){
+
+    _onSelect(option) {
         this.setState({selectedDropdown: option});
-        if(option.value !== Constants.TITLES.ORDER_BY){
+        if (option.value !== Constants.TITLES.ORDER_BY) {
             this.orderBy(option.value);
         }
     }
@@ -59,10 +59,10 @@ class FilteringAndSorting extends Component {
             filterValue: value
         });
 
-        if(!this.state.filterValue){
+        if (!this.state.filterValue) {
             this.orderBy(this.state.order);
-        } else { 
-           this.getFilteredItems();
+        } else {
+            this.getFilteredItems();
         }
     }
 
@@ -71,18 +71,18 @@ class FilteringAndSorting extends Component {
             order: order
         });
 
-        switch(order){
+        switch (order) {
             case 'ASC':
                 this.getAsc();
-            break;
+                break;
             case 'DESC':
                 this.getDesc();
-            break;
+                break;
             case 'recently_added':
                 this.getRecentlyAdded();
-            break;
+                break;
             default:
-            break;
+                break;
         }
     }
 
@@ -104,14 +104,15 @@ class FilteringAndSorting extends Component {
         this.props.setFilteredItems(this.props.initialItems);
     }
 
-    getFilteredItems(){
+    getFilteredItems() {
         const filter = this.state.filterValue.toLocaleLowerCase();
         let filtered = _.filter(this.props.initialItems, item => {
-            if (item.value.name && item.value.name.toLowerCase().indexOf(filter) !== -1){
+            if ((item.value.name && item.value.name.toLowerCase().indexOf(filter) !== -1) |
+                (item.value.categoryName && item.value.categoryName.toLowerCase().indexOf(filter) !== -1)) {
                 return item;
             }
         });
-            this.props.setFilteredItems(filtered);
+        this.props.setFilteredItems(filtered);
     }
 
     render() {
@@ -134,11 +135,12 @@ class FilteringAndSorting extends Component {
         return (
             <div className="align-right">
                 {/* { this.props.initialItems && this.props.initialItems.length > 0 ?  */}
-                    <div> 
-                        <input type="text" className="filter-input" placeholder="Search..." onChange={(event) => this.filterChanged(event)} />
-                        {showOrdering()}
-                    </div>
-                    {/* : null
+                <div>
+                    <input type="text" className="filter-input" placeholder="Search..."
+                           onChange={(event) => this.filterChanged(event)}/>
+                    {showOrdering()}
+                </div>
+                {/* : null
                 }  */}
             </div>
         );
