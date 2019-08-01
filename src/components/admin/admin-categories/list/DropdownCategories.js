@@ -30,12 +30,18 @@ class DropdownCategories extends Component {
             this.setState({
                 categories: items
             });
-            this.setSelected(items[0].value.name);
+            this.setSelected(items[0]);
+        });
+    }
+
+    getCategory(categoryName){
+        return this.state.categories.filter(item => {
+            return item.value.name === categoryName
         });
     }
 
     setSelected(firstItem) {
-        let selected = this.props.defaultCategory ? this.props.defaultCategory : firstItem;
+        let selected = this.props.defaultCategoryName ? this.getCategory(this.props.defaultCategoryName) : firstItem;
         this.setState({
             selected: selected
         });
@@ -44,10 +50,7 @@ class DropdownCategories extends Component {
 
     optionChanged(event) {
         if (event) {
-            let category = this.state.categories.filter(item => {
-                return item.value.name === event.target.value
-            });
-            console.log(category[0]);
+            let category = this.getCategory(event.target.value);
             this.props.categorySelected(category[0]);
         }
     }
@@ -59,18 +62,18 @@ class DropdownCategories extends Component {
                 <select onChange={this.optionChanged.bind(this)} >
                     {this.state.categories.map((item, index) => {
                         return <option
-                            defaultValue={this.state.selected === item.value.name}
-                            value={item.value.name} key={item.key}>{item.value.name}    HERE {this.state.selected} {item.value.name} </option>
+                            value={this.state.selected ? this.state.selected : item.value.name} key={item.key}>{item.value.name}</option>
                     })
                     }
                 </select>
+
+                selected : {this.state.selected ? this.state.selected.value : 'lol'}
             </div>
         );
     }
 }
 
 DropdownCategories.propTypes = {
-    defaultCategory: PropTypes.string,
     categorySelected: PropTypes.func
 };
 

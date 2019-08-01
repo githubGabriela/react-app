@@ -73,7 +73,7 @@ class AllProducts extends Component {
                     {this.state.filteredProducts.map(product => {
                         return (
                             <div key={product.key} >
-                                <div className="accordion-header flex space-between">
+                                <div className="accordion-header">
                                     <div>
                                         <ProductItem key={product.key}
                                                      product={product}

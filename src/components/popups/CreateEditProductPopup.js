@@ -17,7 +17,7 @@ class CreateEditProductPopup extends Component {
             name: '',
             categoryName: '',
             categoryColor: '',
-            defaultCategory: ''
+            defaultCategoryName: ''
         };
         this.clearInput = this.clearInput.bind(this);
         this.inputChange = this.inputChange.bind(this);
@@ -33,7 +33,7 @@ class CreateEditProductPopup extends Component {
         if (props) {
             if (props.itemToEdit) {
                 this.setState({
-                    defaultCategory: props.itemToEdit.value.categoryName
+                    defaultCategoryName: props.itemToEdit.value.categoryName
                 });
             }
         }
@@ -94,8 +94,8 @@ class CreateEditProductPopup extends Component {
                     </div>
 
                     <div className="popup-body">
-                        defaultCategory: {this.state.defaultCategory}
-                        {<DropdownCategories defaultCategory={this.state.defaultCategory}
+                        defaultCategoryName: {this.state.defaultCategoryName}
+                        {<DropdownCategories defaultCategoryName={this.state.defaultCategoryName}
                                              categorySelected={(category) => this.categoryChanged(category)}/>}
                         <div className="flex space-between">
                             Name: <input type="text"
