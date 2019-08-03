@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 import * as Utils from '../../utils/Utils';
 import * as Constants from '../../utils/Constants';
 import * as Auth from '../../config/Auth';
-import '../../assets/css/General.css';
 
 class Login extends Component {
     constructor() {
@@ -41,7 +40,7 @@ class Login extends Component {
                         </div> 
                     {
                         this.state.errorMessage ? 
-                        <div className="errorMessage">{this.state.errorMessage}</div>
+                        <div>{this.state.errorMessage}</div>
                         : null
                     }
                 <div className="connection-form-buttons">
