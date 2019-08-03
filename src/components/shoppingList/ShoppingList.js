@@ -122,24 +122,29 @@ class ShoppingList extends Component {
             );
         }
 
-        return (
-        <div>
-            <div className="section-header">
-                <div className="full-width">
-                    <div className="flex space-between">
-                        <LastModified lastModified={this.state.lastModified}/>
-                        <Settings toggleSettings={(event) => this.toggleSettingsFields(event)}/>
-                    </div>
-                    <div className="flex space-between">
-                        <div className="section-title">
-                            {showExport()}
-                            {showFilteringSorting()}
-                            {showClearButton()}
+        let showSettings = () => {
+            return (
+                <div className="section-header">
+                    <div className="full-width">
+                        <div className="flex space-between">
+                            <LastModified lastModified={this.state.lastModified}/>
+                            <Settings toggleSettings={(event) => this.toggleSettingsFields(event)}/>
+                        </div>
+                        <div className="flex space-between">
+                            <div className="section-title">
+                                {showExport()}
+                                {showFilteringSorting()}
+                                {showClearButton()}
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            );
+        };
+        return (
+        <div>
             {showItems()}
+            {showSettings()}
         </div>
         );
     }

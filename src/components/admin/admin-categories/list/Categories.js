@@ -197,7 +197,7 @@ class Categories extends Component {
             );
         }
 
-        let showHeader = () => {
+        let showSettings = () => {
             return (
                 <div className="section-header">
                     <div className="section-title">
@@ -216,8 +216,8 @@ class Categories extends Component {
         }
         return (
             <div>
-                {showHeader()}
                 {showAllItems()}
+                {showSettings()}
                 <RemovePopup
                     popupType={Constants.TITLES.CATEGORIES}
                     items={this.state.checkedItems}

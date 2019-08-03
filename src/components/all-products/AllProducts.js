@@ -2,13 +2,12 @@
 // <AllProducts/>
 
 import React, { Component } from 'react';
-import _ from 'lodash';
 
 import * as Constants from '../../utils/Constants';
 import * as DataSource from '../../config/DataSource';
 import FilteringAndSorting from '../filtering-sorting/FilteringAndSorting';
 
-import '../../assets/css/General.css';
+import '../../App.css';
 import Settings from '../common/Settings';
 import ProductItem from "./ProductItem";
 
@@ -54,7 +53,7 @@ class AllProducts extends Component {
             );
         }
 
-        let showHeader = () => {
+        let showSettings = () => {
             return (
                 <div className="section-header">
                     <div className="section-title">
@@ -90,8 +89,8 @@ class AllProducts extends Component {
 
         return (
             <div>
-                {showHeader()}
                 {showProducts()}
+                {showSettings()}
             </div>
         )
     }

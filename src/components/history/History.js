@@ -71,32 +71,36 @@ class History extends Component {
             );
         }
 
+        let showSettings = () => {
+            return (
+                <div className="section-header">
+                    <div className="full-width">
+                        <div className="flex space-between">
+                            {showClearButton()}
+                            <Settings toggleSettings={(event) => this.toggleSettingsFields(event)}/>
+                        </div>
+                        <div className="flex space-between">
+                            <div className="section-title">
+                                {showFilteringSorting()}
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            );
+        }
         return (
             <div>
-                 <div className="section-header">
-                  <div className="full-width">
-                      <div className="flex space-between">
-                            {showClearButton()}
-                           <Settings toggleSettings={(event) => this.toggleSettingsFields(event)}/>
-                      </div>
-                      <div className="flex space-between">
-                          <div className="section-title">                           
-                            {showFilteringSorting()}
-                          </div>
-                      </div>
-                    
-                  </div>
-              </div>
-              {this.state.items.map((item) => {
-                  return (
-                    <ProductItem key={item.key}
-                                 product={item}
-                                 color={item.value.color}
-                                 addToShoppingList={(item)=> DataSource.addToShoppingList(item)}/>
-                  )
-                  
-             })}
-               
+               {this.state.items.map((item) => {
+                    return (
+                        <ProductItem key={item.key}
+                                     product={item}
+                                     color={item.value.color}
+                                     addToShoppingList={(item) => DataSource.addToShoppingList(item)}/>
+                    )
+
+                })}
+                {showSettings()}
             </div>
         );
     }

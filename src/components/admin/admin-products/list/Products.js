@@ -185,7 +185,7 @@ class Products extends Component {
             );
         }
 
-        let showHeader = () => {
+        let showSettings = () => {
             return (
                 <div className="section-header">
                     <div className="section-title">
@@ -206,8 +206,8 @@ class Products extends Component {
 
         return (
             <div>
-                {showHeader()}
                 {showAllItems()}
+                {showSettings()}
                 <RemovePopup
                     popupType={Constants.TITLES.PRODUCTS}
                     items={this.state.checkedItems}
