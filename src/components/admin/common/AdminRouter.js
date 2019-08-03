@@ -1,21 +1,22 @@
 import React, { Component } from 'react';
 import { Switch, Route, NavLink } from 'react-router-dom';
-import ReactTooltip from 'react-tooltip';
 
 import FontAwesome from  'react-fontawesome';
 
 import Products from '../admin-products/list/Products';
 import Categories from '../admin-categories/list/Categories';
+import * as Constants from "../../../utils/Constants";
 
 class AdminRouter extends Component {
     render() {
         return (
             <div>
-                <ul className="links">
+                <ul className="menu">
                     <li><NavLink to="/Admin/Categories" activeClassName="selected">
                         <div className="link">
                             <span data-tip="Categories" data-place="top">
-                                <FontAwesome name='copyright'/>  
+                                <FontAwesome name='copyright'/>
+                                {Constants.TITLES.CATEGORIES}
                             </span>
                         </div>
                         </NavLink>
@@ -24,6 +25,7 @@ class AdminRouter extends Component {
                         <div className="link">
                             <span data-tip="Products" data-place="top">
                                 <FontAwesome name='product-hunt'/>
+                                {Constants.TITLES.PRODUCTS}
                             </span>
                         </div>
                         </NavLink>

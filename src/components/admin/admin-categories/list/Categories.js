@@ -204,7 +204,6 @@ class Categories extends Component {
                         <div className="align-right">
                             <Settings toggleSettings={(event) => this.toggleSettingsFields(event)} />
                         </div>
-                        {Constants.TITLES.CATEGORIES}
                         {showCreate()}
                         {showFilteringSorting()}
                         <div className="flex space-between center-margin-from-top">

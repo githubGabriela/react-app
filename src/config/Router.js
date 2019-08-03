@@ -5,8 +5,6 @@ import { Switch, Route } from 'react-router-dom';
  import AllProducts from '../components/all-products/AllProducts';
  import AdminRouter from '../components/admin/common/AdminRouter';
  
- import Categories from '../components/admin/admin-categories/list/Categories';
- import Products from '../components/admin/admin-products/list/Products';
  import History from '../components/history/History';
  import Login from '../components/auth/Login';
  import CreateUser from '../components/auth/CreateUser';
@@ -19,10 +17,10 @@ import { Switch, Route } from 'react-router-dom';
             <div> 
                 { this.props.userAuthenticated ? 
                    <Switch>
-                        <Route exact path="/" component={ShoppingListStack}/>
                         <Route path="/Products" component={ProductsStack}/>
                         <Route path="/History" component={HistoryItems}/>
-                        <Route path="/Admin" component={AdminStack}/>           
+                        <Route path="/Admin" component={AdminStack}/>
+                        <Route exact path="/" component={ShoppingListStack}/>
                         {/* <Route exact path="*" component={ShoppingListStack}/> */}
                     </Switch>
                     : 

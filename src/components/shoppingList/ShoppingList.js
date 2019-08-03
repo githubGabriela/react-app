@@ -133,11 +133,8 @@ class ShoppingList extends Component {
                     <div className="flex space-between">
                         <div className="section-title">
                             {showExport()}
-                            {Constants.TITLES.SHOPPING_BASKET}
                             {showFilteringSorting()}
-
-                            
-                                {showClearButton()}
+                            {showClearButton()}
                         </div>
                     </div>
                 </div>

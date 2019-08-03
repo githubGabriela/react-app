@@ -192,7 +192,6 @@ class Products extends Component {
                         <div className="align-right">
                             <Settings toggleSettings={(event) => this.toggleSettingsFields(event)} />
                         </div>
-                        {Constants.TITLES.PRODUCTS}
                         {showCreateButton()}
 
                         {showFilteringSorting()}
