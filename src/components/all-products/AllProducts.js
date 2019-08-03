@@ -7,7 +7,6 @@ import * as Constants from '../../utils/Constants';
 import * as DataSource from '../../config/DataSource';
 import FilteringAndSorting from '../filtering-sorting/FilteringAndSorting';
 
-import '../../App.css';
 import Settings from '../common/Settings';
 import ProductItem from "./ProductItem";
 
@@ -55,7 +54,7 @@ class AllProducts extends Component {
 
         let showSettings = () => {
             return (
-                <div className="section-header">
+                <div className="footer">
                     <div className="section-title">
                         {showFilteringSorting()}
                         <div className="flex space-between">

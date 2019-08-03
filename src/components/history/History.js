@@ -73,7 +73,7 @@ class History extends Component {
 
         let showSettings = () => {
             return (
-                <div className="section-header">
+                <div className="footer">
                     <div className="full-width">
                         <div className="flex space-between">
                             {showClearButton()}

@@ -133,10 +133,10 @@ class FilteringAndSorting extends Component {
         }
 
         return (
-            <div className="align-right">
+            <div>
                 {/* { this.props.initialItems && this.props.initialItems.length > 0 ?  */}
-                <div>
-                    <input type="text" className="filter-input" placeholder="Search..."
+                <div class="settings">
+                    <input type="text" className="white-input" placeholder="Search..."
                            onChange={(event) => this.filterChanged(event)}/>
                     {showOrdering()}
                 </div>

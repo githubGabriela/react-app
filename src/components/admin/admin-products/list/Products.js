@@ -187,7 +187,7 @@ class Products extends Component {
 
         let showSettings = () => {
             return (
-                <div className="section-header">
+                <div className="footer">
                     <div className="section-title">
                         <div className="align-right">
                             <Settings toggleSettings={(event) => this.toggleSettingsFields(event)} />
