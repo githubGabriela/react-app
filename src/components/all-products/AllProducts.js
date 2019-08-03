@@ -70,14 +70,12 @@ class AllProducts extends Component {
                 <div>
                     {this.state.filteredProducts.map(product => {
                         return (
-                            <div key={product.key} >
-                                <div className="accordion-header">
-                                    <div>
-                                        <ProductItem key={product.key}
-                                                     product={product}
-                                                     color={product.value.categoryColor}
-                                                     addToShoppingList={(item)=> DataSource.addToShoppingList(item)}/>
-                                    </div>
+                            <div key={product.key}>
+                                <div>
+                                    <ProductItem key={product.key}
+                                                 product={product}
+                                                 color={product.value.categoryColor}
+                                                 addToShoppingList={(item) => DataSource.addToShoppingList(item)}/>
                                 </div>
                             </div>
                         )

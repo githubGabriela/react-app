@@ -24,29 +24,65 @@ class ProductItem extends Component {
         }
 
         return (
-            <div className="flex space-between section-item">
-                <div className="flex">
-                    <div className="container-product-img">
-                        <div className="item-image product-image" style={imageStyle}>
+            <div className="item">
+                <div className="item-content">
+                    <div className="item-left">
+                        <div className="rounded-image">
+                            I
                         </div>
                     </div>
-                    <label className="center-from-top">{this.props.product.value.name}</label>
+                    <div className="item-center">
+                        {this.props.product.value.name}
+                    </div>
+                    <div className="item-right">
+                        Fructe
+                        <div className="action">
+                            {!this.props.hideIcons ?
+                                <div className="icon-on-right">
+                                    {this.props.showOnlyRemoveCart ?
+                                        <FontAwesome name="shopping-cart" className="cart-remove"
+                                                     onClick={(event) => {
+                                                         Utils.preventDefault(event);
+                                                         this.props.removeFromShoppingList(this.props.product)
+                                                     }}/>
+                                        : <FontAwesome name="cart-plus" className="cart-add"
+                                                       onClick={(event) => {
+                                                           Utils.preventDefault(event);
+                                                           this.props.addToShoppingList(this.props.product)
+                                                       }}/>
+                                    }
+                                </div>
+                                : null
+                            }
+                        </div>
+                    </div>
                 </div>
-            
-                { !this.props.hideIcons ? 
-                    <div className="center-from-top icon-on-right">
-                        { this.props.showOnlyRemoveCart ? 
-                        <FontAwesome name="shopping-cart" className="cart-remove" 
-                                    onClick={(event) => { Utils.preventDefault(event); 
-                                                        this.props.removeFromShoppingList(this.props.product)}}/>
-                        : <FontAwesome name="cart-plus" className="cart-add" 
-                                    onClick={(event) => { Utils.preventDefault(event); 
-                                                        this.props.addToShoppingList(this.props.product)}}/>
-                        } 
-                    </div> 
-                    : null
-                }
             </div>
+
+
+            // <div className="flex space-between section-item">
+            //     <div className="flex">
+            //         <div className="container-product-img">
+            //             <div className="item-image product-image" style={imageStyle}>
+            //             </div>
+            //         </div>
+            //         <label className="center-from-top">{this.props.product.value.name}</label>
+            //     </div>
+            //
+            //     { !this.props.hideIcons ?
+            //         <div className="center-from-top icon-on-right">
+            //             { this.props.showOnlyRemoveCart ?
+            //             <FontAwesome name="shopping-cart" className="cart-remove"
+            //                         onClick={(event) => { Utils.preventDefault(event);
+            //                                             this.props.removeFromShoppingList(this.props.product)}}/>
+            //             : <FontAwesome name="cart-plus" className="cart-add"
+            //                         onClick={(event) => { Utils.preventDefault(event);
+            //                                             this.props.addToShoppingList(this.props.product)}}/>
+            //             }
+            //         </div>
+            //         : null
+            //     }
+            // </div>
         );
     }
 }
