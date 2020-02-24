@@ -6,7 +6,7 @@ import * as DataSource from '../../../../config/DataSource';
 import ColorPopup from '../../../popups/color/ColorPopup';
 import ImagePopup from '../../../popups/image-popup/ImagePopup';
 
-import '../../../../assets/css/General.css';
+import '../../../../assets/css/General.scss';
 
 class Item extends Component {
 

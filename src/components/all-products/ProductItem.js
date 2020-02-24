@@ -7,7 +7,7 @@ import PropTypes, { bool } from 'prop-types';
 import FontAwesome from  'react-fontawesome';
 
 import * as Utils from '../../utils/Utils';
-import '../../assets/css/General.css';
+import '../../assets/css/General.scss';
 
 class ProductItem extends Component {
 

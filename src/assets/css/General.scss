@@ -53,22 +53,13 @@ button {
 
 
 /* section */
-.accordion-header {
-    cursor: pointer;
-    padding: 10px;
-    position: relative;
-}
-.section-header {
-    background-color: #d35400;
-    padding: 9px;
-}
-.section-title {
-   text-align: center;
-   width: 100%;
-}
 .section-item {
-   padding: 5px;
-   border-bottom: 1px solid #414d58;
+background-color: red;
+  padding: 5px;
+  border-bottom: 1px solid #414d58;
+}
+.padding-item {
+    padding: 5px;
 }
 .center-from-top {
     margin-top: 17px; 

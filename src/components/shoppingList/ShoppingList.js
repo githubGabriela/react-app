@@ -7,7 +7,7 @@ import FontAwesome from 'react-fontawesome';
 import * as Constants from '../../utils/Constants';
 import * as DataSource from '../../config/DataSource';
 import * as Utils from '../../utils/Utils';
-import '../../assets/css/General.css';
+import '../../assets/css/General.scss';
 import ProductItem from '../all-products/ProductItem';
 import LastModified from '../data-sync/LastModified';
 import ExportList from './ExportList';
@@ -131,7 +131,7 @@ class ShoppingList extends Component {
                             <Settings toggleSettings={(event) => this.toggleSettingsFields(event)}/>
                         </div>
                         <div className="flex space-between">
-                            <div className="section-title">
+                            <div>
                                 {showExport()}
                                 {showFilteringSorting()}
                                 {showClearButton()}

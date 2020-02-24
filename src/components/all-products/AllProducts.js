@@ -55,7 +55,7 @@ class AllProducts extends Component {
         let showSettings = () => {
             return (
                 <div className="footer">
-                    <div className="section-title">
+                    <div>
                         {showFilteringSorting()}
                         <div className="flex space-between">
                             <Settings toggleSettings={() => this.setState({ showSettingsFields: !this.state.showSettingsFields })} />

@@ -4,8 +4,6 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import Dropdown from 'react-dropdown';
-import 'react-dropdown/style.css';
 
 import * as DataSource from '../../config/DataSource';
 import * as Utils from '../../utils/Utils';
@@ -135,7 +133,7 @@ class FilteringAndSorting extends Component {
         return (
             <div>
                 {/* { this.props.initialItems && this.props.initialItems.length > 0 ?  */}
-                <div class="settings">
+                <div className="settings">
                     <input type="text" className="white-input" placeholder="Search..."
                            onChange={(event) => this.filterChanged(event)}/>
                     {showOrdering()}

@@ -6,7 +6,7 @@ import * as Utils from '../../utils/Utils';
 import SignOutPopup from './SignOutPopup';
 
 import * as Auth from '../../config/Auth';
-import '../../assets/css/General.css';
+import '../../assets/css/General.scss';
 
 class SignOut extends Component {
     

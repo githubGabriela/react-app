@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Modal from 'react-modal';
 import * as Constants from '../../../utils/Constants';
 
-import '../../../assets/css/General.css';
+import '../../../assets/css/General.scss';
 
 export function hocRemovePopup (WrappedComponent) {
     class HocPopup extends React.Component {

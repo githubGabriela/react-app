@@ -13,7 +13,7 @@ import Item from '../crud/Item';
 import RemovePopup from '../../common/RemovePopup';
 import Settings from '../../../common/Settings';
 
-import '../../../../assets/css/General.css';
+import '../../../../assets/css/General.scss';
 
 class Products extends Component {
     constructor() {
@@ -188,17 +188,12 @@ class Products extends Component {
         let showSettings = () => {
             return (
                 <div className="footer">
-                    <div className="section-title">
+                    <div>
                         <div className="align-right">
                             <Settings toggleSettings={(event) => this.toggleSettingsFields(event)} />
                         </div>
                         {showCreateButton()}
-
                         {showFilteringSorting()}
-                        <div className="flex space-between center-margin-from-top">
-                            {showCheckAll()}
-                            {showRemoveIcon()}
-                        </div>
                     </div>
                 </div>
             )
@@ -206,6 +201,10 @@ class Products extends Component {
 
         return (
             <div>
+                <div className="flex space-between padding-item">                            
+                    {showCheckAll()}
+                    {showRemoveIcon()}
+                </div>
                 {showAllItems()}
                 {showSettings()}
                 <RemovePopup

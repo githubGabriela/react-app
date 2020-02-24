@@ -13,7 +13,7 @@ import Edit from '../crud/Edit';
 import Item from '../crud/Item';
 import Settings from '../../../common/Settings';
 
-import '../../../../assets/css/General.css';
+import '../../../../assets/css/General.scss';
 import RemovePopup from '../../common/RemovePopup';
 
 class Categories extends Component {
@@ -200,7 +200,7 @@ class Categories extends Component {
         let showSettings = () => {
             return (
                 <div className="footer">
-                    <div className="section-title">
+                    <div>
                         <div className="align-right">
                             <Settings toggleSettings={(event) => this.toggleSettingsFields(event)} />
                         </div>

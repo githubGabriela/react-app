@@ -2,7 +2,25 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="858a86b5-b661-4f8c-a15f-3ae595118baf" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/css/General.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/admin/admin-categories/crud/Create.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/admin/admin-categories/crud/Create.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/admin/admin-categories/crud/Edit.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/admin/admin-categories/crud/Edit.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/admin/admin-categories/crud/Item.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/admin/admin-categories/crud/Item.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/admin/admin-categories/list/Categories.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/admin/admin-categories/list/Categories.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/admin/admin-products/crud/Item.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/admin/admin-products/crud/Item.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/admin/admin-products/list/Products.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/admin/admin-products/list/Products.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/all-products/ProductItem.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/all-products/ProductItem.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/auth/SignOut.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/auth/SignOut.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/common/Settings.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/common/Settings.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/filtering-sorting/FilteringAndSorting.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/filtering-sorting/FilteringAndSorting.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/history/History.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/history/History.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/popups/CreateEditProductPopup.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/popups/CreateEditProductPopup.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/popups/hoc/HocRemovePopup.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/popups/hoc/HocRemovePopup.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/popups/image-popup/ImagePopup.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/popups/image-popup/ImagePopup.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/shoppingList/ShoppingList.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/shoppingList/ShoppingList.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -14,7 +32,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/App.css">
           <provider selected="true" editor-type-id="text-editor">
@@ -36,11 +54,11 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="260" />
-    <option name="y" value="20" />
-    <option name="width" value="1400" />
-    <option name="height" value="1000" />
+  <component name="ProjectFrameBounds">
+    <option name="x" value="636" />
+    <option name="y" value="29" />
+    <option name="width" value="1210" />
+    <option name="height" value="1052" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
@@ -69,7 +87,7 @@
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../projects/cbs" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -83,6 +101,9 @@
       </list>
     </option>
   </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="858a86b5-b661-4f8c-a15f-3ae595118baf" name="Default Changelist" comment="" />
@@ -91,23 +112,21 @@
       <option name="presentableId" value="Default" />
       <updated>1561474055674</updated>
       <workItem from="1561474057870" duration="20000" />
+      <workItem from="1578173940538" duration="11000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="20000" />
+    <option name="totallyTimeSpent" value="31000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="true" />
+    <frame x="636" y="29" width="1210" height="1052" extended-state="0" />
     <layout>
-      <window_info id="npm" side_tool="true" />
-      <window_info id="Favorites" side_tool="true" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.17913593" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.17832765" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info anchor="bottom" id="Version Control" />
-      <window_info anchor="bottom" id="Terminal" />
-      <window_info anchor="bottom" id="Event Log" side_tool="true" />
+      <window_info id="npm" order="2" side_tool="true" />
+      <window_info id="Favorites" order="3" side_tool="true" />
+      <window_info anchor="bottom" id="Docker" show_stripe_button="false" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
       <window_info anchor="bottom" id="Run" order="2" />
@@ -115,10 +134,16 @@
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Version Control" order="7" />
+      <window_info anchor="bottom" id="Terminal" order="8" />
+      <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
     </layout>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/App.css">

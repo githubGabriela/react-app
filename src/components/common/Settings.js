@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import Utils from '../../utils/Utils';
-import '../../assets/css/General.css';
+import '../../assets/css/General.scss';
 
 class Settings extends Component {
     render() {

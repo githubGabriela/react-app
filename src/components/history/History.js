@@ -10,7 +10,7 @@ import ProductItem from '../all-products/ProductItem';
 import FilteringAndSorting from '../filtering-sorting/FilteringAndSorting';
 import Settings from '../common/Settings';
 
-import '../../assets/css/General.css';
+import '../../assets/css/General.scss';
 
 class History extends Component {
     constructor() {
@@ -80,7 +80,7 @@ class History extends Component {
                             <Settings toggleSettings={(event) => this.toggleSettingsFields(event)}/>
                         </div>
                         <div className="flex space-between">
-                            <div className="section-title">
+                            <div>
                                 {showFilteringSorting()}
                             </div>
                         </div>

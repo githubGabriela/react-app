@@ -8,7 +8,7 @@ import * as Constants from '../../utils/Constants';
 import * as Utils from '../../utils/Utils';
 import DropdownCategories from '../admin/admin-categories/list/DropdownCategories';
 
-import '../../assets/css/General.css';
+import '../../assets/css/General.scss';
 
 class CreateEditProductPopup extends Component {
     constructor(props) {

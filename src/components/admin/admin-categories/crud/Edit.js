@@ -7,7 +7,7 @@ import FontAwesome from 'react-fontawesome';
 
 import * as Utils from '../../../../utils/Utils';
 import * as DataSource from '../../../../config/DataSource';
-import '../../../../assets/css/General.css';
+import '../../../../assets/css/General.scss';
 
 class Edit extends Component {
  

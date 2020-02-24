@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import '../../../../assets/css/General.css';
+import '../../../../assets/css/General.scss';
 
 class Item extends Component {
 
