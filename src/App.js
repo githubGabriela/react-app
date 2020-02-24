@@ -6,7 +6,7 @@ import Header from './components/header/Header';
 import Router from './config/Router';
 import * as Auth from './config/Auth';
 
-import './App.css';
+import './App.scss';
 
 class App extends Component {
   constructor(){
