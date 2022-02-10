@@ -5,7 +5,7 @@
   "dependencies": {
     "firebase": "^4.7.0",
     "lodash": "^4.17.11",
-    "node-sass": "^4.13.0",
+    "node-sass": "^7.0.0",
     "react": "^16.2.0",
     "react-color": "^2.13.8",
     "react-copy-to-clipboard": "^5.0.1",
